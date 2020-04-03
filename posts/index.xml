@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on XEYE</title>
+    <link>https://xeye.io/posts/</link>
+    <description>Recent content in Posts on XEYE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Apr 2020 16:20:51 +0800</lastBuildDate>
+    
+	<atom:link href="https://xeye.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>靶机渗透测试 TryHackMe:Vulnversity</title>
+      <link>https://xeye.io/posts/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/</link>
+      <pubDate>Fri, 03 Apr 2020 16:20:51 +0800</pubDate>
+      
+      <guid>https://xeye.io/posts/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/</guid>
+      <description>0x00 前言
+ 靶机名称：Vulnversity 靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。 攻击路径：端口扫描&amp;ndash;&amp;gt;Web目录爆破&amp;ndash;&amp;gt;文件上传漏洞利用&amp;ndash;&amp;gt;权限提升 相关工具：nmap、gobuster、burpsuite、nc、webshell 难度：容易  0x01 侦查</description>
+    </item>
+    
+    <item>
+      <title>如何通过一封恶意邮件追踪幕后黑客组织</title>
+      <link>https://xeye.io/posts/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/</link>
+      <pubDate>Sat, 02 Nov 2019 13:48:59 +0800</pubDate>
+      
+      <guid>https://xeye.io/posts/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/</guid>
+      <description>声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。
+ 一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。
+ 二、信息收集 这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件：</description>
+    </item>
+    
+  </channel>
+</rss>

