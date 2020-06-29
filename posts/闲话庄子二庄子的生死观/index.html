@@ -1,206 +1,30 @@
 <!DOCTYPE html>
-<html><head>
-<title>闲话庄子：二、庄子的生死观</title>
-
+<html>
+<head>
 <meta charset="utf-8">
-<meta name="X-UA-Compatible" content="IE=edge">
-<meta name="google-site-verification" content="">
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-<meta content="telephone=no" name="format-detection">
-<meta name="description" content="">
-<meta name="renderer" content="webkit">
-<meta name="theme-color" content="#ffffff">
-
-
-
-
-<script src="/vendor/js/jquery.min.js" ></script>
-<script src="/vendor/js/popper.min.js" ></script>
-<script src="/vendor/js/bootstrap.min.js" ></script>
-<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
-<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
-<script src="/vendor/js/vue.min.js" ></script>
-
-
-
-
-<link rel="stylesheet" href="https://xeye.io/scss/journal.min.5c667e74038e21ddbb9024b67930f8544e02af62491281cf73fdb817eec2947e.css" integrity="sha256-XGZ&#43;dAOOId27kCS2eTD4VE4Cr2JJEoHPc/24F&#43;7ClH4=" media="screen">
-
-<script src="https://xeye.io//js/loadCSS.js"></script>
-<script src="https://xeye.io//js/table.js"></script>
-
-
-<script src="https://xeye.io//js/toc.js"></script>
-
-
-<script>
-    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
-</script>
-
-
-
-
-
-
-</head><body>
-    	<div id="app"><div ref="sideContainer" class="side-container">
-    
-    <a class="a-block nav-head false" href="https://xeye.io/">
-    
-        <div class="nav-title">
-            XEYE
-        </div>
-        
-    </a>
-
-    <div class="nav-link-list">
-        
-        
-            
-            
-            
-                
-            
-            
-            
-            <a class="a-block nav-link-item active" href="/posts/">
-                Posts
-            </a>
-            
-        
-            
-            
-            
-            
-            
-            <a class="a-block nav-link-item false" href="/about/">
-                About
-            </a>
-            
-        
-    </div>
-
-    
-
-    <div class="nav-footer">
-        
-Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
-<br>
-Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
-<br>
-
-&copy;
-	
-	2020 XEYE
-	
-    </div>
-    
-</div><div ref="extraContainer" class="extra-container">
-    
-    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
-
-
-</div>
-    
-    <div class="pagination">
-        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
-            <i class="material-icons pagination-action-icon">
-                keyboard_arrow_up
-            </i>
-        </a>
-        
-    </div>
-</div><div class="single-column-drawer-container" ref="drawer"
-     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
-    <div class="drawer-content">
-        <div class="drawer-menu">
-            
-            
-                
-                
-                
-                    
-                
-                
-                
-                <a class="a-block drawer-menu-item active" href="/posts/">
-                    Posts
-                </a>
-                
-            
-                
-                
-                
-                
-                
-                <a class="a-block drawer-menu-item false" href="/about/">
-                    About
-                </a>
-                
-            
-            
-            <div class="toc">
-
-
-</div>
-            
-        </div>
-    </div>
-</div>
-<transition name="fade">
-    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
-</transition>
-<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
-    <div ref="navBackground" class="nav-background"></div>
-    <div class="container container-narrow nav-content">
-        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
-            <i class="material-icons">
-                menu
-            </i>
-        </button>
-        <a ref="navTitle" class="navbar-brand" href="https://xeye.io/">
-            XEYE
-        </a>
-    </div>
-</nav>
-<div class="single-column-header-container" ref="pageHead"
-     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="https://xeye.io/">
-        <div class="single-column-header-title">XEYE</div>
-        
-
-    </a>
-</div>
-            <div id="content">
-<div ref="streamContainer" class="stream-container">
-    <div class="post-list-container post-list-container-shadow">
-        <div class="post">
-            
-            
-            
-
-            <div class="post-head-wrapper-text-only"
-                 style="background-image: url('/')">
-                <div class="post-title">
-                    闲话庄子：二、庄子的生死观
-                    
-                    <div class="post-meta">
-                        
-                        <time itemprop="datePublished">
-                            2020-04-07 16:43
-                        </time>
-                        
-
-                        
-
-                        
-                    </div>
-                </div>
-            </div>
-            
-            <div class="post-body-wrapper">
-                <div class="post-body">
-                    <p>在庄子看来，生，只是一段插曲。</p>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="DMJ">
+<meta name="description" content="小学生">
+<title>闲话庄子：二、庄子的生死观 - XEYE</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1><a href="https://xeye.io/">XEYE</a></h1>
+  </div>
+  <nav><a href="/posts/">Posts</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>闲话庄子：二、庄子的生死观</h1>
+  </div>
+<div class="meta">
+  <div>2020-04-07 16:43</div>
+  </div>
+<div class="content">
+  <p>在庄子看来，生，只是一段插曲。</p>
 <p>你来自于无，又归于无。死亡，就像是回家。所以，有视死如归之说。和漫长的虚无相比，生就是一次微不足道的火花，转瞬即逝。</p>
 <p>等你死后，回到家里。回想起你生着的那段时间，感觉仿佛是被人从家里扔了出去一样。如同你现在认为，死亡会把你的生命抛出去一样。</p>
 <p>对于死亡的恐惧，只是归乡情怯。把虚无理解为死亡，是不美好的。它生了你，又回收你，其实它就是你本来的样子。只是你不知道。</p>
@@ -210,53 +34,14 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 <p>“上与造物者游，而下与外生死无终始者为友。独与天地精神相往来”。</p>
 </blockquote>
 <p>与造物主牵着手一起看夕阳，这大概就是道家的终极追求了。</p>
-
-                    
-                    <HR width="100%" id="EOF">
-                    <p style="color:#777;">Last modified on 2020-04-07</p>
-                    
-                </div>
-            </div>
-            
-            
-            <nav class="post-pagination">
-
-                
-                <a class="newer-posts" href="https://xeye.io/posts/%E9%97%B2%E8%AF%9D%E5%BA%84%E5%AD%90%E4%B8%80%E5%BA%84%E5%AD%90%E5%85%B6%E4%BA%BA/">
-                    Next<br>闲话庄子：一、庄子其人
-                </a>
-                
-                
-                
-                <a class="older-posts" href="https://xeye.io/posts/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/">
-                    Previous<br>靶机渗透测试 TryHackMe:Vulnversity
-                </a>
-                
-            </nav>
-            <div class="post-comment-wrapper">
-                
-
-
-
-
-
-
-            </div>
-        </div>
-    </div>
 </div>
 
-            </div><div id="single-column-footer">
-Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
-<br>
-Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
-<br>
-
-&copy;
-	
-	2020 XEYE
-	</div>
-    	</div>
-    <script src="https://xeye.io//js/journal.js"></script>
-    </body>
+  </article>
+</main>
+<footer>
+  <div>
+    <div>&copy; 2019 XEYE <a href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC-BY-4.0</a></div>
+  </div>
+</footer>
+</body>
 </html>
