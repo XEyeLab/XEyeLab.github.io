@@ -1,29 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="DMJ">
-<meta name="description" content="小学生">
-<title>如何通过一封恶意邮件追踪幕后黑客组织 - XEYE</title>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo 0.69.0-DEV" />
+
+  <title>如何通过一封恶意邮件追踪幕后黑客组织 &middot; XEYE</title>
+
+  <meta name="description" content="" />
+
+  
+  <meta property="og:locale" content="en-us"/>
+
+  
+  <meta property="og:image" content="https://xeye.io/images/kenan.jpg">
+
+  
+  <meta property="og:type" content="blog"/>
+  <meta property="og:site_name" content="XEYE"/><meta property="og:title" content="如何通过一封恶意邮件追踪幕后黑客组织"/>
+  <meta property="og:url" content="https://xeye.io/posts/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/"/>
+  <meta property="og:description" content="声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。
+ 一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。
+ 二、信息收集 这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件："/>
+
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "Blog",
+    "name": "XEYE",
+    "url" : "https://xeye.io/",
+    "image": "https://xeye.io/images/kenan.jpg",
+    "description": "小学生"
+  }
+  </script>
+
+  
+
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://xeye.io/css/print.css"
+        media="print">
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://xeye.io/css/poole.css">
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://xeye.io/css/hyde.css">
+
+  
+
+
+  <link type="text/css" rel="stylesheet" href="https://xeye.io/css/blog.css">
+
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+        crossorigin="anonymous" />
+
+  <link rel="apple-touch-icon-precomposed"
+        sizes="144x144"
+        href="/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  </head>
 <body>
-<header>
-  <div>
-    <h1><a href="https://xeye.io/">XEYE</a></h1>
+  <aside class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+        
+        <div class="author-image">
+          <img src="https://xeye.io/images/kenan.jpg" class="img-circle img-headshot center" alt="Profile Picture">
+        </div>
+        
+      
+
+      <h1>XEYE</h1>
+
+      
+      <p class="lead">小学生</p>
+      
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="https://xeye.io/">Home</a>
+        </li>
+        <li>
+          <a href="/posts/"> Posts </a>
+        </li><li>
+          <a href="/about/"> About </a>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="social-icons">
+      
+      <a href="https://github.com/xeyelab" rel="me" title="GitHub">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      
+    </section>
   </div>
-  <nav><a href="/posts/">Posts</a><a href="/about/">About</a></nav>
-</header>
-<main>
-  <article>
-    <div class="title">
+</aside>
+
+
+  <main class="content container">
+  <div class="post">
   <h1>如何通过一封恶意邮件追踪幕后黑客组织</h1>
+
+  <div class="post-date">
+    <time datetime="2019-11-02T13:48:59&#43;0800">Nov 2, 2019</time> · 17 min read
   </div>
-<div class="meta">
-  <div>2019-11-02 13:48</div>
-  </div>
-<div class="content">
+
   <blockquote>
 <p>声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。</p>
 </blockquote>
@@ -1103,14 +1201,25 @@ webcam.wm-itservice.at
 <h2 id="七攻击路径还原">七、攻击路径还原</h2>
 <p>复盘整个溯源过程，还原攻击者攻击路径。</p>
 <p><img src="https://camo.githubusercontent.com/e54ac5ad8cbe0d6686b5eb04b0f92aa9263ceda7/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f75303663797438757772766f33323172617374706b746b742f254536253934254242254535253837254242254538254237254146254535254245253834254546254243253931253230253238342532392e706e67" alt="攻击路径１ (4).png-215.2kB"></p>
+
 </div>
 
-  </article>
-</main>
-<footer>
-  <div>
-    <div>&copy; 2019 XEYE <a href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC-BY-4.0</a></div>
+
+  </main>
+
+  <footer>
+  <div class="copyright">
+    &copy; XEYE 2020 · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
   </div>
 </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"
+          integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0="
+          crossorigin="anonymous"></script>
+
+  <script src="https://xeye.io/js/blog.js"></script>
+
+  
 </body>
 </html>
