@@ -16,12 +16,19 @@
   <meta property="og:image" content="https://xeye.io/images/kenan.jpg">
 
   
-  <meta property="og:type" content="blog"/>
-  <meta property="og:site_name" content="XEYE"/><meta property="og:title" content="如何通过一封恶意邮件追踪幕后黑客组织"/>
-  <meta property="og:url" content="https://xeye.io/posts/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/"/>
+  <meta property="og:site_name" content="XEYE"/>
+  <meta property="og:title" content="如何通过一封恶意邮件追踪幕后黑客组织"/>
   <meta property="og:description" content="声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。
  一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。
  二、信息收集 这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件："/>
+  <meta property="og:url" content="https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2019-11-02T13:48:59&#43;0800"/>
+  <meta property="article:modified_time" content="2019-11-02T13:48:59&#43;0800"/>
+  <meta property="article:author" content="DMJ">
+  
+  
+  
 
   <script type="application/ld+json">
   {
@@ -34,6 +41,25 @@
   }
   </script>
 
+  
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "name": "如何通过一封恶意邮件追踪幕后黑客组织",
+    "headline": "如何通过一封恶意邮件追踪幕后黑客组织",
+    "datePublished": "2019-11-02T13:48:59\x2b0800",
+    "dateModified": "2019-11-02T13:48:59\x2b0800",
+    "author": {
+      "@type": "Person",
+      "name": "DMJ",
+      "url": "https://xeye.io/"
+    },
+    "image": "https://xeye.io/images/kenan.jpg",
+    "url": "https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/",
+    "description": "声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。\n 一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。\n 二、信息收集 这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件："
+  }
+  </script>
   
 
 
