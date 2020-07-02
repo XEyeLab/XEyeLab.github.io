@@ -18,13 +18,13 @@
   
   <meta property="og:site_name" content="XEYE"/>
   <meta property="og:title" content="Gophish钓鱼工具使用教程"/>
-  <meta property="og:description" content="Gophish钓鱼工具使用教程 作者：道明君
+  <meta property="og:description" content="作者：道明君
+博客：https://xeye.io
 一、准备工作 Gophish是一个开源网络钓鱼工具包
 特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。
 项目主页：https://getgophish.com/
-###1、安装
-支持Windows/ Mac/Linux平台。下载对应系统版本（https://github.com/gophish/gophish/releases/）的压缩包，运行二进制文件即可。
-###2、编译安装"/>
+1、安装 支持Windows/ Mac/Linux平台。下载对应系统版本（https://github.com/gophish/gophish/releases/）的压缩包，运行二进制文件即可。
+2、编译安装  Gophish编译安装需要Go v1."/>
   <meta property="og:url" content="https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"/>
   <meta property="og:type" content="article"/>
   <meta property="article:published_time" content="2020-07-02T17:30:04&#43;0800"/>
@@ -61,7 +61,7 @@
     },
     "image": "https://xeye.io/images/kenan.jpg",
     "url": "https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/",
-    "description": "Gophish钓鱼工具使用教程 作者：道明君\n一、准备工作 Gophish是一个开源网络钓鱼工具包\n特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。\n项目主页：https:\/\/getgophish.com\/\n###1、安装\n支持Windows\/ Mac\/Linux平台。下载对应系统版本（https:\/\/github.com\/gophish\/gophish\/releases\/）的压缩包，运行二进制文件即可。\n###2、编译安装"
+    "description": "作者：道明君\n博客：https:\/\/xeye.io\n一、准备工作 Gophish是一个开源网络钓鱼工具包\n特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。\n项目主页：https:\/\/getgophish.com\/\n1、安装 支持Windows\/ Mac\/Linux平台。下载对应系统版本（https:\/\/github.com\/gophish\/gophish\/releases\/）的压缩包，运行二进制文件即可。\n2、编译安装  Gophish编译安装需要Go v1."
   }
   </script>
   
@@ -152,15 +152,15 @@
     <time datetime="2020-07-02T17:30:04&#43;0800">Jul 2, 2020</time> · 2 min read
   </div>
 
-  <h1 id="gophish钓鱼工具使用教程">Gophish钓鱼工具使用教程</h1>
-<p>作者：道明君</p>
+  <p>作者：道明君</p>
+<p>博客：https://xeye.io</p>
 <h2 id="一准备工作">一、准备工作</h2>
 <p>Gophish是一个开源网络钓鱼工具包</p>
 <p>特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。</p>
 <p>项目主页：https://getgophish.com/</p>
-<p>###1、安装</p>
+<h3 id="1安装">1、安装</h3>
 <p>支持Windows/ Mac/Linux平台。下载对应系统版本（https://github.com/gophish/gophish/releases/）的压缩包，运行二进制文件即可。</p>
-<p>###2、编译安装</p>
+<h3 id="2编译安装">2、编译安装</h3>
 <blockquote>
 <p>Gophish编译安装需要Go v1.10或更高版本！</p>
 </blockquote>
@@ -173,11 +173,11 @@ go build
 ./gophish     <span style="color:#f92672">[</span>运行生成的gophish二进制文件，浏览器访问即可<span style="color:#f92672">]</span>
 
 https://localhost:3333   <span style="color:#f92672">[</span>默认用户admin，密码在终端生成<span style="color:#f92672">]</span>
-</code></pre></div><p>###3、Docker</p>
+</code></pre></div><h3 id="3docker">3、Docker</h3>
 <p><a href="https://hub.docker.com/r/gophish/gophish/">https://hub.docker.com/r/gophish/gophish/</a></p>
-<p>###4、项目文档</p>
+<h3 id="4项目文档">4、项目文档</h3>
 <p><a href="http://getgophish.com/documentation">http://getgophish.com/documentation</a></p>
-<p>###5、问题反馈</p>
+<h3 id="5问题反馈">5、问题反馈</h3>
 <p><a href="https://github.com/gophish/gophish/issues/new">https://github.com/gophish/gophish/issues/new</a></p>
 <h3 id="6免费ssl证书">6、免费SSL证书</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">示例域名：
@@ -218,15 +218,15 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
         }
 }
 </code></pre><h2 id="二目标人群">二、目标人群</h2>
-<p>![image-20200702165800806](/Users/luo/Library/Application Support/typora-user-images/image-20200702165800806.png)</p>
+<p><img src="/static/images/202007/image-20200702165800806.png" alt="image-20200702165800806"></p>
 <p>模板案例，名字我只用FirstName，后面邮件内容模板用到这个变量FirstName</p>
-<p>![image-20200702165904407](/Users/luo/Library/Application Support/typora-user-images/image-20200702165904407.png)</p>
+<p><img src="/static/images/202007/image-20200702165904407.png" alt="image-20200702165904407"></p>
 <hr>
 <h2 id="三邮件内容模板">三、邮件内容模板</h2>
 <blockquote>
 <p>用户名处插入变量：{{.FirstName}}，程序发送邮件的时候会自动插入对应的用户名。</p>
 </blockquote>
-<p>![image-20200702165935412](/Users/luo/Library/Application Support/typora-user-images/image-20200702165935412.png)</p>
+<p><img src="/static/images/202007/image-20200702165935412.png" alt="image-20200702165935412"></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
 &lt;<span style="color:#f92672">head</span>&gt;
 	&lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
@@ -307,7 +307,7 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
 &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;修改密码&#34;</span> /&gt;&amp;nbsp;&lt;/<span style="color:#f92672">form</span>&gt;
 &lt;/<span style="color:#f92672">body</span>&gt;
 &lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><p>![image-20200702170052168](/Users/luo/Library/Application Support/typora-user-images/image-20200702170052168.png)</p>
+</code></pre></div><p><img src="/static/images/202007/image-20200702170052168.png" alt="image-20200702170052168"></p>
 <hr>
 <h2 id="五邮箱配置">五、邮箱配置</h2>
 <p>目标使用的是QQ企业邮箱，我这里使用的是QQ域名邮箱，可以直接绕过反垃圾，注意QQ域名邮箱已经下线，目前只有已开通的域名才能使用，而且不能新增成员。</p>
@@ -321,28 +321,28 @@ Username:
 account@test.com
 Password:
 123456789abc
-</code></pre><p>![image-20200702172452801](/Users/luo/Library/Application Support/typora-user-images/image-20200702172452801.png)</p>
+</code></pre><p><img src="/static/images/202007/image-20200702172452801.png" alt="image-20200702172452801"></p>
 <h2 id="六发送钓鱼邮件">六、发送钓鱼邮件</h2>
 <h3 id="1发件配置">1、发件配置</h3>
 <p>选择你创建的模板，输入钓鱼域名URL，程序在每封邮件内容中插入{{.URL}}变量，并创建一个唯一的id，以便跟踪统计。</p>
-<p>![image-20200702170425758](/Users/luo/Library/Application Support/typora-user-images/image-20200702170425758.png)</p>
-<p>![image-20200702170551140](/Users/luo/Library/Application Support/typora-user-images/image-20200702170551140.png)</p>
+<p><img src="/static/images/202007/image-20200702170425758.png" alt="image-20200702170425758"></p>
+<p><img src="/static/images/202007/image-20200702170551140.png" alt="image-20200702170551140"></p>
 <h3 id="2统计面板">2、统计面板</h3>
-<p>![image-20200702170622284](/Users/luo/Library/Application Support/typora-user-images/image-20200702170622284.png)</p>
-<p>![image-20200702172556698](/Users/luo/Library/Application Support/typora-user-images/image-20200702172556698.png)</p>
+<p><img src="/static/images/202007/image-20200702170622284.png" alt="image-20200702170622284"></p>
+<p><img src="/static/images/202007/image-20200702172556698.png" alt="image-20200702172556698"></p>
 <h3 id="3记录密码">3、记录密码</h3>
-<p>![image-20200702171446058](/Users/luo/Library/Application Support/typora-user-images/image-20200702171446058.png)</p>
+<p><img src="/static/images/202007/image-20200702171446058.png" alt="image-20200702171446058"></p>
 <h3 id="4重放攻击">4、重放攻击</h3>
-<p>![image-20200702171553949](/Users/luo/Library/Application Support/typora-user-images/image-20200702171553949.png)</p>
+<p><img src="/static/images/202007/image-20200702171553949.png" alt="image-20200702171553949"></p>
 <hr>
 <h2 id="七报表">七、报表</h2>
-<p>![image-20200702171623141](/Users/luo/Library/Application Support/typora-user-images/image-20200702171623141.png)</p>
+<p><img src="/static/images/202007/image-20200702171623141.png" alt="image-20200702171623141"></p>
 <h3 id="报表类型">报表类型</h3>
 <ol>
 <li>攻击结果记录</li>
 <li>带时间线的原始事件记录</li>
 </ol>
-<p>![image-20200702171915768](/Users/luo/Library/Application Support/typora-user-images/image-20200702171915768.png)</p>
+<p><img src="/static/images/202007/image-20200702171915768.png" alt="image-20200702171915768"></p>
 <hr>
 <h2 id="八其他">八、其他</h2>
 <p>项目地址：https://github.com/gophish/user-guide/</p>
