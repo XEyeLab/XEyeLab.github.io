@@ -218,15 +218,15 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
         }
 }
 </code></pre><h2 id="二目标人群">二、目标人群</h2>
-<p><img src="/images/202007/202007/image-20200702165800806.png" alt="image-20200702165800806"></p>
+<p><img src="/images/202007/image-20200702165800806.png" alt="image-20200702165800806"></p>
 <p>模板案例，名字我只用FirstName，后面邮件内容模板用到这个变量FirstName</p>
-<p><img src="/images/202007/202007/image-20200702165904407.png" alt="image-20200702165904407"></p>
+<p><img src="/images/202007/image-20200702165904407.png" alt="image-20200702165904407"></p>
 <hr>
 <h2 id="三邮件内容模板">三、邮件内容模板</h2>
 <blockquote>
 <p>用户名处插入变量：{{.FirstName}}，程序发送邮件的时候会自动插入对应的用户名。</p>
 </blockquote>
-<p><img src="/images/202007/202007/image-20200702165935412.png" alt="image-20200702165935412"></p>
+<p><img src="/images/202007/image-20200702165935412.png" alt="image-20200702165935412"></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
 &lt;<span style="color:#f92672">head</span>&gt;
 	&lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
@@ -307,7 +307,7 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
 &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;修改密码&#34;</span> /&gt;&amp;nbsp;&lt;/<span style="color:#f92672">form</span>&gt;
 &lt;/<span style="color:#f92672">body</span>&gt;
 &lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><p><img src="/images/202007/202007/image-20200702170052168.png" alt="image-20200702170052168"></p>
+</code></pre></div><p><img src="/images/202007/image-20200702170052168.png" alt="image-20200702170052168"></p>
 <hr>
 <h2 id="五邮箱配置">五、邮箱配置</h2>
 <p>目标使用的是QQ企业邮箱，我这里使用的是QQ域名邮箱，可以直接绕过反垃圾，注意QQ域名邮箱已经下线，目前只有已开通的域名才能使用，而且不能新增成员。</p>
@@ -321,28 +321,28 @@ Username:
 account@test.com
 Password:
 123456789abc
-</code></pre><p><img src="/images/202007/202007/image-20200702172452801.png" alt="image-20200702172452801"></p>
+</code></pre><p><img src="/images/202007/image-20200702172452801.png" alt="image-20200702172452801"></p>
 <h2 id="六发送钓鱼邮件">六、发送钓鱼邮件</h2>
 <h3 id="1发件配置">1、发件配置</h3>
 <p>选择你创建的模板，输入钓鱼域名URL，程序在每封邮件内容中插入{{.URL}}变量，并创建一个唯一的id，以便跟踪统计。</p>
-<p><img src="/images/202007/202007/image-20200702170425758.png" alt="image-20200702170425758"></p>
-<p><img src="/images/202007/202007/image-20200702170551140.png" alt="image-20200702170551140"></p>
+<p><img src="/images/202007/image-20200702170425758.png" alt="image-20200702170425758"></p>
+<p><img src="/images/202007/image-20200702170551140.png" alt="image-20200702170551140"></p>
 <h3 id="2统计面板">2、统计面板</h3>
-<p><img src="/images/202007/202007/image-20200702170622284.png" alt="image-20200702170622284"></p>
-<p><img src="/images/202007/202007/image-20200702172556698.png" alt="image-20200702172556698"></p>
+<p><img src="/images/202007/image-20200702170622284.png" alt="image-20200702170622284"></p>
+<p><img src="/images/202007/image-20200702172556698.png" alt="image-20200702172556698"></p>
 <h3 id="3记录密码">3、记录密码</h3>
-<p><img src="/images/202007/202007/image-20200702171446058.png" alt="image-20200702171446058"></p>
+<p><img src="/images/202007/image-20200702171446058.png" alt="image-20200702171446058"></p>
 <h3 id="4重放攻击">4、重放攻击</h3>
-<p><img src="/images/202007/202007/image-20200702171553949.png" alt="image-20200702171553949"></p>
+<p><img src="/images/202007/image-20200702171553949.png" alt="image-20200702171553949"></p>
 <hr>
 <h2 id="七报表">七、报表</h2>
-<p><img src="/images/202007/202007/image-20200702171623141.png" alt="image-20200702171623141"></p>
+<p><img src="/images/202007/image-20200702171623141.png" alt="image-20200702171623141"></p>
 <h3 id="报表类型">报表类型</h3>
 <ol>
 <li>攻击结果记录</li>
 <li>带时间线的原始事件记录</li>
 </ol>
-<p><img src="/images/202007/202007/image-20200702171915768.png" alt="image-20200702171915768"></p>
+<p><img src="/images/202007/image-20200702171915768.png" alt="image-20200702171915768"></p>
 <hr>
 <h2 id="八其他">八、其他</h2>
 <p>项目地址：https://github.com/gophish/user-guide/</p>
