@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>XEYE</title>
-    <link>https://xeye.io/</link>
-    <description>Recent content on XEYE</description>
+    <title>Archives on XEYE</title>
+    <link>https://xeye.io/archives/</link>
+    <description>Recent content in Archives on XEYE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Apr 2020 17:50:28 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jul 2020 17:30:04 +0800</lastBuildDate>
     
-	<atom:link href="https://xeye.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xeye.io/archives/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -54,15 +54,6 @@
       
       <guid>https://xeye.io/archives/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/</guid>
       <description>0x00 前言 靶机名称：Vulnversity 靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。 攻击路径：端口扫描&amp;ndash;&amp;gt;Web目录爆破&amp;ndash;&amp;gt</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://xeye.io/about/</link>
-      <pubDate>Wed, 01 Apr 2020 17:50:28 +0800</pubDate>
-      
-      <guid>https://xeye.io/about/</guid>
-      <description>ID：道明君（DMJ） 职业：信息安全行业小学生 Blog：https://xeye.io Email：x(at)xeye(dot)io</description>
     </item>
     
     <item>
