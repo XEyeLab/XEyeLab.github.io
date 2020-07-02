@@ -6,10 +6,25 @@
     <description>Recent content in Posts on XEYE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jun 2020 12:04:51 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jul 2020 17:30:04 +0800</lastBuildDate>
     
 	<atom:link href="https://xeye.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gophish钓鱼工具使用教程</title>
+      <link>https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Thu, 02 Jul 2020 17:30:04 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
+      <description>Gophish钓鱼工具使用教程 作者：道明君
+一、准备工作 Gophish是一个开源网络钓鱼工具包
+特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。
+项目主页：https://getgophish.com/
+###1、安装
+支持Windows/ Mac/Linux平台。下载对应系统版本（https://github.com/gophish/gophish/releases/）的压缩包，运行二进制文件即可。
+###2、编译安装</description>
+    </item>
     
     <item>
       <title>推荐书单</title>

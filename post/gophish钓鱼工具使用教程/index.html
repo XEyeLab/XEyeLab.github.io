@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo 0.69.0-DEV" />
+
+  <title>Gophish钓鱼工具使用教程 &middot; XEYE</title>
+
+  <meta name="description" content="" />
+
+  
+  <meta property="og:locale" content="en-us"/>
+
+  
+  <meta property="og:image" content="https://xeye.io/images/kenan.jpg">
+
+  
+  <meta property="og:site_name" content="XEYE"/>
+  <meta property="og:title" content="Gophish钓鱼工具使用教程"/>
+  <meta property="og:description" content="Gophish钓鱼工具使用教程 作者：道明君
+一、准备工作 Gophish是一个开源网络钓鱼工具包
+特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。
+项目主页：https://getgophish.com/
+###1、安装
+支持Windows/ Mac/Linux平台。下载对应系统版本（https://github.com/gophish/gophish/releases/）的压缩包，运行二进制文件即可。
+###2、编译安装"/>
+  <meta property="og:url" content="https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2020-07-02T17:30:04&#43;0800"/>
+  <meta property="article:modified_time" content="2020-07-02T17:30:04&#43;0800"/>
+  <meta property="article:author" content="DMJ">
+  
+  
+  
+
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "Blog",
+    "name": "XEYE",
+    "url" : "https://xeye.io/",
+    "image": "https://xeye.io/images/kenan.jpg",
+    "description": "小学生"
+  }
+  </script>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "name": "Gophish钓鱼工具使用教程",
+    "headline": "Gophish钓鱼工具使用教程",
+    "datePublished": "2020-07-02T17:30:04\x2b0800",
+    "dateModified": "2020-07-02T17:30:04\x2b0800",
+    "author": {
+      "@type": "Person",
+      "name": "DMJ",
+      "url": "https://xeye.io/"
+    },
+    "image": "https://xeye.io/images/kenan.jpg",
+    "url": "https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/",
+    "description": "Gophish钓鱼工具使用教程 作者：道明君\n一、准备工作 Gophish是一个开源网络钓鱼工具包\n特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。\n项目主页：https:\/\/getgophish.com\/\n###1、安装\n支持Windows\/ Mac\/Linux平台。下载对应系统版本（https:\/\/github.com\/gophish\/gophish\/releases\/）的压缩包，运行二进制文件即可。\n###2、编译安装"
+  }
+  </script>
+  
+
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://xeye.io/css/print.css"
+        media="print">
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://xeye.io/css/poole.css">
+
+  <link type="text/css"
+        rel="stylesheet"
+        href="https://xeye.io/css/hyde.css">
+
+  
+
+
+  <link type="text/css" rel="stylesheet" href="https://xeye.io/css/blog.css">
+
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+        crossorigin="anonymous" />
+
+  <link rel="apple-touch-icon-precomposed"
+        sizes="144x144"
+        href="/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  </head>
+<body>
+  <aside class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+        
+        <div class="author-image">
+          <img src="https://xeye.io/images/kenan.jpg" class="img-circle img-headshot center" alt="Profile Picture">
+        </div>
+        
+      
+
+      <h1>XEYE</h1>
+
+      
+      <p class="lead">小学生</p>
+      
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="https://xeye.io/">Home</a>
+        </li>
+        <li>
+          <a href="/post/"> Post </a>
+        </li><li>
+          <a href="/about/"> About </a>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="social-icons">
+      
+      <a href="https://github.com/xeyelab" rel="me" title="GitHub">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      
+    </section>
+  </div>
+</aside>
+
+
+  <main class="content container">
+  <div class="post">
+  <h1>Gophish钓鱼工具使用教程</h1>
+
+  <div class="post-date">
+    <time datetime="2020-07-02T17:30:04&#43;0800">Jul 2, 2020</time> · 2 min read
+  </div>
+
+  <h1 id="gophish钓鱼工具使用教程">Gophish钓鱼工具使用教程</h1>
+<p>作者：道明君</p>
+<h2 id="一准备工作">一、准备工作</h2>
+<p>Gophish是一个开源网络钓鱼工具包</p>
+<p>特点是开箱即用，特别适合甲方用来对内部员工进行邮件钓鱼演练。</p>
+<p>项目主页：https://getgophish.com/</p>
+<p>###1、安装</p>
+<p>支持Windows/ Mac/Linux平台。下载对应系统版本（https://github.com/gophish/gophish/releases/）的压缩包，运行二进制文件即可。</p>
+<p>###2、编译安装</p>
+<blockquote>
+<p>Gophish编译安装需要Go v1.10或更高版本！</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go get github.com/gophish/gophish
+
+cd ~/.go/src/github.com/gophish/gophish/    <span style="color:#f92672">[</span>你本机的go项目目录<span style="color:#f92672">]</span>
+
+go build
+
+./gophish     <span style="color:#f92672">[</span>运行生成的gophish二进制文件，浏览器访问即可<span style="color:#f92672">]</span>
+
+https://localhost:3333   <span style="color:#f92672">[</span>默认用户admin，密码在终端生成<span style="color:#f92672">]</span>
+</code></pre></div><p>###3、Docker</p>
+<p><a href="https://hub.docker.com/r/gophish/gophish/">https://hub.docker.com/r/gophish/gophish/</a></p>
+<p>###4、项目文档</p>
+<p><a href="http://getgophish.com/documentation">http://getgophish.com/documentation</a></p>
+<p>###5、问题反馈</p>
+<p><a href="https://github.com/gophish/gophish/issues/new">https://github.com/gophish/gophish/issues/new</a></p>
+<h3 id="6免费ssl证书">6、免费SSL证书</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">示例域名：
+https://access.a.com
+
+安装ssl证书（letsencrypt）：
+
+cd /opt/gophish              <span style="color:#75715e"># 你的gophish目录</span>
+sudo apt install certbot
+sudo kill <span style="color:#66d9ef">$(</span>pidof gohpish<span style="color:#66d9ef">)</span>
+sudo certbot certonly -d access.a.com --standalone
+ln -s /etc/letsencrypt/live/access.a.com/privkey.pem  access.a.com.key
+ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
+
+</code></pre></div><h3 id="7配置文件">7、配置文件</h3>
+<pre><code class="language-jason" data-lang="jason"># nano config.json
+
+{
+        &quot;admin_server&quot;: {
+                &quot;listen_url&quot;: &quot;0.0.0.0:8088&quot;,     //修改默认端口   
+                &quot;use_tls&quot;: true,
+                &quot;cert_path&quot;: &quot;gophish_admin.crt&quot;,
+                &quot;key_path&quot;: &quot;gophish_admin.key&quot;
+        },
+        &quot;phish_server&quot;: {
+                &quot;listen_url&quot;: &quot;0.0.0.0:443&quot;,     //https开启443端口
+                &quot;use_tls&quot;: true,
+                &quot;cert_path&quot;: &quot;access.a.com.crt&quot;,  //修改证书
+                &quot;key_path&quot;: &quot;access.a.com.key&quot;    //修改证书
+        },
+        &quot;db_name&quot;: &quot;sqlite3&quot;,                     //数据库支持MySQL
+        &quot;db_path&quot;: &quot;gophish.db&quot;,
+        &quot;migrations_prefix&quot;: &quot;db/db_&quot;,
+        &quot;contact_address&quot;: &quot;&quot;,
+        &quot;logging&quot;: {
+                &quot;filename&quot;: &quot;/var/log/gophish/gophish.log&quot;,  //日志记录，需要先创建目录和文件，否则跑不起来
+                &quot;level&quot;: &quot;&quot;
+        }
+}
+</code></pre><h2 id="二目标人群">二、目标人群</h2>
+<p>![image-20200702165800806](/Users/luo/Library/Application Support/typora-user-images/image-20200702165800806.png)</p>
+<p>模板案例，名字我只用FirstName，后面邮件内容模板用到这个变量FirstName</p>
+<p>![image-20200702165904407](/Users/luo/Library/Application Support/typora-user-images/image-20200702165904407.png)</p>
+<hr>
+<h2 id="三邮件内容模板">三、邮件内容模板</h2>
+<blockquote>
+<p>用户名处插入变量：{{.FirstName}}，程序发送邮件的时候会自动插入对应的用户名。</p>
+</blockquote>
+<p>![image-20200702165935412](/Users/luo/Library/Application Support/typora-user-images/image-20200702165935412.png)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+	&lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;<span style="color:#f92672">p</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;您的ucenter帐户：{{.FirstName}}&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&amp;nbsp;出现异常登陆&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;，请您立即修改ucenter帐户密码，否则账户将被禁止使用。&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+
+&lt;<span style="color:#f92672">p</span>&gt;&amp;nbsp;&lt;/<span style="color:#f92672">p</span>&gt;
+
+&lt;<span style="color:#f92672">p</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;修改密码地址：&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{.URL}}&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;https://ucenter.test.com&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+
+&lt;<span style="color:#f92672">p</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;&lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;vertical-align: inherit;&#34;</span>&gt;{{.Tracker}}&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">font</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+
+</code></pre></div><h4 id="模板变量参考">模板变量参考</h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{{.RId}}</td>
+<td>The target&rsquo;s unique ID</td>
+</tr>
+<tr>
+<td>{{.FirstName}}</td>
+<td>The target&rsquo;s first name</td>
+</tr>
+<tr>
+<td>{{.LastName}}</td>
+<td>The target&rsquo;s last name</td>
+</tr>
+<tr>
+<td>{{.Position}}</td>
+<td>The target&rsquo;s position</td>
+</tr>
+<tr>
+<td>{{.Email}}</td>
+<td>The target&rsquo;s email address</td>
+</tr>
+<tr>
+<td>{{.From}}</td>
+<td>The spoofed sender</td>
+</tr>
+<tr>
+<td>{{.TrackingURL}}</td>
+<td>The URL to the tracking handler</td>
+</tr>
+<tr>
+<td>{{.Tracker}}</td>
+<td>An alias for <code>&lt;img src=&quot;{{.TrackingURL}}&quot;/&gt;</code></td>
+</tr>
+<tr>
+<td>{{.URL}}</td>
+<td>The phishing URL</td>
+</tr>
+<tr>
+<td>{{.BaseURL}}</td>
+<td>The base URL with the path and <code>rid</code> parameter stripped. Useful for making links to static files.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="四登陆页面">四、登陆页面</h2>
+<p>注意，目标网站使用了前端框架的话（例如vue）会导致克隆失败，页面无法显示，需要自己保存网站页面并修改HTML代码，VUE框架由于使用js来触发form动作，需要注释并自己添加from代码。</p>
+<pre><code class="language-vue-html" data-lang="vue-html">&lt;form action=&quot;&quot; autocomplete=&quot;off&quot; class=&quot;ivu-form ivu-form-label-right&quot; enctype=&quot;application/x-www-form-urlencoded&quot; method=&quot;post&quot;&gt;
+</code></pre><p>示例代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+	&lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form&#34;</span>&gt;&lt;<span style="color:#f92672">label</span>&gt;用户名:&lt;/<span style="color:#f92672">label</span>&gt; &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> /&gt;&lt;<span style="color:#f92672">br</span> /&gt;
+&lt;<span style="color:#f92672">label</span>&gt;密码:&lt;/<span style="color:#f92672">label</span>&gt; &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> /&gt;&lt;<span style="color:#f92672">br</span> /&gt;
+&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;修改密码&#34;</span> /&gt;&amp;nbsp;&lt;/<span style="color:#f92672">form</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>![image-20200702170052168](/Users/luo/Library/Application Support/typora-user-images/image-20200702170052168.png)</p>
+<hr>
+<h2 id="五邮箱配置">五、邮箱配置</h2>
+<p>目标使用的是QQ企业邮箱，我这里使用的是QQ域名邮箱，可以直接绕过反垃圾，注意QQ域名邮箱已经下线，目前只有已开通的域名才能使用，而且不能新增成员。</p>
+<pre><code>Name:
+运维部账号管家&lt;account@test.com&gt;
+Interface Type:
+运维部账号管家&lt;account@test.com&gt;
+Host:
+smtp.qq.com:587
+Username:
+account@test.com
+Password:
+123456789abc
+</code></pre><p>![image-20200702172452801](/Users/luo/Library/Application Support/typora-user-images/image-20200702172452801.png)</p>
+<h2 id="六发送钓鱼邮件">六、发送钓鱼邮件</h2>
+<h3 id="1发件配置">1、发件配置</h3>
+<p>选择你创建的模板，输入钓鱼域名URL，程序在每封邮件内容中插入{{.URL}}变量，并创建一个唯一的id，以便跟踪统计。</p>
+<p>![image-20200702170425758](/Users/luo/Library/Application Support/typora-user-images/image-20200702170425758.png)</p>
+<p>![image-20200702170551140](/Users/luo/Library/Application Support/typora-user-images/image-20200702170551140.png)</p>
+<h3 id="2统计面板">2、统计面板</h3>
+<p>![image-20200702170622284](/Users/luo/Library/Application Support/typora-user-images/image-20200702170622284.png)</p>
+<p>![image-20200702172556698](/Users/luo/Library/Application Support/typora-user-images/image-20200702172556698.png)</p>
+<h3 id="3记录密码">3、记录密码</h3>
+<p>![image-20200702171446058](/Users/luo/Library/Application Support/typora-user-images/image-20200702171446058.png)</p>
+<h3 id="4重放攻击">4、重放攻击</h3>
+<p>![image-20200702171553949](/Users/luo/Library/Application Support/typora-user-images/image-20200702171553949.png)</p>
+<hr>
+<h2 id="七报表">七、报表</h2>
+<p>![image-20200702171623141](/Users/luo/Library/Application Support/typora-user-images/image-20200702171623141.png)</p>
+<h3 id="报表类型">报表类型</h3>
+<ol>
+<li>攻击结果记录</li>
+<li>带时间线的原始事件记录</li>
+</ol>
+<p>![image-20200702171915768](/Users/luo/Library/Application Support/typora-user-images/image-20200702171915768.png)</p>
+<hr>
+<h2 id="八其他">八、其他</h2>
+<p>项目地址：https://github.com/gophish/user-guide/</p>
+<p>用户指南：https://docs.getgophish.com/user-guide/</p>
+<p>接口文档：https://docs.getgophish.com/api-documentation/</p>
+
+</div>
+
+
+  </main>
+
+  <footer>
+  <div class="copyright">
+    &copy; XEYE 2020 · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
+  </div>
+</footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"
+          integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0="
+          crossorigin="anonymous"></script>
+
+  <script src="https://xeye.io/js/blog.js"></script>
+
+  
+</body>
+</html>
