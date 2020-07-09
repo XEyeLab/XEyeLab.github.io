@@ -112,7 +112,7 @@
         <a href="https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Gophish钓鱼工具使用教程</a>
     </h2>
     <div class="post-item post-meta">
-        <span><ion-icon name="today"></ion-icon>&nbsp;2020-07-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;1776 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
+        <span><ion-icon name="today"></ion-icon>&nbsp;2020-07-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;2054 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
     </div>
     
     
@@ -336,13 +336,49 @@ Password:
 <p><a href="/images/202007/image-20200702171623141.png" target="_blank">
     <img src="/images/202007/image-20200702171623141.png" alt="image-20200702171623141" />
 </a></p>
-<h3 id="报表类型">报表类型</h3>
+<h3 id="1报表类型">1、报表类型</h3>
 <ol>
 <li>攻击结果记录</li>
 <li>带时间线的原始事件记录</li>
 </ol>
 <p><a href="/images/202007/image-20200702171915768.png" target="_blank">
     <img src="/images/202007/image-20200702171915768.png" alt="image-20200702171915768" />
+</a></p>
+<h3 id="2goreport">2、Goreport</h3>
+<p>Goreport是一个第三方的报表生产脚本，通过Gophish API可以帮你快速生成IP地址、操作系统、浏览器类型、版本、位置信息列表。并导出为execl或者word文档。</p>
+<p>项目地址：https://github.com/chrismaddalena/GoReport</p>
+<p>先创建配置文件，写入Gophish API，其他两项没有可以忽略</p>
+<p>gophish.config</p>
+<pre><code>[Gophish]
+gp_host: https://127.0.0.1:3333
+api_key: &lt;YOUR_API_KEY&gt;
+
+[ipinfo.io]
+ipinfo_token: &lt;IPINFO_API_KEY&gt;
+
+[Google]
+geolocate_key: &lt;GEOLOCATE_API_KEY&gt;
+</code></pre>
+<h5 id="基本用法">基本用法</h5>
+<pre><code>python3 goreport.py --id 20 --format excel
+</code></pre>
+<p>程序会自动从接口 https://localhost:3333/api/campaigns/20/?api_key=key 获得统计内容，并将结果输出到xlsx/csv/word文件。</p>
+<p>一次可以导出多个结果ID的统计报告</p>
+<p><code>python3 goreport.py --id 20,21-25,88 --format csv</code></p>
+<p>合并多个报告</p>
+<p><code>python3 goreport.py --id 20,21-25,88  --format excel --combine</code></p>
+<p>效果如图：</p>
+<p><a href="/images/202007/image-20200709150121904.png" target="_blank">
+    <img src="/images/202007/image-20200709150121904.png" alt="image-20200709150121904" />
+</a></p>
+<p><a href="/images/202007/image-20200709145952212.png" target="_blank">
+    <img src="/images/202007/image-20200709145952212.png" alt="image-20200709145952212" />
+</a></p>
+<p><a href="/images/202007/image-20200709145843039.png" target="_blank">
+    <img src="/images/202007/image-20200709145843039.png" alt="image-20200709145843039" />
+</a></p>
+<p><a href="/images/202007/image-20200709145753540.png" target="_blank">
+    <img src="/images/202007/image-20200709145753540.png" alt="image-20200709145753540" />
 </a></p>
 <hr>
 <h2 id="八其他">八、其他</h2>
@@ -401,7 +437,8 @@ Password:
     </li>
     <li><a href="#七报表">七、报表</a>
       <ul>
-        <li><a href="#报表类型">报表类型</a></li>
+        <li><a href="#1报表类型">1、报表类型</a></li>
+        <li><a href="#2goreport">2、Goreport</a></li>
       </ul>
     </li>
     <li><a href="#八其他">八、其他</a></li>
