@@ -112,7 +112,7 @@
         <a href="https://xeye.io/post/gophish%E9%92%93%E9%B1%BC%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Gophish钓鱼工具使用教程</a>
     </h2>
     <div class="post-item post-meta">
-        <span><ion-icon name="today"></ion-icon>&nbsp;2020-07-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;2054 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
+        <span><ion-icon name="today"></ion-icon>&nbsp;2020-07-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;2089 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
     </div>
     
     
@@ -160,7 +160,6 @@ sudo kill $(pidof gohpish)
 sudo certbot certonly -d access.a.com --standalone
 ln -s /etc/letsencrypt/live/access.a.com/privkey.pem  access.a.com.key
 ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
-
 </code></pre>
 <h3 id="7配置文件">7、配置文件</h3>
 <pre><code class="language-jason"># nano config.json
@@ -189,21 +188,21 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
 }
 </code></pre>
 <h2 id="二目标人群">二、目标人群</h2>
-<p><a href="/images/202007/image-20200702165800806.png" target="_blank">
-    <img src="/images/202007/image-20200702165800806.png" alt="image-20200702165800806" />
-</a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702165800806.png" target="_blank"><a href="https://xeye.io/static/images/20200713143606.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713143606.png" alt="image-20200702165800806" />
+</a></a></p>
 <p>模板案例，名字我只用FirstName，后面邮件内容模板用到这个变量FirstName</p>
-<p><a href="/images/202007/image-20200702165904407.png" target="_blank">
-    <img src="/images/202007/image-20200702165904407.png" alt="image-20200702165904407" />
-</a></p>
+<p><a href="https://xeye.io/static/images/20200713143719.png" target="_blank"><a href="https://xeye.io/static/images/20200713143719.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713143719.png" alt="image-20200702165904407" />
+</a></a></p>
 <hr>
 <h2 id="三邮件内容模板">三、邮件内容模板</h2>
 <blockquote>
 <p>用户名处插入变量：{{.FirstName}}，程序发送邮件的时候会自动插入对应的用户名。</p>
 </blockquote>
-<p><a href="/images/202007/image-20200702165935412.png" target="_blank">
-    <img src="/images/202007/image-20200702165935412.png" alt="image-20200702165935412" />
-</a></p>
+<p><a href="https://xeye.io/static/images/20200713143051.png" target="_blank"><a href="https://xeye.io/static/images/20200713143051.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713143051.png" alt="image-20200702165935412" />
+</a></a></p>
 <pre><code class="language-html">&lt;html&gt;
 &lt;head&gt;
 	&lt;title&gt;&lt;/title&gt;
@@ -218,7 +217,6 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
 &lt;p&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;{{.Tracker}}&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-
 </code></pre>
 <h4 id="模板变量参考">模板变量参考</h4>
 <table>
@@ -231,23 +229,23 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
 <tbody>
 <tr>
 <td>{{.RId}}</td>
-<td>The target&rsquo;s unique ID</td>
+<td>The target’s unique ID</td>
 </tr>
 <tr>
 <td>{{.FirstName}}</td>
-<td>The target&rsquo;s first name</td>
+<td>The target’s first name</td>
 </tr>
 <tr>
 <td>{{.LastName}}</td>
-<td>The target&rsquo;s last name</td>
+<td>The target’s last name</td>
 </tr>
 <tr>
 <td>{{.Position}}</td>
-<td>The target&rsquo;s position</td>
+<td>The target’s position</td>
 </tr>
 <tr>
 <td>{{.Email}}</td>
-<td>The target&rsquo;s email address</td>
+<td>The target’s email address</td>
 </tr>
 <tr>
 <td>{{.From}}</td>
@@ -287,9 +285,9 @@ ln -s /etc/letsencrypt/live/access.a.com/fullchain.pem access.a.com.crt
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p><a href="/images/202007/image-20200702170052168.png" target="_blank">
-    <img src="/images/202007/image-20200702170052168.png" alt="image-20200702170052168" />
-</a></p>
+<p><a href="https://xeye.io/static/images/20200713144054.png" target="_blank"><a href="https://xeye.io/static/images/20200713144054.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713144054.png" alt="image-20200702170052168" />
+</a></a></p>
 <hr>
 <h2 id="五邮箱配置">五、邮箱配置</h2>
 <p>目标使用的是QQ企业邮箱，我这里使用的是QQ域名邮箱，可以直接绕过反垃圾，注意QQ域名邮箱已经下线，目前只有已开通的域名才能使用，而且不能新增成员。</p>
@@ -304,46 +302,46 @@ account@test.com
 Password:
 123456789abc
 </code></pre>
-<p><a href="/images/202007/image-20200702172452801.png" target="_blank">
-    <img src="/images/202007/image-20200702172452801.png" alt="image-20200702172452801" />
-</a></p>
+<p><a href="https://xeye.io/static/images/20200713144129.png" target="_blank"><a href="https://xeye.io/static/images/20200713144129.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713144129.png" alt="image-20200702172452801" />
+</a></a></p>
 <h2 id="六发送钓鱼邮件">六、发送钓鱼邮件</h2>
 <h3 id="1发件配置">1、发件配置</h3>
 <p>选择你创建的模板，输入钓鱼域名URL，程序在每封邮件内容中插入{{.URL}}变量，并创建一个唯一的id，以便跟踪统计。</p>
-<p><a href="/images/202007/image-20200702170425758.png" target="_blank">
-    <img src="/images/202007/image-20200702170425758.png" alt="image-20200702170425758" />
-</a></p>
-<p><a href="/images/202007/image-20200702170551140.png" target="_blank">
-    <img src="/images/202007/image-20200702170551140.png" alt="image-20200702170551140" />
-</a></p>
+<p><a href="https://xeye.io/static/images/20200713144154.png" target="_blank"><a href="https://xeye.io/static/images/20200713144907.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713144907.png" alt="image-20200702170425758" />
+</a></a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702170551140.png" target="_blank"><a href="https://xeye.io/static/images/20200713144937.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713144937.png" alt="image-20200702170551140" />
+</a></a></p>
 <h3 id="2统计面板">2、统计面板</h3>
-<p><a href="/images/202007/image-20200702170622284.png" target="_blank">
-    <img src="/images/202007/image-20200702170622284.png" alt="image-20200702170622284" />
-</a></p>
-<p><a href="/images/202007/image-20200702172556698.png" target="_blank">
-    <img src="/images/202007/image-20200702172556698.png" alt="image-20200702172556698" />
-</a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702170622284.png" target="_blank"><a href="https://xeye.io/static/images/20200713145003.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145003.png" alt="image-20200702170622284" />
+</a></a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702172556698.png" target="_blank"><a href="https://xeye.io/static/images/20200713145114.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145114.png" alt="image-20200702172556698" />
+</a></a></p>
 <h3 id="3记录密码">3、记录密码</h3>
-<p><a href="/images/202007/image-20200702171446058.png" target="_blank">
-    <img src="/images/202007/image-20200702171446058.png" alt="image-20200702171446058" />
-</a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702171446058.png" target="_blank"><a href="https://xeye.io/static/images/20200713145134.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145134.png" alt="image-20200702171446058" />
+</a></a></p>
 <h3 id="4重放攻击">4、重放攻击</h3>
-<p><a href="/images/202007/image-20200702171553949.png" target="_blank">
-    <img src="/images/202007/image-20200702171553949.png" alt="image-20200702171553949" />
-</a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702171553949.png" target="_blank"><a href="https://xeye.io/static/images/20200713145218.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145218.png" alt="image-20200702171553949" />
+</a></a></p>
 <hr>
 <h2 id="七报表">七、报表</h2>
-<p><a href="/images/202007/image-20200702171623141.png" target="_blank">
-    <img src="/images/202007/image-20200702171623141.png" alt="image-20200702171623141" />
-</a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702171623141.png" target="_blank"><a href="https://xeye.io/static/images/20200713145233.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145233.png" alt="image-20200702171623141" />
+</a></a></p>
 <h3 id="1报表类型">1、报表类型</h3>
 <ol>
 <li>攻击结果记录</li>
 <li>带时间线的原始事件记录</li>
 </ol>
-<p><a href="/images/202007/image-20200702171915768.png" target="_blank">
-    <img src="/images/202007/image-20200702171915768.png" alt="image-20200702171915768" />
-</a></p>
+<p><a href="https://xeye.io/images/202007/image-20200702171915768.png" target="_blank"><a href="https://xeye.io/static/images/20200713145251.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145251.png" alt="image-20200702171915768" />
+</a></a></p>
 <h3 id="2goreport">2、Goreport</h3>
 <p>Goreport是一个第三方的报表生产脚本，通过Gophish API可以帮你快速生成IP地址、操作系统、浏览器类型、版本、位置信息列表。并导出为execl或者word文档。</p>
 <p>项目地址：https://github.com/chrismaddalena/GoReport</p>
@@ -364,22 +362,24 @@ geolocate_key: &lt;GEOLOCATE_API_KEY&gt;
 </code></pre>
 <p>程序会自动从接口 https://localhost:3333/api/campaigns/20/?api_key=key 获得统计内容，并将结果输出到xlsx/csv/word文件。</p>
 <p>一次可以导出多个结果ID的统计报告</p>
-<p><code>python3 goreport.py --id 20,21-25,88 --format csv</code></p>
+<pre><code>python3 goreport.py --id 20,21-25,88 --format csv
+</code></pre>
 <p>合并多个报告</p>
-<p><code>python3 goreport.py --id 20,21-25,88  --format excel --combine</code></p>
+<pre><code>python3 goreport.py --id 20,21-25,88 --format excel --combine
+</code></pre>
 <p>效果如图：</p>
-<p><a href="/images/202007/image-20200709150121904.png" target="_blank">
-    <img src="/images/202007/image-20200709150121904.png" alt="image-20200709150121904" />
-</a></p>
-<p><a href="/images/202007/image-20200709145952212.png" target="_blank">
-    <img src="/images/202007/image-20200709145952212.png" alt="image-20200709145952212" />
-</a></p>
-<p><a href="/images/202007/image-20200709145843039.png" target="_blank">
-    <img src="/images/202007/image-20200709145843039.png" alt="image-20200709145843039" />
-</a></p>
-<p><a href="/images/202007/image-20200709145753540.png" target="_blank">
-    <img src="/images/202007/image-20200709145753540.png" alt="image-20200709145753540" />
-</a></p>
+<p><a href="https://xeye.io/images/202007/image-20200709150121904.png" target="_blank"><a href="https://xeye.io/static/images/20200713145315.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145315.png" alt="image-20200709150121904" />
+</a></a></p>
+<p><a href="https://xeye.io/images/202007/image-20200709145952212.png" target="_blank"><a href="https://xeye.io/static/images/20200713145327.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145327.png" alt="image-20200709145952212" />
+</a></a></p>
+<p><a href="https://xeye.io/images/202007/image-20200709145843039.png" target="_blank"><a href="https://xeye.io/static/images/20200713145343.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145343.png" alt="image-20200709145843039" />
+</a></a></p>
+<p><a href="https://xeye.io/images/202007/image-20200709145753540.png" target="_blank"><a href="https://xeye.io/static/images/20200713145359.png" target="_blank">
+    <img src="https://xeye.io/static/images/20200713145359.png" alt="image-20200709145753540" />
+</a></a></p>
 <hr>
 <h2 id="八其他">八、其他</h2>
 <p>项目地址：https://github.com/gophish/user-guide/</p>
