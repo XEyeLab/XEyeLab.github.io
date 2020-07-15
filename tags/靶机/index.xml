@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>靶机 on 深邃之眼</title>
+    <link>https://xeye.io/tags/%E9%9D%B6%E6%9C%BA/</link>
+    <description>Recent content in 靶机 on 深邃之眼</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 03 Apr 2020 16:20:51 +0800</lastBuildDate>
+    
+	<atom:link href="https://xeye.io/tags/%E9%9D%B6%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>靶机渗透测试 TryHackMe:Vulnversity</title>
+      <link>https://xeye.io/post/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/</link>
+      <pubDate>Fri, 03 Apr 2020 16:20:51 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;0x00 前言&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;靶机名称：Vulnversity&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;攻击路径：端口扫描&amp;ndash;&amp;gt;Web目录爆破&amp;ndash;&amp;gt;文件上传漏洞利用&amp;ndash;&amp;gt;权限提升&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;相关工具：nmap、gobuster、burpsuite、nc、webshell&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;难度：容易&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

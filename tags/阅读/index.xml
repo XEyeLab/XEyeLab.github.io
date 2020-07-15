@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>阅读 on 深邃之眼</title>
+    <link>https://xeye.io/tags/%E9%98%85%E8%AF%BB/</link>
+    <description>Recent content in 阅读 on 深邃之眼</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 29 Jun 2020 12:04:51 +0800</lastBuildDate>
+    
+	<atom:link href="https://xeye.io/tags/%E9%98%85%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>推荐书单</title>
+      <link>https://xeye.io/post/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95/</link>
+      <pubDate>Mon, 29 Jun 2020 12:04:51 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95/</guid>
+      <description>&lt;p&gt;推荐阅读书单，通读任意一本受益终身。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>闲话庄子：一、庄子其人</title>
+      <link>https://xeye.io/post/%E9%97%B2%E8%AF%9D%E5%BA%84%E5%AD%90%E4%B8%80%E5%BA%84%E5%AD%90%E5%85%B6%E4%BA%BA/</link>
+      <pubDate>Tue, 07 Apr 2020 17:19:43 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/%E9%97%B2%E8%AF%9D%E5%BA%84%E5%AD%90%E4%B8%80%E5%BA%84%E5%AD%90%E5%85%B6%E4%BA%BA/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;有人看了《庄子》，就认为庄子是书里描写的那样，是个吃米都得找人借的穷光蛋。认为他出身卑微，一生穷困潦倒，实际上并不是这样。那只是书里面写的寓言，不能把寓言当现实。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>闲话庄子：二、庄子的生死观</title>
+      <link>https://xeye.io/post/%E9%97%B2%E8%AF%9D%E5%BA%84%E5%AD%90%E4%BA%8C%E5%BA%84%E5%AD%90%E7%9A%84%E7%94%9F%E6%AD%BB%E8%A7%82/</link>
+      <pubDate>Tue, 07 Apr 2020 16:43:33 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/%E9%97%B2%E8%AF%9D%E5%BA%84%E5%AD%90%E4%BA%8C%E5%BA%84%E5%AD%90%E7%9A%84%E7%94%9F%E6%AD%BB%E8%A7%82/</guid>
+      <description>&lt;p&gt;在庄子看来，生，只是一段插曲。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
