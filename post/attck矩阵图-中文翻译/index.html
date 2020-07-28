@@ -118,7 +118,7 @@ ATT&amp;CK模型分为三部分，分别是PRE-ATT&amp;CK，ATT&amp;CK for Enter
         <a href="https://xeye.io/post/attck%E7%9F%A9%E9%98%B5%E5%9B%BE-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">ATT&amp;CK for Enterprise-中文翻译</a>
     </h2>
     <div class="post-item post-meta">
-        <span><ion-icon name="today"></ion-icon>&nbsp;2020-07-28</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;537 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/%E7%BA%A2%E9%98%9F">红队</a>&nbsp;</span>
+        <span><ion-icon name="today"></ion-icon>&nbsp;2020-07-28</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;542 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/%E7%BA%A2%E9%98%9F">红队</a>&nbsp;</span>
     </div>
     
     
@@ -128,12 +128,17 @@ ATT&amp;CK模型分为三部分，分别是PRE-ATT&amp;CK，ATT&amp;CK for Enter
 <p><img class="img-zoomable" src="https://xeye.io/static/images/20200728101027.png" alt="" />
 </p>
 <p>ATT&amp;CK  矩阵知识库，总结了网络攻击手法和案例，对攻击手法和防御做了通用的分类。将网络攻击生命周期拆分为12个阶段，每个阶段细分各类攻击手法和防御策略，ATT&amp;CK框架对研究APT组织攻击手法和检测有非常大的落地指导意义。红蓝队都可以借鉴这个矩阵图，按照网络杀伤链来结合自身安全产品来制定攻防策略。</p>
-<pre><code class="language-mermaid">graph LR;
+<pre><code class="language-mermaid">
+&lt;div class=&quot;mermaid&quot;&gt;
+graph LR
    1.初始访问 --&gt; 2.执行攻击 --&gt; 3.持久化控制 --&gt; 4.提升特权 --&gt; 5.规避防御 --&gt; 6.凭据访问 --&gt; 7.探索发现 --&gt; 8.横向移动 --&gt; 9.搜集信息 --&gt; 10.命令与控制 --&gt; 11.窃取数据 --&gt; 危害影响 
+   &lt;/div&gt;
+&lt;script src=&quot;https://unpkg.com/mermaid/dist/mermaid.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <p>附一张旧版的翻译图：</p>
 <p><img class="img-zoomable" src="https://xeye.io/static/images/20200728100628.png" alt="" />
 </p>
+<hr>
 <p>原版xlsx下载地址：</p>
 <p><a href="https://xeye.io/static/images/20200728112814.xlsx">https://xeye.io/static/images/20200728112814.xlsx</a></p>
 <p><strong>ATT&amp;CK for Enterprise</strong>在线导航：</p>
