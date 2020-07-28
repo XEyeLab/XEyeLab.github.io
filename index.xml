@@ -12,12 +12,13 @@
     
     
     <item>
-      <title>ATT&amp;CK矩阵图-中文翻译</title>
+      <title>ATT&amp;CK for Enterprise-中文翻译</title>
       <link>https://xeye.io/post/attck%E7%9F%A9%E9%98%B5%E5%9B%BE-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</link>
       <pubDate>Tue, 28 Jul 2020 09:53:01 +0800</pubDate>
       
       <guid>https://xeye.io/post/attck%E7%9F%A9%E9%98%B5%E5%9B%BE-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</guid>
-      <description>&lt;p&gt;MITRE ATT&amp;amp;CK矩阵知识库描述的是网络攻击者的行为，对攻击和防御做了通用的分类。红队蓝队都可以借鉴这个矩阵图，按照网络杀伤链来制定攻防策略。&lt;/p&gt;</description>
+      <description>&lt;p&gt;ATT&amp;amp;CK，全称是Adversarial Tactics, Techniques, and Common Knowledges。A是Adversarial，表示攻击者、对手；两个T分別是Tactics和Technical，即战术和技术；CK是Common knowledge，通用知识库。这是一套反应各个攻击生命周期攻击行为的模型和知识库。&lt;/p&gt;
+&lt;p&gt;ATT&amp;amp;CK模型分为三部分，分别是&lt;strong&gt;PRE-ATT&amp;amp;CK&lt;/strong&gt;，&lt;strong&gt;ATT&amp;amp;CK for Enterprise&lt;/strong&gt;和&lt;strong&gt;ATT&amp;amp;CK for Mobile。&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
