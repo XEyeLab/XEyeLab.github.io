@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>应急响应实战笔记</title>
+      <link>https://xeye.io/post/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 29 Jul 2020 09:50:42 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;p&gt;这是一个关于安全事件应急响应的项目，从系统入侵到事件处理，收集和整理了一些案例进行分析，覆盖Windows、Linux平台，涵盖勒索病毒自救、日志分析、后门排查、挖矿后门等、搜索引擎劫持等内容，甲方信息安全工程师必备指南。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>ATT&amp;CK for Enterprise-中文翻译</title>
       <link>https://xeye.io/post/attck%E7%9F%A9%E9%98%B5%E5%9B%BE-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</link>
       <pubDate>Tue, 28 Jul 2020 09:53:01 +0800</pubDate>
