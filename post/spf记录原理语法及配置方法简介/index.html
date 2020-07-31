@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.69.0-DEV" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+
+
+<title>SPF记录：原理、语法及配置方法简介 - 道明君的博客</title>
+
+
+<meta name="author" content="道明君" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="SPF" />
+
+<meta property="og:title" content="SPF记录：原理、语法及配置方法简介" />
+<meta property="og:description" content="SPF，全称为 Sender Policy Framework，即发件人策略框架。 当前 Email 通信，还是在使用 SMTP 这个协议。SMTP 的全称为 Simple Mail Transfer Protocol，即「简单邮件传输协议」。正如它的名字锁暗示的，SMTP 实际上是一个非常" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xeye.io/post/spf%E8%AE%B0%E5%BD%95%E5%8E%9F%E7%90%86%E8%AF%AD%E6%B3%95%E5%8F%8A%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B/" />
+<meta property="og:image" content="https://xeye.io/img/og.png"/>
+<meta property="article:published_time" content="2020-07-31T13:38:31+08:00" />
+<meta property="article:modified_time" content="2020-07-31T13:38:31+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xeye.io/img/og.png"/>
+
+<meta name="twitter:title" content="SPF记录：原理、语法及配置方法简介"/>
+<meta name="twitter:description" content="SPF，全称为 Sender Policy Framework，即发件人策略框架。 当前 Email 通信，还是在使用 SMTP 这个协议。SMTP 的全称为 Simple Mail Transfer Protocol，即「简单邮件传输协议」。正如它的名字锁暗示的，SMTP 实际上是一个非常"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+<link rel="stylesheet" href="/assets/css/fuji.min.css" />
+
+
+<script async type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.esm.js"></script>
+<script async nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.js"></script>
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+    
+    var fujiThemeData = localStorage.getItem('fuji_data-theme');
+    
+    if (!fujiThemeData) {
+        localStorage.setItem('fuji_data-theme', 'auto');
+    } else {
+        
+        if (fujiThemeData !== 'auto') {
+            document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+        }
+    }
+</script>
+<script data-cfasync="false">
+    
+    function browserDetection(ua) {
+        if (ua.indexOf('MSIE ') > 0 || ua.indexOf('Trident/') > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    var ua = window.navigator.userAgent;
+    if (browserDetection(ua)) {
+        window.location.href('https:\/\/xeye.io\/ie\/');
+    }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://xeye.io">道明君的博客</a>
+            
+            <span class="title-sub">君子有所为有所不为</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://xeye.io/post/spf%E8%AE%B0%E5%BD%95%E5%8E%9F%E7%90%86%E8%AF%AD%E6%B3%95%E5%8F%8A%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B/">SPF记录：原理、语法及配置方法简介</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><ion-icon name="today"></ion-icon>&nbsp;2020-07-31</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;2683 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/spf">SPF</a>&nbsp;</span>
+    </div>
+    
+    
+    <div class="post-content markdown-body">
+        <p>SPF，全称为 Sender Policy Framework，即发件人策略框架。</p>
+<p>当前 Email 通信，还是在使用 SMTP 这个协议。SMTP 的全称为 Simple Mail Transfer Protocol，即「简单邮件传输协议」。正如它的名字锁暗示的，SMTP 实际上是一个非常简单（甚至简陋）的传输协议，本身并没有很好的安全措施。根据 SMTP 的规则，发件人的邮箱地址是可以由发信方任意声明的。在 SMTP 协议制定的时候也许还好，但在垃圾和诈骗邮件横行的今天，这显然是极不安全的。</p>
+<p>SPF 出现的目的，就是为了防止随意伪造发件人。</p>
+<h2 id="spf-记录的原理">SPF 记录的原理</h2>
+<p>SPF 记录实际上是服务器的一个 DNS 记录，原理其实很简单：</p>
+<p>假设邮件服务器收到了一封邮件，来自主机的 IP 是<code>173.194.72.103</code>，并且声称发件人为<code>email@example.com</code>。为了确认发件人不是伪造的，邮件服务器会去查询<code>example.com</code>的 SPF 记录。如果该域的 SPF 记录设置允许 IP 为<code>173.194.72.103</code>的主机发送邮件，则服务器就认为这封邮件是合法的；如果不允许，则通常会退信，或将其标记为垃圾/仿冒邮件。</p>
+<p>因为不怀好心的人虽然可以「声称」他的邮件来自<code>example.com</code>，但是他却无权操作<code>example.com</code>的 DNS 记录；同时他也无法伪造自己的 IP 地址。因此 SPF 是很有效的，当前基本上所有的邮件服务提供商（例如 Gmail、QQ 邮箱等）都会验证它。</p>
+<h2 id="spf-记录的语法">SPF 记录的语法</h2>
+<p>一条 SPF 记录定义了一个或者多个 mechanism，而 mechanism 则定义了哪些 IP 是允许的，哪些 IP 是拒绝的。</p>
+<p>这些 mechanism 包括以下几类：</p>
+<pre><code>all | ip4 | ip6 | a | mx | ptr | exists | include
+</code></pre>
+<p>每个 mechanism 可以有四种前缀：</p>
+<pre><code>&quot;+&quot;  Pass（通过）
+&quot;-&quot;  Fail（拒绝）
+&quot;~&quot;  Soft Fail（软拒绝）
+&quot;?&quot;  Neutral（中立）
+</code></pre>
+<p>测试时，将从前往后依次测试每个 mechanism。如果一个 mechanism 包含了要查询的 IP 地址（称为命中），则测试结果由相应 mechanism 的前缀决定。默认的前缀为<code>+</code>。如果测试完所有的 mechanisms 也没有命中，则结果为 Neutral。</p>
+<p>除了以上四种情况，还有 None（无结果）、PermError（永久错误）和 TempError（临时错误）三种其他情况。对于这些情况的解释和服务器通常的处理办法如下：</p>
+<table>
+<thead>
+<tr>
+<th>结果</th>
+<th>含义</th>
+<th>服务器处理办法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pass</td>
+<td>发件 IP 是合法的</td>
+<td>接受来信</td>
+</tr>
+<tr>
+<td>Fail</td>
+<td>发件 IP 是非法的</td>
+<td>退信</td>
+</tr>
+<tr>
+<td>Soft Fail</td>
+<td>发件 IP 非法，但是不采取强硬措施</td>
+<td>接受来信，但是做标记</td>
+</tr>
+<tr>
+<td>Neutral</td>
+<td>SPF 记录中没有关于发件 IP 是否合法的信息</td>
+<td>接受来信</td>
+</tr>
+<tr>
+<td>None</td>
+<td>服务器没有设定 SPF 记录</td>
+<td>接受来信</td>
+</tr>
+<tr>
+<td>PermError</td>
+<td>发生了严重错误（例如 SPF 记录语法错误）</td>
+<td>没有规定</td>
+</tr>
+<tr>
+<td>TempError</td>
+<td>发生了临时错误（例如 DNS 查询失败）</td>
+<td>接受或拒绝</td>
+</tr>
+</tbody>
+</table>
+<p>注意，上面所说的「服务器处理办法」仅仅是 SPF 标准做出的建议，并非所有的邮件服务器都严格遵循这套规定。</p>
+<h3 id="mechanisms">Mechanisms</h3>
+<p>下面介绍上面提到的 mechanism：</p>
+<h4 id="all">all</h4>
+<p>表示所有 IP，肯定会命中。因此通常把它放在 SPF 记录的结尾，表示处理剩下的所有情况。例如：</p>
+<pre><code>&quot;v=spf1 -all&quot; 拒绝所有（表示这个域名不会发出邮件）
+&quot;v=spf1 +all&quot; 接受所有（域名所有者认为 SPF 是没有用的，或者根本不在乎它）
+</code></pre>
+<h4 id="ip4">ip4</h4>
+<p>格式为<code>ip4:&lt;ip4-address&gt;</code>或者<code>ip4:&lt;ip4-network&gt;/&lt;prefix-length&gt;</code>，指定一个 IPv4 地址或者地址段。如果<code>prefix-length</code>没有给出，则默认为<code>/32</code>。例如：</p>
+<pre><code>&quot;v=spf1 ip4:192.168.0.1/16 -all&quot;
+只允许在 192.168.0.1 ~ 192.168.255.255 范围内的 IP
+</code></pre>
+<h4 id="ip6">ip6</h4>
+<p>格式和<code>ip4</code>的很类似，默认的<code>prefix-length</code>是<code>/128</code>。例如：</p>
+<pre><code>&quot;v=spf1 ip6:1080::8:800:200C:417A/96 -all&quot;
+只允许在 1080::8:800:0000:0000 ~ 1080::8:800:FFFF:FFFF 范围内的 IP
+</code></pre>
+<h4 id="a-和-mx">a 和 mx</h4>
+<p>这俩的格式是相同的，以<code>a</code>为例，格式为以下四种之一：</p>
+<pre><code>a
+a/&lt;prefix-length&gt;
+a:&lt;domain&gt;
+a:&lt;domain&gt;/&lt;prefix-length&gt;
+</code></pre>
+<p>会命中相应域名的 a 记录（或 mx 记录）中包含的 IP 地址（或地址段）。如果没有提供域名，则使用当前域名。例如：</p>
+<pre><code>&quot;v=spf1 mx -all&quot;
+允许当前域名的 mx 记录对应的 IP 地址。
+
+&quot;v=spf1 mx mx:deferrals.example.com -all&quot;
+允许当前域名和 deferrals.example.com 的 mx 记录对应的 IP 地址。
+
+&quot;v=spf1 a/24 -all&quot;
+类似地，这个用法则允许一个地址段。
+</code></pre>
+<p>例如，这是一个比较常见的 SPF 记录，它表示支持当前域名的 a 记录和 mx 记录，同时支持一个给定的 IP 地址；其他地址则拒绝：</p>
+<pre><code>v=spf1 a mx ip4:173.194.72.103 -all
+</code></pre>
+<h4 id="include">include</h4>
+<p>格式为<code>include:&lt;domain&gt;</code>，表示引入<code>&lt;domain&gt;</code>域名下的 SPF 记录。注意，如果该域名下不存在 SPF 记录，则会导致一个<code>PermError</code>结果。例如：</p>
+<pre><code>&quot;v=spf1 include:example.com -all&quot; 即采用和 example.com 完全一样的 SPF 记录
+</code></pre>
+<h4 id="exists">exists</h4>
+<p>格式为<code>exists:&lt;domain&gt;</code>。将对<code>&lt;domain&gt;</code>执行一个 A 查询，如果有返回结果（无论结果是什么），都会看作命中。</p>
+<h4 id="ptr">ptr</h4>
+<p>格式为<code>ptr</code>或者<code>ptr:&lt;domain&gt;</code>。使用<code>ptr</code>机制会带来大量很大开销的 DNS 查询，所以连官方都不推荐使用它。</p>
+<h3 id="关于vspf1">关于v=spf1</h3>
+<p>这是必须的，这个表示采用 SPF 1 版本，现在它的最新版本就是第 1 版。</p>
+<h3 id="modifiers">Modifiers</h3>
+<p>SPF 记录中还可以包括两种可选的 modifier；一个 modifier 只能出现一次。</p>
+<h4 id="redirect">redirect</h4>
+<p>格式为<code>redirect=&lt;domain&gt;</code></p>
+<p>将用给定域名的 SPF 记录替换当前记录。</p>
+<h4 id="exp">exp</h4>
+<p>格式为<code>exp=&lt;domain&gt;</code>，目的是如果邮件被拒绝，可以给出一个消息。而消息的具体内容会首先对<code>&lt;domain&gt;</code>执行 TXT 查询，然后执行宏扩展得到。</p>
+<h2 id="如何用-spf-保护我的域名">如何用 SPF 保护我的域名</h2>
+<p>如果你拥有自己的域名，并且用它发送邮件，那么你应该为它添加 SPF。通过域名服务商提供的「域名解析」、「DNS Editor」或者「DNS Zone Editor」等功能添加，并填写正确的 SPF 数据就可以了。</p>
+<p>严格来说，SPF 数据应该创建为 SPF 记录。但是鉴于很多 DNS 服务商不支持 SPF 记录，甚至有的邮件服务器也不支持 SPF 记录，因此也可以创建为一条 TXT 记录。目前，你应该至少创建一条 TXT 记录。</p>
+<p>因为本质上 SPF 的作用是为一个域名指定合法的发件 IP，所以你需要知道自己使用的邮件服务器的发件 IP 是什么。如果你使用第三方的域名邮箱服务（比如腾讯的域名邮箱），那么他们应该有相应的文档告诉你该怎么填写。如果你用虚拟主机，则主机提供商也应该会告诉你。</p>
+<h2 id="生效时间">生效时间</h2>
+<p>SPF 记录本质上是一个 DNS 记录，所以并不是修改之后立即生效的——通常需要几个小时的时间。</p>
+<h2 id="一些工具">一些工具</h2>
+<p>虽然我不能帮你决定 SPF 该填什么，但是这里有一些非常好用的工具可以帮助你，点击它们在新窗口打开：</p>
+<ul>
+<li><a href="http://www.openspf.org/" target="_blank">Open SPF</a>：官方网站，有很多资料，值得一看。</li>
+<li><a href="http://www.openspf.org/RFC_4408" target="_blank">RFC 4408</a>：SPFv1 的规范全文。</li>
+<li><a href="http://www.kitterman.com/spf/validate.html" target="_blank">SPF Recored Testing Tools</a>：帮助你验证域名是否存在 SPF 记录、记录的语法是否正确，以及输入 IP 和 host 来测试是不是真正管用。</li>
+<li><a href="http://www.openspf.org/Why" target="_blank">SPF: Why?</a>：为什么我发的邮件被拒绝了？</li>
+<li><a href="http://tools.bevhost.com/cgi-bin/dnslookup" target="_blank">Beveridge Hosting DNS Lookup</a>：图形界面的<code>dig</code>，也可以显示查询到的 SPF 信息。</li>
+<li><a href="http://tools.bevhost.com/spf/" target="_blank">Beveridge SPF Test</a>：另一个根据 IP 和 host 验证 SPF 是否通过的工具。</li>
+<li>Gmail：如果你有 Gmail 的话，可以给自己的 Gmail 邮箱发一封邮件，然后用 Gmail 独有的 Show Original 功能查看 Gmail 服务器的 SPF 判断结果。</li>
+</ul>
+<hr>
+<blockquote>
+<p>作者：<a href="http://www.renfei.org/blog/" target="_blank"><strong>Renfei</strong> </a></p>
+<p>转载来源：http://www.renfei.org/blog/introduction-to-spf.html</p>
+</blockquote>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">归档</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+            <li>
+                <a href="/search/">搜索</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/spf/">SPF</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/">安全建设</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E7%BA%A2%E9%98%9F/">红队</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E8%93%9D%E9%98%9F/">蓝队</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%98%85%E8%AF%BB/">阅读</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%9D%B6%E6%9C%BA/">靶机</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#spf-记录的原理">SPF 记录的原理</a></li>
+    <li><a href="#spf-记录的语法">SPF 记录的语法</a>
+      <ul>
+        <li><a href="#mechanisms">Mechanisms</a></li>
+        <li><a href="#关于vspf1">关于v=spf1</a></li>
+        <li><a href="#modifiers">Modifiers</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何用-spf-保护我的域名">如何用 SPF 保护我的域名</a></li>
+    <li><a href="#生效时间">生效时间</a></li>
+    <li><a href="#一些工具">一些工具</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-toggle-mode">
+        <ion-icon name="contrast"></ion-icon>
+    </div>
+    <div class="btn-scroll-top">
+        <ion-icon name="chevron-up"></ion-icon>
+    </div>
+</div>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            <span>&copy; 2020 <a href="https://xeye.io">道明君</a> |
+                Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> & <a href="https://gohugo.io/"
+                   target="_blank">Hugo</a> </span>
+        </div>
+    </div>
+</footer>
+    
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.5,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+</body>
+
+</html>

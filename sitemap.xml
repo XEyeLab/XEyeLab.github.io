@@ -4,7 +4,17 @@
   
   <url>
     <loc>https://xeye.io/post/</loc>
-    <lastmod>2020-07-29T09:50:42+08:00</lastmod>
+    <lastmod>2020-07-31T13:38:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xeye.io/tags/spf/</loc>
+    <lastmod>2020-07-31T13:38:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xeye.io/post/spf%E8%AE%B0%E5%BD%95%E5%8E%9F%E7%90%86%E8%AF%AD%E6%B3%95%E5%8F%8A%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B/</loc>
+    <lastmod>2020-07-31T13:38:31+08:00</lastmod>
   </url>
   
   <url>
@@ -94,10 +104,6 @@
   
   <url>
     <loc>https://xeye.io/archives/</loc>
-  </url>
-  
-  <url>
-    <loc>https://xeye.io/search/</loc>
   </url>
   
 </urlset>

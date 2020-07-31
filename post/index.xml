@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 道明君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 29 Jul 2020 09:50:42 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jul 2020 13:38:31 +0800</lastBuildDate>
     
 	<atom:link href="https://xeye.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SPF记录：原理、语法及配置方法简介</title>
+      <link>https://xeye.io/post/spf%E8%AE%B0%E5%BD%95%E5%8E%9F%E7%90%86%E8%AF%AD%E6%B3%95%E5%8F%8A%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Fri, 31 Jul 2020 13:38:31 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/spf%E8%AE%B0%E5%BD%95%E5%8E%9F%E7%90%86%E8%AF%AD%E6%B3%95%E5%8F%8A%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B/</guid>
+      <description>SPF，全称为 Sender Policy Framework，即发件人策略框架。 当前 Email 通信，还是在使用 SMTP 这个协议。SMTP 的全称为 Simple Mail Transfer Protocol，即「简单邮件传输协议」。正如它的名字锁暗示的，SMTP 实际上是一个非常</description>
+    </item>
     
     <item>
       <title>应急响应实战笔记</title>
