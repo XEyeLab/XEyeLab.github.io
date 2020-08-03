@@ -118,7 +118,12 @@
         <span><ion-icon name="today"></ion-icon>&nbsp;2020-08-03</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;710 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
     </div>
     <div class="post-item post-summary markdown-body">
-        问题产生 我遇到的情况是在安装网易云音乐Linux版和PicGo图床的时候，打开无反应，后来使用命令行运行，出现了下面的报错信息： picgo： [8898:0420/011642.495795:FATAL:setuid_sandbox_host.cc(157)] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /tmp/.mount_PicGo-s7aX7M/chrome-sandbox is owned
+        <h2 id="问题产生">问题产生</h2>
+<p>我遇到的情况是在安装网易云音乐Linux版和PicGo图床的时候，打开无反应，后来使用命令行运行，出现了下面的报错信息：</p>
+<p>picgo：</p>
+<pre><code>[8898:0420/011642.495795:FATAL:setuid_sandbox_host.cc(157)] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /tmp/.mount_PicGo-s7aX7M/chrome-sandbox is owned by root and has mode 4755.
+1
+</code></pre>
     </div>
 </div>
 
