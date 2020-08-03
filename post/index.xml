@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 道明君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 31 Jul 2020 13:38:31 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2020 11:31:14 +0800</lastBuildDate>
     
 	<atom:link href="https://xeye.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>解决debian打开PiGo.appimage报错问题</title>
+      <link>https://xeye.io/post/%E8%A7%A3%E5%86%B3debian%E6%89%93%E5%BC%80pigo.appimage%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 03 Aug 2020 11:31:14 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/%E8%A7%A3%E5%86%B3debian%E6%89%93%E5%BC%80pigo.appimage%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/</guid>
+      <description>问题产生 我遇到的情况是在安装网易云音乐Linux版和PicGo图床的时候，打开无反应，后来使用命令行运行，出现了下面的报错信息： picgo： [8898:0420/011642.495795:FATAL:setuid_sandbox_host.cc(157)] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I&#39;m aborting now. You need to make sure that /tmp/.mount_PicGo-s7aX7M/chrome-sandbox is owned</description>
+    </item>
     
     <item>
       <title>SPF记录：原理、语法及配置方法简介</title>

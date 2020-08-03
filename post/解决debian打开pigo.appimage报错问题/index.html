@@ -15,7 +15,7 @@
 <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
 
 
-<title>道明君的博客 - 君子有所为有所不为</title>
+<title>解决debian打开PiGo.appimage报错问题 - 道明君的博客</title>
 
 
 <meta name="author" content="道明君" />
@@ -24,18 +24,19 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<meta property="og:title" content="道明君的博客" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://xeye.io/" />
+<meta property="og:title" content="解决debian打开PiGo.appimage报错问题" />
+<meta property="og:description" content="问题产生 我遇到的情况是在安装网易云音乐Linux版和PicGo图床的时候，打开无反应，后来使用命令行运行，出现了下面的报错信息： picgo： [8898:0420/011642.495795:FATAL:setuid_sandbox_host.cc(157)] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I&#39;m aborting now. You need to make sure that /tmp/.mount_PicGo-s7aX7M/chrome-sandbox is owned" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xeye.io/post/%E8%A7%A3%E5%86%B3debian%E6%89%93%E5%BC%80pigo.appimage%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" />
 <meta property="og:image" content="https://xeye.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-04-01T17:50:28+08:00" />
+<meta property="article:published_time" content="2020-08-03T11:31:14+08:00" />
+<meta property="article:modified_time" content="2020-08-03T11:31:14+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xeye.io/img/og.png"/>
 
-<meta name="twitter:title" content="道明君的博客"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="解决debian打开PiGo.appimage报错问题"/>
+<meta name="twitter:description" content="问题产生 我遇到的情况是在安装网易云音乐Linux版和PicGo图床的时候，打开无反应，后来使用命令行运行，出现了下面的报错信息： picgo： [8898:0420/011642.495795:FATAL:setuid_sandbox_host.cc(157)] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I&#39;m aborting now. You need to make sure that /tmp/.mount_PicGo-s7aX7M/chrome-sandbox is owned"/>
 
 
 
@@ -107,95 +108,53 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://xeye.io/post/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95tryhackme-vulnversity/">靶机渗透测试 TryHackMe:Vulnversity</a>
+        <a href="https://xeye.io/post/%E8%A7%A3%E5%86%B3debian%E6%89%93%E5%BC%80pigo.appimage%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/">解决debian打开PiGo.appimage报错问题</a>
     </h2>
     <div class="post-item post-meta">
-        <span><ion-icon name="today"></ion-icon>&nbsp;2020-04-03</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;1376 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/%E9%9D%B6%E6%9C%BA">靶机</a>&nbsp;</span>
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p><strong>0x00 前言</strong></p>
-<ul>
-<li>
-<p>靶机名称：Vulnversity</p>
-</li>
-<li>
-<p>靶机简介：Vulnversity靶机主要学习主动侦查扫描，Web应用攻击和suid提权。</p>
-</li>
-<li>
-<p>攻击路径：端口扫描&ndash;&gt;Web目录爆破&ndash;&gt;文件上传漏洞利用&ndash;&gt;权限提升</p>
-</li>
-<li>
-<p>相关工具：nmap、gobuster、burpsuite、nc、webshell</p>
-</li>
-<li>
-<p>难度：容易</p>
-</li>
-</ul>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://xeye.io/post/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E5%B0%81%E6%81%B6%E6%84%8F%E9%82%AE%E4%BB%B6%E8%BF%BD%E8%B8%AA%E5%B9%95%E5%90%8E%E9%BB%91%E5%AE%A2%E7%BB%84%E7%BB%87/">如何通过一封恶意邮件追踪幕后黑客组织</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><ion-icon name="today"></ion-icon>&nbsp;2019-11-02</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;10063 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/%E7%BA%A2%E9%98%9F">红队</a>&nbsp;</span>
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <blockquote>
-<p>声明：本文曾经发表在FreeBuf，文章分享的思路与方法仅供信息安全同行研究，请勿用于非法。</p>
-</blockquote>
-<h2 id="一前言">一、前言</h2>
-<p>近日朋友收到一封来自海外的钓鱼邮件，委托我帮忙分析。因此我对钓鱼者身份和攻击路径进行了一次详细的溯源。大致摸清了攻击者组织身份、攻击手法以及动机。本次溯源工作主要是通过提取攻击者控制的肉鸡服务器、网站访问日志、攻击者后门特征等。关联分析这些日志和特征最终得到攻击者的身份信息。本文以流水账的方式，详细记录整个溯源过程，包括分析手法和思路，以供安全研究人员参考。</p>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/"><ion-icon name="caret-back-circle"></ion-icon></a>
+        <span><ion-icon name="today"></ion-icon>&nbsp;2020-08-03</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;710 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;No tag</span>
     </div>
     
     
-    <div class="pag-previous">
-        <a href="/"><ion-icon name="chevron-back-circle"></ion-icon></a>
+    <div class="post-content markdown-body">
+        <h2 id="问题产生">问题产生</h2>
+<p>我遇到的情况是在安装网易云音乐Linux版和PicGo图床的时候，打开无反应，后来使用命令行运行，出现了下面的报错信息：</p>
+<p>picgo：</p>
+<pre><code>[8898:0420/011642.495795:FATAL:setuid_sandbox_host.cc(157)] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /tmp/.mount_PicGo-s7aX7M/chrome-sandbox is owned by root and has mode 4755.
+1
+</code></pre>
+<h2 id="部分解决">部分解决</h2>
+<p>后来网易云音乐的问题成功解决了，只要将给出的chrome-sandbox文件给予root用户并赋予4755权限，然后重新打开安装即可。</p>
+<pre><code class="language-shell">sudo chown root &lt;path_to_marktext_dir&gt;/chrome-sandbox &amp;&amp; sudo chmod 4755 &lt;path_to_marktext_dir&gt;/chrome-sandbox
+1
+</code></pre>
+<p>其中<code>&lt;path_to_marktext_dir&gt;</code>即报错信息中给出的chrome-sandbox文件位置，在上面的报错信息中为<code>/tmp/.mount_PicGo-s7aX7M/chrome-sandbox</code>。</p>
+<p>但这并不能解决PicGo的问题，因为PicGo的AppImage如果执行不成功，会自动将chrome-sandbox文件删除，并且第二次产生的文件夹名称会发生改变，因为完全无法进行授权操作。</p>
+<p>后来去找了很多资料，确定该问题为使用Electron给软件打包时产生的错误，是Linux内核的<a href="http://man7.org/linux/man-pages/man7/user_namespaces.7.html" target="_blank">user_namespaces</a>没有自动打开的问题。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>解决的办法有四种，我最推荐第四种解决方法，一劳永逸。</p>
+<ol>
+<li>启用用户名称空间： <code>sudo sysctl kernel.unprivileged_userns_clone=1</code>，但每次开机都要运行该命令。</li>
+<li>给报错信息给出的文件授权：<code>sudo chown root /chrome-sandbox &amp;&amp; sudo chmod 4755 /chrome-sandbox</code>，即解决网易云音乐该问题时的操作，但不适用于picgo。</li>
+<li>运行的时候加上免沙箱命令：<code>--no-sandbox</code></li>
+<li>开机时自启动用户名称空间：<code>echo 'kernel.unprivileged_userns_clone=1' &gt; /etc/sysctl.d/userns.conf</code></li>
+</ol>
+<p>该命令只适用于Debian/Ubuntu系列Linux发行版，未测试其他发行版。</p>
+<hr>
+<p>文章来源：</p>
+<p><a href="https://blog.csdn.net/qq_42239554/article/details/105640909">https://blog.csdn.net/qq_42239554/article/details/105640909</a></p>
+
     </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/page/2/">2</a>
-    </div>
-    
-    
-    
-    
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
@@ -281,6 +240,17 @@
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题产生">问题产生</a></li>
+    <li><a href="#部分解决">部分解决</a></li>
+    <li><a href="#解决方案">解决方案</a></li>
+  </ul>
+</nav>
+    </div>
     
     
 </aside>
