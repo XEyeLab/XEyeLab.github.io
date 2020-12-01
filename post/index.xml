@@ -6,10 +6,25 @@
     <description>Recent content in Posts on 道明君的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 11 Aug 2020 17:20:01 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 01 Dec 2020 20:30:37 +0800</lastBuildDate>
     
 	<atom:link href="https://xeye.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>关于国内网络红蓝对抗攻防双方命名规范倡议</title>
+      <link>https://xeye.io/post/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%86%85%E7%BD%91%E7%BB%9C%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97%E6%94%BB%E9%98%B2%E5%8F%8C%E6%96%B9%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%80%A1%E8%AE%AE/</link>
+      <pubDate>Tue, 01 Dec 2020 20:30:37 +0800</pubDate>
+      
+      <guid>https://xeye.io/post/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%86%85%E7%BD%91%E7%BB%9C%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97%E6%94%BB%E9%98%B2%E5%8F%8C%E6%96%B9%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%80%A1%E8%AE%AE/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;道明君&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;一、红蓝对抗概念&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1、解放军红蓝对抗&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;军事中的红蓝对抗专指军队进行大规模的实兵对抗演习，演习中红军代表我方正面部队，蓝军代表假想敌部队。&lt;/p&gt;
+&lt;p&gt;注意：西方红蓝对抗的命名则与我们相反，欧美军事演习中红色代表假想敌部队，这是因为东方和西方价值观的对立的历史原因。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>常见应用未授权访问漏洞利用总结</title>
